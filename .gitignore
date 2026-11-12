@@ -1,0 +1,22 @@
+# WorkBuddy 项目数据（本地记录，不入库）
+.workbuddy/
+
+# 数据集与模型权重
+data/
+*.npz
+*.pth
+*.pt
+*.ckpt
+outputs/
+runs/
+
+# Python / Jupyter 缓存
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# 系统文件
+.DS_Store
+Thumbs.db

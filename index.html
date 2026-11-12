@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedMNIST 医学影像分类调参实验室 · 文档导航</title>
+<style>
+  :root{--bg:#f4f6fa;--card:#fff;--ink:#1f2328;--ink2:#4a525e;--ink3:#6b7480;--line:#e2e7ee;
+        --blue:#2f6feb;--blue-bg:#eaf2ff;--blue-dk:#0c447c;--teal:#0f7b6c;--teal-bg:#e6f5f2;
+        --amber:#a86400;--amber-bg:#fff4dd}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.75;
+       font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif}
+  .wrap{max-width:960px;margin:0 auto;padding:38px 22px 70px}
+  header{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 32px;margin-bottom:18px}
+  h1{margin:0 0 8px;font-size:25px}
+  .lead{color:var(--ink2);font-size:14px;margin:0}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .chip{border:1px solid var(--line);background:#fbfcfe;border-radius:999px;padding:3px 11px;font-size:12.2px;color:var(--ink2)}
+  .chip.b{background:var(--blue-bg);border-color:#c9ddff;color:var(--blue-dk)}
+  .status{border-left:4px solid var(--amber);background:var(--amber-bg);padding:11px 15px;border-radius:0 8px 8px 0;margin:16px 0 20px;font-size:13.6px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+  a.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:19px 21px;
+         text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
+  a.card:hover{border-color:var(--blue);transform:translateY(-2px)}
+  a.card.main{border:2px solid var(--blue)}
+  .tag{display:inline-block;background:var(--blue-bg);color:var(--blue-dk);border-radius:5px;padding:1px 8px;font-size:11.7px;font-weight:600}
+  .tag.g{background:var(--teal-bg);color:var(--teal)}
+  .tag.a{background:var(--amber-bg);color:var(--amber)}
+  a.card h2{font-size:16.5px;margin:10px 0 6px}
+  a.card p{font-size:13.2px;color:var(--ink2);margin:0 0 10px}
+  a.card .go{font-size:12.6px;color:var(--blue);font-weight:600}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin-top:18px}
+  section h2{font-size:16px;margin:0 0 10px}
+  table{width:100%;border-collapse:collapse;font-size:13.2px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f0f4fa}
+  code{background:#f1f4f9;border:1px solid #e3e9f1;border-radius:4px;padding:1px 5px;font-size:12.4px;color:#23407a}
+  footer{color:var(--ink3);font-size:12.3px;text-align:center;margin-top:22px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>MedMNIST 医学影像分类调参实验室</h1>
+    <p class="lead">中期大作业验收资料库 · 选题论证、项目全生命周期教程与协作边界</p>
+    <div class="chips">
+      <span class="chip b">Public repository</span>
+      <span class="chip">PneumoniaMNIST / 28×28</span>
+      <span class="chip">MLP → SmallCNN</span>
+      <span class="chip">CPU · torch 2.5.1</span>
+      <span class="chip">更新：2026-11-13</span>
+    </div>
+  </header>
+
+  <div class="status"><strong>当前阶段：文档与设计。</strong>仓库里现在只有 HTML 文档；<code>src/</code>、<code>configs/</code>、<code>results/</code>、结果图与单图推理 demo 仍待按教程在本机补齐。所有训练与调参须本人执行并署名。</div>
+
+  <div class="grid">
+    <a class="card" href="中期大作业选题建议.html">
+      <span class="tag">选题论证</span>
+      <h2>中期大作业选题建议报告</h2>
+      <p>5 个候选选题（2 复刻 + 3 自建）、横向对比与优先级、首推 B-1 及理由；内含可直接用于 PPT 的项目流程图 SVG。</p>
+      <span class="go">打开报告 →</span>
+    </a>
+    <a class="card main" href="MedMNIST调参实验室_完整教程.html">
+      <span class="tag g">主教程 · 推荐入口</span>
+      <h2>项目全生命周期教程</h2>
+      <p>立项 → 数据理解 → 实验配置 → 调参对比 → 结果评估 → 过程记录 → 最终归档。含可填写章节映射表、三类协作边界、最小工作清单，填写内容自动保存在本机浏览器。</p>
+      <span class="go">打开教程 →</span>
+    </a>
+    <a class="card" href="MedMNIST调参实验室_详细教程.html">
+      <span class="tag a">补充查阅</span>
+      <h2>详细教程与协作边界</h2>
+      <p>技术边界与固定口径、数据子集划分、超参清单与搜索范围、异常判定依据、已学章节覆盖对照表。</p>
+      <span class="go">打开详细版 →</span>
+    </a>
+  </div>
+
+  <section>
+    <h2>中期验收三件套对照</h2>
+    <table>
+      <tr><th>验收项</th><th>本仓库当前提供</th><th>待补</th></tr>
+      <tr><td>项目流程图 / 框图</td><td>选题建议报告内已含 SVG 五泳道流程图</td><td>与最终代码结构同步核对</td></tr>
+      <tr><td>可访问的 GitHub 链接</td><td>本公开仓库</td><td>—</td></tr>
+      <tr><td>项目流程与代码运行效果</td><td>完整教程给出命令、目录结构与检查清单</td><td>代码骨架、结果表、图件、单图推理 demo</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>在线查看说明</h2>
+    <p style="font-size:13.4px;color:var(--ink2);margin:0">本页作为 <code>index.html</code> 放在仓库根目录。若尚未开启 GitHub Pages，可在仓库 <strong>Settings → Pages → Deploy from a branch → main / root</strong> 开启，之后用 <code>https://via453.github.io/medmnist-tuning-lab/</code> 访问。教程页中的填写内容只保存在你自己的浏览器，不写入仓库。</p>
+  </section>
+
+  <footer>
+    MedMNIST 采用 CC 许可，官方声明仅用于教育与研究、不用于临床；本仓库不含原始数据集文件。<br>
+    结论口径：val 选配置、test 只评一次、3 seed 均值 ± 标准差。详见 README.md。
+  </footer>
+</div>
+</body>
+</html>
