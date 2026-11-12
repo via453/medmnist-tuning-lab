@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedMNIST 医学影像分类调参实验室 · 项目全生命周期教程</title>
+<style>
+  :root{
+    --bg:#f4f6fa; --card:#fff; --ink:#1f2328; --ink2:#4a525e; --ink3:#6b7480;
+    --line:#e2e7ee; --line2:#cfd8e5;
+    --blue:#2f6feb; --blue-bg:#eaf2ff; --blue-dk:#0c447c;
+    --teal:#0f7b6c; --teal-bg:#e6f5f2; --teal-dk:#085041;
+    --amber:#a86400; --amber-bg:#fff4dd;
+    --red:#b42318; --red-bg:#fdecea;
+    --green:#1a7f37; --green-bg:#e8f6ec;
+    --purple:#6941c6; --purple-bg:#f1ecff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.75;
+       font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Segoe UI",sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;max-width:1380px;margin:0 auto;padding:26px 24px 70px}
+  .side{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;background:var(--card);
+        border:1px solid var(--line);border-radius:14px;padding:18px 16px}
+  .side h3{margin:0 0 10px;font-size:13px;color:var(--ink3);letter-spacing:1px;font-weight:600}
+  .toc{list-style:none;margin:0;padding:0;font-size:13.2px}
+  .toc li{margin:1px 0}
+  .toc a{display:block;padding:5px 9px;border-radius:7px;color:var(--ink2);text-decoration:none;border-left:3px solid transparent}
+  .toc a:hover{background:#f2f5fa;color:var(--blue)}
+  .toc a.active{background:var(--blue-bg);color:var(--blue-dk);border-left-color:var(--blue);font-weight:600}
+  .toc .sub a{padding-left:22px;font-size:12.6px;color:var(--ink3)}
+  .side .tip{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;font-size:12.2px;color:var(--ink3);line-height:1.6}
+  main{min-width:0}
+
+  header.hero{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 32px;margin-bottom:20px}
+  h1{margin:0 0 8px;font-size:25px;letter-spacing:.2px}
+  .lead{color:var(--ink2);font-size:14px;margin:0 0 14px}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
+  .chip{border:1px solid var(--line);background:#fbfcfe;border-radius:999px;padding:3px 11px;font-size:12.2px;color:var(--ink2)}
+  .chip.b{background:var(--blue-bg);border-color:#c9ddff;color:var(--blue-dk)}
+  .actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+  button{font:inherit;font-size:12.8px;border:1px solid var(--line2);background:#fff;color:var(--ink2);
+         border-radius:8px;padding:6px 12px;cursor:pointer}
+  button:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-bg)}
+  button.primary{background:var(--blue);border-color:var(--blue);color:#fff}
+  button.primary:hover{background:#225ccb;color:#fff}
+  button.danger:hover{border-color:var(--red);color:var(--red);background:var(--red-bg)}
+  .prog-wrap{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:12.5px;color:var(--ink3)}
+  .prog{flex:1;height:8px;background:#e9edf4;border-radius:99px;overflow:hidden}
+  .prog i{display:block;height:100%;width:0;background:var(--blue);border-radius:99px;transition:width .25s}
+
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin-bottom:18px;scroll-margin-top:20px}
+  h2{font-size:19px;margin:0 0 4px;padding-bottom:9px;border-bottom:2px solid var(--blue);display:inline-block}
+  .sec-lead{color:var(--ink3);font-size:13px;margin:8px 0 16px}
+  h3{font-size:15.5px;margin:22px 0 8px}
+  h4{font-size:14px;margin:16px 0 6px;color:var(--blue-dk)}
+  p{margin:8px 0}
+  ul,ol{margin:8px 0;padding-left:22px}
+  li{margin:4px 0}
+  code{background:#f1f4f9;border:1px solid #e3e9f1;border-radius:4px;padding:1px 5px;font-size:12.6px;
+       font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;color:#23407a}
+  pre{background:#f7f9fc;border:1px solid var(--line);border-radius:9px;padding:12px 14px;overflow:auto;font-size:12.6px;
+      line-height:1.6;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;color:#243b6b}
+  pre code{background:none;border:none;padding:0;color:inherit}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  table{width:100%;border-collapse:collapse;margin:12px 0 16px;font-size:13.2px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f0f4fa;font-weight:600;white-space:nowrap;color:var(--ink)}
+  tbody tr:nth-child(even){background:#fafbfd}
+  .tbl-sm{font-size:12.7px}
+  .nowrap{white-space:nowrap}
+  .tag{display:inline-block;border-radius:5px;padding:1px 7px;font-size:11.8px;font-weight:600;white-space:nowrap}
+  .t-blue{background:var(--blue-bg);color:var(--blue-dk)}
+  .t-teal{background:var(--teal-bg);color:var(--teal-dk)}
+  .t-amber{background:var(--amber-bg);color:var(--amber)}
+  .t-red{background:var(--red-bg);color:var(--red)}
+  .t-green{background:var(--green-bg);color:var(--green)}
+  .t-purple{background:var(--purple-bg);color:var(--purple)}
+  .t-gray{background:#eef1f5;color:var(--ink2)}
+
+  .note{border-left:4px solid var(--blue);background:var(--blue-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13.4px}
+  .warn{border-left:4px solid var(--amber);background:var(--amber-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13.4px}
+  .good{border-left:4px solid var(--green);background:var(--green-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13.4px}
+  .danger{border-left:4px solid var(--red);background:var(--red-bg);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:13.4px}
+
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:12px 0}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:12px 0}
+  .box{border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:#fcfdff}
+  .box b{display:block;font-size:13.2px;color:var(--blue-dk);margin-bottom:5px}
+  .box span{font-size:13.2px;color:var(--ink2)}
+  .box.a{border-left:3px solid var(--blue)}
+  .box.b{border-left:3px solid var(--amber)}
+  .box.c{border-left:3px solid var(--teal)}
+
+  .ck{list-style:none;padding:0;margin:10px 0}
+  .ck li{display:flex;gap:10px;align-items:flex-start;padding:7px 10px;border:1px solid var(--line);border-radius:8px;margin:5px 0;background:#fff;font-size:13.4px}
+  .ck li:hover{background:#fafcff}
+  .ck input[type=checkbox]{margin-top:5px;width:15px;height:15px;accent-color:var(--blue);flex:0 0 auto}
+  .ck label{flex:1;cursor:pointer}
+  .ck .hint{display:block;color:var(--ink3);font-size:12.3px;margin-top:1px}
+  .ck-count{font-size:12.2px;color:var(--ink3);margin:4px 0 0}
+
+  .fill{width:100%;border:none;border-bottom:1px dashed var(--line2);background:#fbfdff;padding:4px 6px;font:inherit;font-size:12.8px;color:var(--ink);border-radius:4px 4px 0 0}
+  .fill:focus{outline:none;border-bottom-color:var(--blue);background:var(--blue-bg)}
+  .fill::placeholder{color:#9aa4b2;font-style:italic}
+  textarea.fill{min-height:44px;resize:vertical;line-height:1.55}
+  select.fill{cursor:pointer}
+  .ref{display:block;color:var(--ink3);font-size:11.6px;margin-top:2px;line-height:1.4}
+  .ph{color:#9aa4b2;font-style:italic}
+
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;margin:14px 0}
+  .flow .n{flex:1 1 150px;min-width:140px;border:1px solid var(--line2);border-radius:9px;padding:10px 11px;background:var(--blue-bg);border-color:#c9ddff}
+  .flow .n.hl{background:var(--teal-bg);border-color:#a9ddd4}
+  .flow .n b{display:block;font-size:13px;color:var(--blue-dk)}
+  .flow .n.hl b{color:var(--teal-dk)}
+  .flow .n span{font-size:12px;color:var(--ink2)}
+  .flow .ar{align-self:center;color:var(--blue);font-size:17px;flex:0 0 auto}
+
+  .boundary{border:1px solid var(--line);border-radius:11px;padding:14px 16px;margin:12px 0}
+  .boundary h3{margin-top:0;display:flex;align-items:center;gap:9px}
+  .bd{width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;
+      font-size:12.5px;font-weight:700;color:#fff;flex:0 0 auto}
+  .bd-a{background:var(--blue)} .bd-b{background:var(--amber)} .bd-c{background:var(--teal)}
+  .boundary ul{margin:6px 0 0;padding-left:20px}
+  .boundary li{font-size:13.4px}
+  .sub-badge{display:inline-block;background:var(--amber-bg);color:var(--amber);border-radius:5px;padding:1px 7px;font-size:11.7px;font-weight:600;margin-left:6px}
+
+  .mini{counter-reset:mvp}
+  .mini li{margin:7px 0}
+
+  .num{display:inline-block;background:var(--ink);color:#fff;border-radius:6px;padding:1px 8px;font-size:12px;margin-right:6px}
+  .small{font-size:12.4px;color:var(--ink3)}
+  .kbd{border:1px solid var(--line2);border-bottom-width:2px;border-radius:4px;padding:0 5px;font-size:12px;background:#fff}
+  footer{color:var(--ink3);font-size:12.3px;text-align:center;padding:16px 0 0;line-height:1.7}
+
+  @media(max-width:900px){
+    .layout{grid-template-columns:1fr;padding:16px}
+    .side{position:static;max-height:none}
+    .toc{display:flex;flex-wrap:wrap;gap:2px}
+    .toc .sub{display:none}
+  }
+  @media print{
+    body{background:#fff;font-size:12px}
+    .layout{display:block;max-width:none;padding:0}
+    .side,.actions,.prog-wrap,.no-print{display:none !important}
+    section,header.hero{break-inside:avoid;border:1px solid #d8dee8;box-shadow:none;margin-bottom:10px;padding:14px 16px}
+    h2{border-bottom-color:#999}
+    .fill{border:none;background:transparent;-webkit-appearance:none;appearance:none;padding:1px 2px}
+    select.fill{-webkit-appearance:none;appearance:none}
+    input[type=checkbox]{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    a{color:var(--blue-dk)}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside class="side no-print">
+  <h3>目录</h3>
+  <ul class="toc" id="toc">
+    <li><a href="#s0">0 · 使用说明与填写规则</a></li>
+    <li><a href="#s1">1 · 立项</a></li>
+    <li class="sub"><a href="#s1-1">1.1 目标与范围锁定</a></li>
+    <li class="sub"><a href="#s1-2">1.2 验收三件套对照表</a></li>
+    <li><a href="#s2">2 · 任务与数据理解</a></li>
+    <li class="sub"><a href="#s2-1">2.1 数据集对照表</a></li>
+    <li class="sub"><a href="#s2-2">2.2 划分、许可与指标</a></li>
+    <li><a href="#s3">3 · 实验配置</a></li>
+    <li class="sub"><a href="#s3-1">3.1 环境与依赖</a></li>
+    <li class="sub"><a href="#s3-2">3.2 目录结构与配置字段</a></li>
+    <li><a href="#s4">4 · 调参对比</a></li>
+    <li class="sub"><a href="#s4-1">4.1 基线阶梯</a></li>
+    <li class="sub"><a href="#s4-2">4.2 超参空间对照表</a></li>
+    <li class="sub"><a href="#s4-3">4.3 搜索策略与消融模板</a></li>
+    <li><a href="#s5">5 · 结果评估</a></li>
+    <li><a href="#s6">6 · 过程记录</a></li>
+    <li><a href="#s7">7 · 可填写章节映射表</a></li>
+    <li><a href="#s8">8 · 最终归档</a></li>
+    <li><a href="#s9">9 · 协作边界（三类清单）</a></li>
+    <li><a href="#s10">10 · 最小工作清单</a></li>
+    <li><a href="#sA">附录 A · 14 小时节奏</a></li>
+    <li><a href="#sB">附录 B · 命令速查</a></li>
+    <li><a href="#sC">附录 C · 参考链接</a></li>
+  </ul>
+  <div class="tip">
+    <strong>填写说明</strong><br>
+    本页所有虚线输入框、下拉框与复选框都会自动保存在本机浏览器（localStorage），刷新不丢失。数据只存在你自己的电脑上，不上传。<br><br>
+    「打印 / 存 PDF」会把填写内容一起输出，可直接作为归档附件。<br><br>
+    若直接双击 HTML 打开后刷新丢失填写内容，说明该浏览器限制了 <code>file://</code> 下的本地存储；改用本地预览（HTTP 地址）打开即可，或及时点「导出填写内容」保存 JSON。
+  </div>
+</aside>
+
+<main>
+
+<header class="hero">
+  <h1>MedMNIST 医学影像分类调参实验室 · 项目全生命周期教程</h1>
+  <p class="lead">从立项到归档：一份可填写、可勾选、可打印的操作手册。全部说明围绕「在 MedMNIST 上用基础预测模型做系统化调参并提升 AUC/ACC」这一个具体项目展开。</p>
+  <div class="chips">
+    <span class="chip b">适用：中期大作业验收</span>
+    <span class="chip">数据：MedMNIST 2D（28×28）</span>
+    <span class="chip">模型：MLP → SmallCNN</span>
+    <span class="chip">环境：d2l-zh / torch 2.5.1+cpu / 无 GPU</span>
+    <span class="chip">预算：E5 大作业 14 小时</span>
+    <span class="chip">版本：2026-11-13</span>
+  </div>
+  <div class="actions no-print">
+    <button class="primary" id="btnPrint">打印 / 存为 PDF</button>
+    <button id="btnExport">导出填写内容（JSON）</button>
+    <button id="btnMap">导出章节映射表（Markdown）</button>
+    <button id="btnAddRow">映射表新增一行</button>
+    <button class="danger" id="btnClear">清空全部填写</button>
+  </div>
+  <div class="prog-wrap"><span>检查清单完成度</span><div class="prog"><i id="progBar"></i></div><span id="progTxt">0 / 0</span></div>
+</header>
+
+<!-- ============ 0 ============ -->
+<section id="s0">
+  <h2>0 · 使用说明与填写规则</h2>
+  <p class="sec-lead">先把「怎么读这一页」讲清楚，避免后面每个环节都反复解释。</p>
+  <table class="tbl-sm">
+    <tr><th>页面元素</th><th>含义</th><th>你要做什么</th></tr>
+    <tr><td><span class="tag t-blue">对照表</span></td><td>把某个环节里「选项 / 参数 / 指标 / 边界」并列比较</td><td>读，必要时按表做选择</td></tr>
+    <tr><td><span class="tag t-teal">检查清单</span></td><td>该环节结束前必须全部打勾的最小动作</td><td>勾选，页面自动统计完成度</td></tr>
+    <tr><td><span class="tag t-amber">可填写框</span></td><td>虚线下划线的输入 / 下拉 / 多行文本</td><td>填入你的真实信息；不填则保持占位项</td></tr>
+    <tr><td><span class="tag t-purple">占位项</span></td><td><span class="ph">〈章节名称待填〉</span> 一类灰色斜体提示</td><td>名称未给出的位置一律用占位项，不凭印象补写</td></tr>
+    <tr><td><span class="tag t-gray">归档参考</span></td><td>输入框下方的小灰字，来自你 <code>深度学习笔记\</code> 的目录或进度表</td><td>仅作提示，最终以你自己填写的内容为准</td></tr>
+  </table>
+  <div class="note"><strong>口径声明：</strong>你的真实学习进度以 <code>C:\桌面\2026深度学习本校培训文档归档\深度学习笔记\</code> 四份产出为准（自测 HTML → C1-C16 订正版 → 一页纸版 → 自测笔记 HTML），而不是进度表里未填写的状态列。本页第 7 节的映射表就是为这套笔记准备的。</div>
+  <div class="warn"><strong>关于医学数据的边界：</strong>MedMNIST 官方明确说明数据集仅用于教育与研究，<strong>不用于临床</strong>。项目里只谈 AUC/ACC 与超参敏感性，不做任何诊断结论、不写「可用于辅助诊断」之类表述。</div>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s0-1" id="c0a"><label for="c0a">已确认本页填写内容只保存在本机浏览器，不会自动上传<span class="hint">导出与打印由你手动触发；清空按钮会删除本机记录。</span></label></li>
+    <li><input type="checkbox" data-c="s0-2" id="c0b"><label for="c0b">已确认「章节名称未给出时用占位项」这一规则</label></li>
+  </ul>
+</section>
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+  <h2>1 · 立项</h2>
+  <p class="sec-lead">把「要做什么」和「不做什么」写死，后面所有环节都以此为准。</p>
+
+  <h3 id="s1-1">1.1 目标与范围锁定</h3>
+  <p><strong>一句话目标：</strong>在同一个 MedMNIST 二分类子数据集上，固定数据划分与评估口径，用自己写的 MLP / SmallCNN 作为基础预测模型，通过系统化调参把 AUC / ACC 稳定抬高，并说清是哪些超参在起作用。</p>
+  <div class="flow">
+    <div class="n"><b>① 数据</b><span>MedMNIST .npz<br>train/val/test 固定</span></div><div class="ar">→</div>
+    <div class="n"><b>② 基线</b><span>MLP → SmallCNN<br>交叉熵 + Adam</span></div><div class="ar">→</div>
+    <div class="n hl"><b>③ 调参环</b><span>网格搜索 ×3 seed<br>config / 日志留痕</span></div><div class="ar">→</div>
+    <div class="n"><b>④ 评估</b><span>val 调参<br>test 只评一次</span></div><div class="ar">→</div>
+    <div class="n"><b>⑤ 交付</b><span>流程图 / 仓库<br>一条命令复跑</span></div>
+  </div>
+
+  <table>
+    <tr><th>边界项</th><th>本项目内（做）</th><th>本项目外（不做）</th></tr>
+    <tr><td>数据</td><td>1 个主子数据集（建议 PneumoniaMNIST），最多加 1 个做泛化验证</td><td>3D 数据集、224×224 大图、CT/MRI 体积数据、外部医院数据</td></tr>
+    <tr><td>模型</td><td>自己写的 MLP 与 SmallCNN（2–3 层 conv + BN + GAP + FC）</td><td>Transformer、GAN、扩散模型、MONAI / mmseg 框架、预训练大模型微调</td></tr>
+    <tr><td>任务</td><td>二分类（AUC / ACC），超参敏感性分析</td><td>语义分割、目标检测、多标签分类、生存预测</td></tr>
+    <tr><td>提升手段</td><td>lr / 优化器 / batch / 正则 / 增强 / 调度 / 类别权重 / 早停</td><td>换更大网络刷点、集成刷榜、拿 test 反复调参</td></tr>
+    <tr><td>算力</td><td>本机 CPU，单次训练 1–3 分钟，全套 30–60 组</td><td>多卡分布式、长时间大模型训练（如需可另约 431 机房）</td></tr>
+    <tr><td>结论口径</td><td>「哪些超参敏感 / 不敏感」+ 均值±标准差</td><td>「达到 SOTA」「临床可用」</td></tr>
+  </table>
+
+  <div class="grid3">
+    <div class="box"><b>主数据集（待确认）</b><span><input class="fill" data-k="p1-ds" placeholder="〈待填：PneumoniaMNIST / BreastMNIST〉"></span></div>
+    <div class="box"><b>GitHub 仓库名（待确认）</b><span><input class="fill" data-k="p1-repo" placeholder="〈待填：medmnist-tuning-lab〉"></span></div>
+    <div class="box"><b>计划完成日期（待确认）</b><span><input class="fill" data-k="p1-date" placeholder="〈待填：YYYY-MM-DD〉"></span></div>
+    <div class="box"><b>本人负责的模块（待确认）</b><span><input class="fill" data-k="p1-role" placeholder="〈待填：数据 / 训练 / 调参 / 可视化〉"></span></div>
+    <div class="box"><b>可用总时长（待确认）</b><span><input class="fill" data-k="p1-hours" placeholder="〈待填：14 小时〉"></span></div>
+    <div class="box"><b>导师额外要求（待确认）</b><span><input class="fill" data-k="p1-mentor" placeholder="〈待填：是否要求先复现官方 baseline〉"></span></div>
+  </div>
+
+  <h3 id="s1-2">1.2 验收三件套对照表</h3>
+  <table>
+    <tr><th>验收项</th><th>最小可交付物</th><th>仓库落点</th><th>现场怎么展示</th><th>常见翻车点</th></tr>
+    <tr><td>① 项目流程图 / 框图</td><td>一张含「数据 → 模型 → 训练 → 调参环 → 评估 → 交付」的框图，SVG + PNG 各一份</td><td><code>docs/pipeline.svg</code>、README 首屏、PPT 同一张</td><td>PPT 指图讲 60 秒，说明虚线回馈是 val 调参而非 test</td><td>图和代码对不上；只放 PPT 截图没有源文件</td></tr>
+    <tr><td>② 可访问的 GitHub 链接</td><td>公开仓库，含 README / requirements / configs / src / results / figures / notebooks / LICENSE，验收前 ≥3 次 commit</td><td><code>https://github.com/via453/&lt;仓库名&gt;</code></td><td>当场打开浏览器，逐层点开目录</td><td>验收前一晚才 push；仓库私有；<code>data/</code> 大文件误传</td></tr>
+    <tr><td>③ 项目流程与运行效果</td><td>一条命令复跑并生成 4 张图 + 单图推理演示</td><td><code>run.py</code>、<code>demo.ipynb</code>、<code>figures/</code></td><td>终端实跑 <code>python run.py --config configs/best.yaml</code>，同时打开预测样例</td><td>只有静态截图；换台机器复现不了；没固定 seed</td></tr>
+  </table>
+  <div class="good"><strong>立项判断：</strong>三项里最容易被低估的是第三项。纯 CPU + 28×28 小图的最大优势不是精度高，而是<strong>现场能真跑</strong>——一条命令 1–3 分钟出结果，比任何精度数字都更能证明链路完整。</div>
+
+  <h3>1.3 立项检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s1-1" id="c1a"><label for="c1a">已写下并锁定一句话目标，且明确「不做什么」</label></li>
+    <li><input type="checkbox" data-c="s1-2" id="c1b"><label for="c1b">已确认主数据集、仓库名、本人负责模块、总时长<span class="hint">上方五个填写框至少填数据集与仓库名。</span></label></li>
+    <li><input type="checkbox" data-c="s1-3" id="c1c"><label for="c1c">已把三件套各自指定到一个具体文件 / 目录</label></li>
+    <li><input type="checkbox" data-c="s1-4" id="c1d"><label for="c1d">已确认培训方案要求：全员动手、严禁纯文献调研、学习复盘占 20%</label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s1"></p>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+  <h2>2 · 任务与数据理解</h2>
+  <p class="sec-lead">先把数据摸清楚，再谈模型。这一节的输出是一张「数据集卡片」，直接抄进 README。</p>
+
+  <h3 id="s2-1">2.1 数据集对照表</h3>
+  <table>
+    <tr><th>子数据集</th><th>模态 / 任务</th><th>样本量（train / val / test）</th><th>类别</th><th>适合作什么</th><th>本项目建议</th></tr>
+    <tr><td><strong>PneumoniaMNIST</strong></td><td>胸部 X 光 / 二分类</td><td>5,856（4,708 / 524 / 624）</td><td>2（正常 / 肺炎）</td><td>主数据集；样本够跑几十组配置；类别不平衡可演示 class weight</td><td><span class="tag t-green">首选</span></td></tr>
+    <tr><td><strong>BreastMNIST</strong></td><td>乳腺超声 / 二分类</td><td>780（546 / 78 / 156）</td><td>2（良性 / 恶性）</td><td>小样本方差演示；CPU 最快；也可作为跨数据集泛化验证</td><td><span class="tag t-blue">次选 / 泛化验证</span></td></tr>
+    <tr><td>RetinaMNIST</td><td>眼底照相 / 序数回归 5 级</td><td>1,600（1,080 / 120 / 400）</td><td>5</td><td>多类别扩展（需换评估口径）</td><td><span class="tag t-gray">本期不做</span></td></tr>
+    <tr><td>PathMNIST / OCTMNIST / BloodMNIST 等</td><td>病理 / OCT / 血细胞</td><td>1 万 – 10 万+</td><td>4–9</td><td>大规模扩展</td><td><span class="tag t-gray">本期不做</span></td></tr>
+    <tr><td>MedMNIST3D（6 个）</td><td>CT / MRA 体积数据</td><td>约 1,300–1,900 例</td><td>2–11</td><td>3D 卷积</td><td><span class="tag t-gray">本期不做</span></td></tr>
+    <tr><td>MedMNIST+（64 / 128 / 224）</td><td>同上的大图版本</td><td>同上</td><td>同上</td><td>分辨率对照实验</td><td><span class="tag t-gray">有余量再说</span></td></tr>
+  </table>
+  <div class="note">MedMNIST 共 12 个标准化 2D 数据集 + 6 个 3D 数据集，2D 统一预处理为 <strong>28×28</strong>，提供标准 train / val / test 划分与统一 API；CC 许可，教育用途友好，<code>pip install medmnist</code> 可自动下载 <code>.npz</code>。这正是纯 CPU 环境能跑几十组配置的原因。</div>
+
+  <h3 id="s2-2">2.2 划分、许可与指标</h3>
+  <table class="tbl-sm">
+    <tr><th>要点</th><th>本项目约定</th><th>为什么</th></tr>
+    <tr><td>数据划分</td><td>只用官方 train / val / test；<strong>val 用于选配置，test 全程只评一次</strong></td><td>你 C1 自测第三题写过「用训练集调参是看答案，换个新数据就不会了」——同理，用 test 调参等于泄题</td></tr>
+    <tr><td>类别不平衡</td><td>主指标看 <strong>AUC</strong>，ACC / F1 作辅助；记录各类别样本数</td><td>肺炎数据正负比例不均，只看 ACC 会被多数类带偏</td></tr>
+    <tr><td>随机性</td><td>每组配置 3 个 seed（如 0 / 1 / 2），报告均值 ± 标准差</td><td>28×28 小数据上方差大，单次的 +2 个点很可能只是运气</td></tr>
+    <tr><td>许可与隐私</td><td>CC 许可，仅教育研究；<code>.npz</code> 放 <code>data/</code> 并写进 <code>.gitignore</code>；仓库只放脚本与结果图</td><td>避免仓库体积爆炸，也避免再分发原始数据</td></tr>
+    <tr><td>评估实现</td><td>优先用 <code>sklearn.metrics.roc_auc_score / accuracy_score / confusion_matrix</code> 自己算</td><td>官方 <code>medmnist.evaluator</code> 各版本 API 有差异，自己算最稳、也便于写进报告</td></tr>
+    <tr><td>临床表述</td><td>全篇不出现「诊断」「辅助诊断」「临床可用」</td><td>官方免责声明 + 学术规范</td></tr>
+  </table>
+
+  <h4>数据集卡片（可填写，复制到 README）</h4>
+  <table class="tbl-sm">
+    <tr><th>字段</th><th>填写</th></tr>
+    <tr><td>子数据集 / size</td><td><input class="fill" data-k="d2-name" placeholder="〈待填：PneumoniaMNIST / 28〉"></td></tr>
+    <tr><td>train / val / test 数量</td><td><input class="fill" data-k="d2-split" placeholder="〈待填：4708 / 524 / 624〉"></td></tr>
+    <tr><td>类别数与各类别样本数</td><td><input class="fill" data-k="d2-class" placeholder="〈待填：2 类，各类计数〉"></td></tr>
+    <tr><td>输入张量形状 / 归一化方式</td><td><input class="fill" data-k="d2-shape" placeholder="〈待填：1×28×28 或 3×28×28，/255 后标准化〉"></td></tr>
+    <tr><td>主指标 / 辅助指标</td><td><input class="fill" data-k="d2-metric" placeholder="〈待填：AUC 主 / ACC、F1 辅〉"></td></tr>
+    <tr><td>数据来源与许可</td><td><input class="fill" data-k="d2-lic" placeholder="〈待填：来源页面 + CC 许可类型〉"></td></tr>
+    <tr><td>下载失败时的兜底方案</td><td><textarea class="fill" data-k="d2-fallback" placeholder="〈待填：手动下载 .npz 的存放路径与校验方式〉"></textarea></td></tr>
+  </table>
+
+  <h3>2.3 数据理解检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s2-1" id="c2a"><label for="c2a">已打印数据集长度、单样本形状、标签分布，并截图存进 <code>docs/</code></label></li>
+    <li><input type="checkbox" data-c="s2-2" id="c2b"><label for="c2b">已画一张 16 张样本的网格图（<code>figures/samples.png</code>）</label></li>
+    <li><input type="checkbox" data-c="s2-3" id="c2c"><label for="c2c">已在 README 写明官方划分不可打乱、test 只评一次</label></li>
+    <li><input type="checkbox" data-c="s2-4" id="c2d"><label for="c2d">已确认 <code>data/</code> 被 <code>.gitignore</code> 忽略</label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s2"></p>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+  <h2>3 · 实验配置</h2>
+  <p class="sec-lead">目标：任何一台装了 requirements 的机器，用一条命令能复现你的任意一次实验。</p>
+
+  <h3 id="s3-1">3.1 环境与依赖（本机实测口径）</h3>
+  <table class="tbl-sm">
+    <tr><th>项</th><th>实测值 / 约定</th><th>备注</th></tr>
+    <tr><td>Conda 环境</td><td><code>D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh</code></td><td>建议在「Anaconda Prompt」里执行；Git Bash 需先处理 conda 初始化，或直接用该环境下的 <code>python.exe</code> 全路径</td></tr>
+    <tr><td>Python / PyTorch</td><td>Python 3.9.25；torch 2.5.1+cpu；torchvision 0.20.1+cpu；d2l 0.17.6</td><td><code>torch.cuda.is_available() = False</code>，<strong>纯 CPU</strong></td></tr>
+    <tr><td>已装常用库</td><td>numpy 1.21.5、pandas 1.2.4、matplotlib 3.5.1、Jupyter 1.0.0</td><td>版本偏旧，写 requirements 时按实际可用版本，别写死最新版</td></tr>
+    <tr><td>需补装</td><td><code>medmnist</code>、<code>scikit-learn</code>、<code>PyYAML</code>、<code>tqdm</code>（可选 <code>optuna</code>、<code>gradio</code>）</td><td>该环境未装 sklearn / scipy，AUC 与混淆矩阵需要它</td></tr>
+    <tr><td>Windows 注意</td><td><code>DataLoader(num_workers=0)</code></td><td>避免多进程 spawn 报错，也更利于复现</td></tr>
+    <tr><td>CPU 提速</td><td><code>torch.set_num_threads(4)</code>、28×28 输入、少 epoch、必要时减小 batch</td><td>先测一组实际耗时再定搜索规模</td></tr>
+  </table>
+  <pre><code>conda activate d2l-zh
+python -c "import sys, torch; print(sys.version.split()[0], torch.__version__, torch.cuda.is_available())"
+pip install medmnist scikit-learn PyYAML tqdm
+python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', download=True); print(len(d), d[0][0].shape)"</code></pre>
+  <div class="warn">第三条命令会联网下载 <code>.npz</code>。若下载失败，不要猜 API 参数：先看本机 <code>medmnist</code> 版本里 dataset 构造函数的签名，把手动下载的文件放到它读取的目录，并把来源、路径、校验方式写进 <code>docs/LOG.md</code>。</div>
+
+  <h3 id="s3-2">3.2 目录结构与配置字段</h3>
+  <pre><code>medmnist-tuning-lab/
+├── README.md              # 三件套入口：流程图 + 一键复现命令 + 结果摘要
+├── LICENSE                # 自选，建议 MIT
+├── .gitignore             # 必须忽略 data/、*.pth、__pycache__/
+├── requirements.txt
+├── configs/
+│   ├── base.yaml          # 基线配置
+│   ├── sweep.yaml         # 搜索空间
+│   └── best.yaml          # 最终最优配置
+├── data/                  # .npz 自动下载，忽略不上传
+├── src/
+│   ├── data.py            # 加载 / 划分 / 归一化 / 增强
+│   ├── model.py           # MLP、SmallCNN
+│   ├── train.py           # 训练循环 + 早停 + 日志
+│   ├── evaluate.py        # AUC / ACC / F1 / 混淆矩阵
+│   ├── sweep.py           # 读 sweep.yaml，循环写 runs.csv
+│   ├── plots.py           # 由 results/*.csv 生成全部图
+│   └── run.py             # 单配置入口：python run.py --config ...
+├── results/
+│   ├── runs.csv           # 每组配置一行（含失败组）
+│   ├── ablation.csv       # 消融表
+│   └── test_final.csv     # 最优配置在 test 上的唯一一次评测
+├── figures/               # pipeline.svg/png、loss、ROC、混淆矩阵、热力图、前后对比
+├── notebooks/demo.ipynb   # 单图推理演示
+└── docs/
+    ├── LOG.md             # 实验日志
+    ├── PITFALLS.md        # 踩坑清单
+    ├── REPORT.md          # 实验报告 / 结论
+    └── REVIEW.md          # 学习复盘（20% 考核材料）</code></pre>
+
+  <table class="tbl-sm">
+    <tr><th>config 字段</th><th>作用</th><th>建议默认</th><th>是否纳入调参</th></tr>
+    <tr><td><code>seed</code></td><td>固定随机性</td><td>0 / 1 / 2</td><td><span class="tag t-blue">固定 3 值</span></td></tr>
+    <tr><td><code>dataset</code> / <code>size</code> / <code>data_root</code></td><td>数据集与路径</td><td>PneumoniaMNIST / 28 / ./data</td><td>否（锁定）</td></tr>
+    <tr><td><code>model</code></td><td>mlp 或 smallcnn</td><td>smallcnn</td><td><span class="tag t-teal">基线阶梯</span></td></tr>
+    <tr><td><code>conv_width</code></td><td>卷积通道数</td><td>32</td><td><span class="tag t-amber">是</span></td></tr>
+    <tr><td><code>use_bn</code> / <code>activation</code> / <code>pooling</code></td><td>结构开关</td><td>true / ReLU / 轻池化</td><td><span class="tag t-amber">是（消融）</span></td></tr>
+    <tr><td><code>dropout</code> / <code>weight_decay</code></td><td>正则</td><td>0.2 / 1e-4</td><td><span class="tag t-amber">是</span></td></tr>
+    <tr><td><code>optimizer</code> / <code>lr</code> / <code>momentum</code></td><td>优化器</td><td>Adam / 1e-3 / 0.9</td><td><span class="tag t-amber">核心</span></td></tr>
+    <tr><td><code>batch_size</code> / <code>epochs</code></td><td>训练规模</td><td>64 / 30</td><td><span class="tag t-amber">是</span></td></tr>
+    <tr><td><code>scheduler</code> / <code>warmup_epochs</code></td><td>学习率排程</td><td>none / 0</td><td><span class="tag t-amber">是</span></td></tr>
+    <tr><td><code>augment</code></td><td>增强强度</td><td>flip</td><td><span class="tag t-amber">是</span></td></tr>
+    <tr><td><code>class_weight</code> / <code>label_smoothing</code></td><td>不平衡 / 校准</td><td>none / 0</td><td><span class="tag t-amber">是</span></td></tr>
+    <tr><td><code>early_stop_patience</code></td><td>早停</td><td>5</td><td><span class="tag t-blue">固定</span></td></tr>
+    <tr><td><code>device</code> / <code>num_workers</code> / <code>log_dir</code></td><td>运行与留痕</td><td>cpu / 0 / results</td><td>否</td></tr>
+  </table>
+  <div class="note"><strong>可复现性四件套：</strong>① <code>random / numpy / torch</code> 三处都设 seed；② 每组配置存成独立 yaml 或至少把超参 flatten 进 <code>runs.csv</code>；③ 记录 <code>git commit</code> 短哈希；④ 记录实际 epoch 数与耗时。缺一项，「调参提升」就说不清。</div>
+
+  <h3>3.3 配置检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s3-1" id="c3a"><label for="c3a">已冒烟测试：环境可导入 torch / medmnist，能打印样本形状</label></li>
+    <li><input type="checkbox" data-c="s3-2" id="c3b"><label for="c3b">已按上方结构建好目录，<code>.gitignore</code> 已忽略 <code>data/</code> 与 <code>*.pth</code></label></li>
+    <li><input type="checkbox" data-c="s3-3" id="c3c"><label for="c3c">已写 <code>base.yaml</code>，且 <code>run.py --config configs/base.yaml</code> 能跑完一个 epoch</label></li>
+    <li><input type="checkbox" data-c="s3-4" id="c3d"><label for="c3d">已在代码里同时设置三处 seed，并确认 <code>num_workers=0</code></label></li>
+    <li><input type="checkbox" data-c="s3-5" id="c3e"><label for="c3e">已实测单组训练耗时，据此确定搜索组数</label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s3"></p>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+  <h2>4 · 调参对比</h2>
+  <p class="sec-lead">这一节是项目的主体：先把基线钉死，再单因子扫描，最后做消融。所有结论都必须来自 <code>runs.csv</code>。</p>
+
+  <h3 id="s4-1">4.1 基线阶梯</h3>
+  <table class="tbl-sm">
+    <tr><th>层级</th><th>模型</th><th>作用</th><th>预期 AUC（仅作量级参考，不写进结论）</th></tr>
+    <tr><td>L0</td><td>多数类常数预测 / 逻辑回归</td><td>证明任务不是 trivial，也给指标一个地板</td><td>0.50 / 0.7 上下</td></tr>
+    <tr><td>L1</td><td>MLP（28×28 展平 → 128 → 2）</td><td>最低可训练的神经网络基线</td><td>略高于 L0</td></tr>
+    <tr><td>L2</td><td>SmallCNN（2–3 conv + BN + GAP + FC）</td><td><strong>正式基线</strong>，后续全部调参都基于它</td><td>主要参照点</td></tr>
+    <tr><td>L3</td><td>L2 + 最优超参组合</td><td>调参后的结果，与 L2 做同表对比</td><td>目标：稳定高于 L2</td></tr>
+  </table>
+  <div class="warn"><strong>别把 L1→L2 的增益算成「调参功劳」。</strong>换模型是换假设空间，调参是在<strong>同一个模型</strong>里拧旋钮。报告里必须分开写：结构对比单独一节，超参对比单独一节。</div>
+
+  <h3 id="s4-2">4.2 超参空间对照表</h3>
+  <table class="tbl-sm">
+    <tr><th>超参</th><th>建议取值</th><th>为什么调它</th><th>对应已学内容</th><th>预期现象 / 风险</th></tr>
+    <tr><td><code>lr</code></td><td>1e-4 / 3e-4 / 1e-3 / 3e-3 / 1e-2</td><td>最敏感的一个旋钮，先扫它</td><td>C2 自适应学习率 / 训练技巧</td><td>过大 loss 发散，过小几乎不动；用对数刻度</td></tr>
+    <tr><td><code>optimizer</code></td><td>SGD+momentum / Adam / AdamW</td><td>比较收敛速度与泛化</td><td>C2 动量 / AdaGrad / RMSProp / Adam 订正</td><td>SGD 常慢但泛化略好；Adam 快、易过拟合</td></tr>
+    <tr><td><code>batch_size</code></td><td>32 / 64 / 128</td><td>影响梯度噪声与 train-test gap</td><td>C1 训练/测试损失诊断</td><td>CPU 上大 batch 未必更快，先测耗时</td></tr>
+    <tr><td><code>weight_decay</code></td><td>0 / 1e-4 / 1e-3</td><td>正则，压过拟合</td><td>C1 过拟合 / 权重衰退</td><td>过大反而欠拟合，看 train 与 val 曲线间距</td></tr>
+    <tr><td><code>dropout</code></td><td>0 / 0.2 / 0.4</td><td>同上，另一种正则</td><td>丢弃法相关章节（编号见第 7 节）</td><td>小模型上 0.4 可能直接掉点</td></tr>
+    <tr><td><code>use_bn</code></td><td>on / off</td><td>训练稳定性</td><td>C2 批量归一化</td><td>注意 <code>model.train()</code> / <code>eval()</code> 别切错</td></tr>
+    <tr><td><code>scheduler</code></td><td>none / step / cosine（+warmup）</td><td>后期收敛</td><td>C2 学习率排程</td><td>epoch 少时收益可能不明显</td></tr>
+    <tr><td><code>augment</code></td><td>none / flip / flip+小角度旋转</td><td>小数据抗过拟合</td><td>数据增广相关章节</td><td>医学图像别用过强形变；28×28 上旋转易引入伪影</td></tr>
+    <tr><td><code>class_weight</code></td><td>none / balanced</td><td>肺炎数据类别不平衡</td><td>C1 分布与评估</td><td>AUC 可能升、ACC 可能降，两个一起看</td></tr>
+    <tr><td><code>label_smoothing</code></td><td>0 / 0.05</td><td>置信度校准</td><td>扩展项</td><td>小数据上收益不稳定，作为可选组</td></tr>
+    <tr><td><code>conv_width</code></td><td>16 / 32 / 64</td><td>容量与参数量</td><td>C3 卷积参数量手算</td><td>容量翻倍≠精度翻倍；把参数量一并记进表</td></tr>
+    <tr><td><code>pooling</code></td><td>轻池化 / 不用池化</td><td>小目标是否丢失</td><td><strong>C3 订正版：医学影像微小结节会在池化中丢失</strong></td><td>28×28 上堆池化容易把病灶特征抹掉</td></tr>
+    <tr><td><code>early_stop_patience</code></td><td>3 / 5 / 8</td><td>防止把 val 过拟合当提升</td><td>C1 模型选择</td><td>固定一个值更利于横向比较</td></tr>
+  </table>
+
+  <h3 id="s4-3">4.3 搜索策略与消融表模板</h3>
+  <table class="tbl-sm">
+    <tr><th>阶段</th><th>组数</th><th>做法</th><th>产出</th><th>机时估算（CPU）</th></tr>
+    <tr><td>S1 单因子扫描</td><td>约 12–16</td><td>固定 base，每次只改一个超参</td><td><code>runs.csv</code> 前段 + 敏感性曲线</td><td>约 30–50 分钟</td></tr>
+    <tr><td>S2 小网格</td><td>约 9–12</td><td>取 S1 的 top-3 因子，做 3×3 组合</td><td>超参热力图 / 交互作用</td><td>约 30–40 分钟</td></tr>
+    <tr><td>S3 复跑</td><td>3 seed × 3 配置</td><td>对 base、最优、次优各跑 3 个 seed</td><td>均值 ± 标准差</td><td>约 20–30 分钟</td></tr>
+    <tr><td>S4 最终评测</td><td>1</td><td>最优配置在 test 上<strong>只评一次</strong></td><td><code>test_final.csv</code> + 4 张图</td><td>约 3 分钟</td></tr>
+  </table>
+  <div class="note">加上写代码、画图、写文档，机器时间约 1.5–3 小时，人力 12–16 小时，与 E5 的 14 小时预算吻合。先跑一组实测耗时再决定要不要砍 S2 / S3 的组数。</div>
+
+  <h4>消融表模板（可填写，导出后放进 REPORT.md）</h4>
+  <table class="tbl-sm">
+    <tr><th>实验编号</th><th>改动（相对 base）</th><th>val AUC</th><th>val ACC</th><th>参数量</th><th>耗时</th><th>结论</th></tr>
+    <tr><td><input class="fill" data-k="ab-1-0" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-1-1" placeholder="〈待填：base〉"></td><td><input class="fill" data-k="ab-1-2" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-1-3" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-1-4" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-1-5" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-1-6" placeholder="〈待填〉"></td></tr>
+    <tr><td><input class="fill" data-k="ab-2-0" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-2-1" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-2-2" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-2-3" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-2-4" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-2-5" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-2-6" placeholder="〈待填〉"></td></tr>
+    <tr><td><input class="fill" data-k="ab-3-0" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-3-1" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-3-2" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-3-3" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-3-4" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-3-5" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-3-6" placeholder="〈待填〉"></td></tr>
+    <tr><td><input class="fill" data-k="ab-4-0" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-4-1" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-4-2" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-4-3" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-4-4" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-4-5" placeholder="〈待填〉"></td><td><input class="fill" data-k="ab-4-6" placeholder="〈待填〉"></td></tr>
+  </table>
+
+  <h3>4.4 调参检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s4-1" id="c4a"><label for="c4a">L0 / L1 / L2 三条基线都已跑通并记录在 <code>runs.csv</code></label></li>
+    <li><input type="checkbox" data-c="s4-2" id="c4b"><label for="c4b">单因子扫描时，每组只改一个超参，其余字段与 base 完全一致</label></li>
+    <li><input type="checkbox" data-c="s4-3" id="c4c"><label for="c4c">失败组（发散 / OOM / 报错）也记进了 <code>runs.csv</code>，没有删除</label></li>
+    <li><input type="checkbox" data-c="s4-4" id="c4d"><label for="c4d">base 与最优配置各跑了 3 个 seed，算了均值 ± 标准差</label></li>
+    <li><input type="checkbox" data-c="s4-5" id="c4e"><label for="c4e">全程只用 val 选配置；<code>test_final.csv</code> 里只有一行</label></li>
+    <li><input type="checkbox" data-c="s4-6" id="c4f"><label for="c4f">结构对比（MLP→CNN）与超参对比分开写成两节</label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s4"></p>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+  <h2>5 · 结果评估</h2>
+  <p class="sec-lead">把「调参有没有用」讲成可复现的证据链，而不是一句「精度提高了」。</p>
+
+  <table class="tbl-sm">
+    <tr><th>指标 / 图件</th><th>回答什么问题</th><th>由哪个脚本产出</th><th>必须写进报告的哪个位置</th></tr>
+    <tr><td>AUC（主）</td><td>排序能力，不受类别比例影响</td><td><code>evaluate.py</code></td><td>结果摘要表首列</td></tr>
+    <tr><td>ACC / F1</td><td>阈值下的直观表现</td><td><code>evaluate.py</code></td><td>结果摘要表辅助列</td></tr>
+    <tr><td>混淆矩阵</td><td>错在哪一类、是否偏向多数类</td><td><code>plots.py</code></td><td>误差分析段</td></tr>
+    <tr><td>loss / val AUC 曲线</td><td>是否过拟合、是否早停合理</td><td><code>plots.py</code></td><td>训练行为分析段</td></tr>
+    <tr><td>ROC 曲线</td><td>base 与 best 的整体对比</td><td><code>plots.py</code></td><td>调参效果主图</td></tr>
+    <tr><td>超参热力图 / 敏感性曲线</td><td>哪些旋钮真的有用</td><td><code>plots.py</code></td><td>消融章节</td></tr>
+    <tr><td>前后对比柱状图（含误差棒）</td><td>提升是否大于 seed 波动</td><td><code>plots.py</code></td><td>结论段第一张图</td></tr>
+    <tr><td>预测样例网格 / 单图推理</td><td>代码运行效果（验收第三项）</td><td><code>demo.ipynb</code></td><td>现场演示环节</td></tr>
+  </table>
+
+  <div class="danger"><strong>三条不可越界的纪律：</strong>① test 只评一次，评完不再回头改配置；② 报告里同时给均值与标准差，别只报最好的那次；③ 「提升」必须大于 seed 波动才算提升，否则如实写成「该超参不敏感」。</div>
+
+  <div class="grid2">
+    <div class="box a"><b>若提升显著</b><span>写：哪个超参贡献最大（附敏感性排序）、机制解释（对应 C2 优化器 / C3 池化 / C1 正则）、base vs best 的 AUC 与标准差、test 上的一次性结果。</span></div>
+    <div class="box b"><b>若提升不显著</b><span>这不是失败。改写成「超参敏感性分析」：哪些做法稳定有效、哪些无效、哪些只在部分 seed 上有效、小数据下的方差来源。同样是一份合格的实验结论，答辩时反而更好讲。</span></div>
+  </div>
+
+  <h4>结论草稿（可填写）</h4>
+  <textarea class="fill" data-k="s5-conclusion" placeholder="〈待填：在 PneumoniaMNIST 上，以 SmallCNN 为基线，经 N 组单因子扫描与 M 组网格搜索，val AUC 由 __ 提升至 __（3 seed 均值 ± 标准差）；贡献最大的超参是 __；test 上一次性评测结果为 __。〉"></textarea>
+
+  <h3>5.1 评估检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s5-1" id="c5a"><label for="c5a">所有图都由 <code>results/*.csv</code> 现场生成，不是手工贴的截图</label></li>
+    <li><input type="checkbox" data-c="s5-2" id="c5b"><label for="c5b">结果表里同时有 AUC / ACC / 标准差 / 参数量 / 耗时</label></li>
+    <li><input type="checkbox" data-c="s5-3" id="c5c"><label for="c5c"><code>test_final.csv</code> 只有一行，且生成时间晚于所有调参实验</label></li>
+    <li><input type="checkbox" data-c="s5-4" id="c5d"><label for="c5d">已写结论草稿，并明确提升是否大于 seed 波动</label></li>
+    <li><input type="checkbox" data-c="s5-5" id="c5e"><label for="c5e">已在另一台机器 / 干净环境复跑一次 <code>best.yaml</code></label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s5"></p>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+  <h2>6 · 过程记录</h2>
+  <p class="sec-lead">培训方案里「学习复盘」占 20%，且明确严禁纯文献调研。这一节的产出就是那 20% 的证据。</p>
+
+  <h3>6.1 实验日志字段（<code>results/runs.csv</code>）</h3>
+  <table class="tbl-sm">
+    <tr><th>字段</th><th>示例 / 说明</th><th>为什么必须有</th></tr>
+    <tr><td><code>run_id</code> / <code>timestamp</code></td><td>s1_lr_0003 / 2026-11-13 14:02</td><td>证明实验按顺序发生，不是事后补的</td></tr>
+    <tr><td><code>config</code> 或 flatten 后的超参列</td><td>lr=0.003, optimizer=adam, ...</td><td>没有它就无法复现任何一组</td></tr>
+    <tr><td><code>seed</code> / <code>epochs_run</code> / <code>duration_min</code></td><td>0 / 23 / 1.8</td><td>早停、方差、机时预算都靠这三列</td></tr>
+    <tr><td><code>val_auc</code> / <code>val_acc</code></td><td>0.9xx / 0.8x</td><td>选配置的唯一依据</td></tr>
+    <tr><td><code>git_commit</code></td><td>短哈希</td><td>把结果锁到具体代码版本</td></tr>
+    <tr><td><code>status</code> / <code>note</code></td><td>ok / diverged / OOM + 一句原因</td><td>失败组也要留，踩坑清单从这里长出来</td></tr>
+  </table>
+
+  <h3>6.2 踩坑清单模板（<code>docs/PITFALLS.md</code>）</h3>
+  <table class="tbl-sm">
+    <tr><th>日期</th><th>现象</th><th>原因</th><th>处理方式</th><th>对应已学内容</th></tr>
+    <tr><td><input class="fill" data-k="pit-1-0" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-1-1" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-1-2" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-1-3" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-1-4" placeholder="〈待填〉"></td></tr>
+    <tr><td><input class="fill" data-k="pit-2-0" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-2-1" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-2-2" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-2-3" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-2-4" placeholder="〈待填〉"></td></tr>
+    <tr><td><input class="fill" data-k="pit-3-0" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-3-1" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-3-2" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-3-3" placeholder="〈待填〉"></td><td><input class="fill" data-k="pit-3-4" placeholder="〈待填〉"></td></tr>
+  </table>
+  <div class="note">可预期的几个坑：BN 在 <code>train/eval</code> 模式切错；28×28 上池化过猛；<code>num_workers&gt;0</code> 在 Windows 报 spawn 错；<code>medmnist</code> 版本 API 漂移；类别不平衡导致 ACC 虚高但 AUC 不动；<code>torch</code> 只设了一处 seed 导致结果不可复现。</div>
+
+  <h3>6.3 学习复盘（对应 20% 考核）</h3>
+  <p>把「自测 → 订正 → 重写 → 一页纸」这条已有闭环，接到本项目的「配置 → 日志 → 消融 → 结论」上，形成一条完整过程记录。建议在 <code>docs/REVIEW.md</code> 里写三段：</p>
+  <textarea class="fill" data-k="s6-review" placeholder="〈待填：① 本项目把哪几个已学概念从「能讲」变成了「能改、能跑出曲线」；② 哪一次实验推翻了我原来的理解（附 run_id）；③ 下一步想补的一块（如跨数据集泛化 / 剪枝蒸馏 / 可解释性）。〉"></textarea>
+
+  <h3>6.4 过程记录检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s6-1" id="c6a"><label for="c6a">每组实验（含失败组）都在 <code>runs.csv</code> 里有一行</label></li>
+    <li><input type="checkbox" data-c="s6-2" id="c6b"><label for="c6b">踩坑清单至少记录了 2 条真实遇到的报错或反直觉现象</label></li>
+    <li><input type="checkbox" data-c="s6-3" id="c6c"><label for="c6c">已写三段式学习复盘，并把第 7 节映射表填好</label></li>
+    <li><input type="checkbox" data-c="s6-4" id="c6d"><label for="c6d">已把笔记四件套按 C1–C16 编号登记进自学进度表（进度口径以笔记为准）</label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s6"></p>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+  <h2>7 · 可填写章节映射表（对应我已学的各章节）</h2>
+  <p class="sec-lead">把项目环节逐一挂到你已经学过的章节上。<strong>章节名称未给出时，一律保留「〈章节名称待填〉」占位项</strong>，由你自己填写；小灰字只是归档目录里出现过的参考名，不是替你填好的答案。</p>
+
+  <div class="grid3">
+    <div class="box"><b>填写方式</b><span>点击虚线框直接输入；下拉框选掌握度；内容自动保存在本机。</span></div>
+    <div class="box"><b>导出</b><span>顶部「导出章节映射表（Markdown）」会生成一份可直接贴进 <code>docs/REVIEW.md</code> 的表格。</span></div>
+    <div class="box"><b>新增行</b><span>顶部「映射表新增一行」可追加空白占位行，用于补上你自己的章节。</span></div>
+  </div>
+
+  <table id="mapTable">
+    <thead>
+      <tr>
+        <th style="width:13%">项目环节</th>
+        <th style="width:11%">章节编号<br><span class="small">已知 / 待填</span></th>
+        <th style="width:16%">章节名称<br><span class="small">可填写，未给出用占位项</span></th>
+        <th style="width:13%">笔记出处</th>
+        <th style="width:23%">在本项目中怎么用</th>
+        <th style="width:11%">掌握度</th>
+        <th style="width:13%">我的核对 / 备注</th>
+      </tr>
+    </thead>
+    <tbody id="mapBody">
+      <tr>
+        <td>立项与范围锁定</td>
+        <td><input class="fill" data-k="m1-0" value="E5 / F3"><span class="ref">归档参考：进度表「任务清单」E5、F3</span></td>
+        <td><input class="fill" data-k="m1-1" placeholder="〈章节名称待填〉"><span class="ref">归档参考：大作业 / 知识图谱相关条目</span></td>
+        <td><input class="fill" data-k="m1-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m1-3" value="用 E5 的 14 小时预算切范围，三件套各指定一个文件"></td>
+        <td><select class="fill" data-k="m1-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m1-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>任务与数据理解</td>
+        <td><input class="fill" data-k="m2-0" value="C1"><span class="ref">归档参考：C1 模块</span></td>
+        <td><input class="fill" data-k="m2-1" placeholder="〈章节名称待填〉"><span class="ref">归档参考：机器学习到底在干什么</span></td>
+        <td><input class="fill" data-k="m2-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m2-3" value="双损失诊断该动模型还是动数据；「不能用测试集调参」写成项目纪律"></td>
+        <td><select class="fill" data-k="m2-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m2-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>损失函数与优化器</td>
+        <td><input class="fill" data-k="m3-0" value="C2"><span class="ref">归档参考：C2 模块</span></td>
+        <td><input class="fill" data-k="m3-1" placeholder="〈章节名称待填〉"><span class="ref">归档参考：训练不动怎么办 / 优化技巧</span></td>
+        <td><input class="fill" data-k="m3-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m3-3" value="交叉熵订正、动量 / RMSProp / Adam 分段；对应 lr 与 optimizer 扫描"></td>
+        <td><select class="fill" data-k="m3-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m3-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>模型结构与容量</td>
+        <td><input class="fill" data-k="m4-0" value="C3"><span class="ref">归档参考：C3 模块（笔记判定需重读）</span></td>
+        <td><input class="fill" data-k="m4-1" placeholder="〈章节名称待填〉"><span class="ref">归档参考：卷积神经网络为什么省参数</span></td>
+        <td><input class="fill" data-k="m4-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m4-3" value="手算参数量；订正版提到微小结节会在池化中丢失，故 28×28 不堆池化"></td>
+        <td><select class="fill" data-k="m4-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m4-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>训练脚本骨架</td>
+        <td><input class="fill" data-k="m5-0" value="D08–D10 / D16"><span class="ref">归档参考：进度表「任务清单」D 段编号</span></td>
+        <td><input class="fill" data-k="m5-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m5-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m5-3" value="照「照敲 + 改一个超参」的方式补训练循环；这些脚本尚未系统跑通，需边做边补"></td>
+        <td><select class="fill" data-k="m5-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m5-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>正则与过拟合</td>
+        <td><input class="fill" data-k="m6-0" value="D11–D14"><span class="ref">归档参考：进度表 D 段编号</span></td>
+        <td><input class="fill" data-k="m6-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m6-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m6-3" value="weight decay / dropout / 初始化，对应正则类超参与 train-val gap 判读"></td>
+        <td><select class="fill" data-k="m6-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m6-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>数据增广与微调</td>
+        <td><input class="fill" data-k="m7-0" value="D36 / D37"><span class="ref">归档参考：进度表 D 段编号</span></td>
+        <td><input class="fill" data-k="m7-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m7-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m7-3" value="flip / 小角度旋转的强度对照；医学小图别用过强形变"></td>
+        <td><select class="fill" data-k="m7-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m7-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>优化算法对照</td>
+        <td><input class="fill" data-k="m8-0" value="D72"><span class="ref">归档参考：进度表 D 段编号</span></td>
+        <td><input class="fill" data-k="m8-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m8-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m8-3" value="SGD+mom / Adam / AdamW 对照实验的理论出处"></td>
+        <td><select class="fill" data-k="m8-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m8-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>分布偏移（加分）</td>
+        <td><input class="fill" data-k="m9-0" value="C11"><span class="ref">归档参考：C11 模块（笔记判定需重读）</span></td>
+        <td><input class="fill" data-k="m9-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m9-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m9-3" value="换第二个子数据集看泛化，属有余量再加的章节"></td>
+        <td><select class="fill" data-k="m9-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m9-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>可解释性（加分）</td>
+        <td><input class="fill" data-k="m10-0" value="C10"><span class="ref">归档参考：C10 模块（疑问已解）</span></td>
+        <td><input class="fill" data-k="m10-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m10-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m10-3" value="Grad-CAM / 遮挡验证；笔记强调任何热力图都要做遮挡验证"></td>
+        <td><select class="fill" data-k="m10-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m10-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>网络压缩（加分）</td>
+        <td><input class="fill" data-k="m11-0" value="C14"><span class="ref">归档参考：C14 模块（蒸馏温度题答得最好）</span></td>
+        <td><input class="fill" data-k="m11-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m11-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m11-3" value="剪枝 + 微调 / 蒸馏温度，作为精度与参数量的第二组对照"></td>
+        <td><select class="fill" data-k="m11-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m11-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr>
+        <td>过程记录与复盘</td>
+        <td><input class="fill" data-k="m12-0" value="F1 / F6 / E6"><span class="ref">归档参考：进度表「使用说明」与 F 段编号</span></td>
+        <td><input class="fill" data-k="m12-1" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m12-2" placeholder="〈待填：文件名 / 页码〉"></td>
+        <td><input class="fill" data-k="m12-3" value="「每个编号都要有笔记」延伸到每个实验编号；学习复盘占 20%</td>
+        <td><select class="fill" data-k="m12-4"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m12-5" placeholder="〈待填〉"></td>
+      </tr>
+      <tr class="blank-row">
+        <td><input class="fill" data-k="m13-0" placeholder="〈环节待填〉"></td>
+        <td><input class="fill" data-k="m13-1" placeholder="〈章节编号待填〉"></td>
+        <td><input class="fill" data-k="m13-2" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m13-3" placeholder="〈待填〉"></td>
+        <td><input class="fill" data-k="m13-4" placeholder="〈待填〉"></td>
+        <td><select class="fill" data-k="m13-5"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m13-6" placeholder="〈待填〉"></td>
+      </tr>
+      <tr class="blank-row">
+        <td><input class="fill" data-k="m14-0" placeholder="〈环节待填〉"></td>
+        <td><input class="fill" data-k="m14-1" placeholder="〈章节编号待填〉"></td>
+        <td><input class="fill" data-k="m14-2" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m14-3" placeholder="〈待填〉"></td>
+        <td><input class="fill" data-k="m14-4" placeholder="〈待填〉"></td>
+        <td><select class="fill" data-k="m14-5"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m14-6" placeholder="〈待填〉"></td>
+      </tr>
+      <tr class="blank-row">
+        <td><input class="fill" data-k="m15-0" placeholder="〈环节待填〉"></td>
+        <td><input class="fill" data-k="m15-1" placeholder="〈章节编号待填〉"></td>
+        <td><input class="fill" data-k="m15-2" placeholder="〈章节名称待填〉"></td>
+        <td><input class="fill" data-k="m15-3" placeholder="〈待填〉"></td>
+        <td><input class="fill" data-k="m15-4" placeholder="〈待填〉"></td>
+        <td><select class="fill" data-k="m15-5"><option value="">〈请选择〉</option><option>已打勾</option><option>疑问已解，可打勾</option><option>需重读</option><option>未学</option></select></td>
+        <td><input class="fill" data-k="m15-6" placeholder="〈待填〉"></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="small">映射表填写进度：<span id="mapProgress">0 / 0 个章节名称已填写</span>（占位项不计入）。</p>
+
+  <h3>7.1 映射检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s7-1" id="c7a"><label for="c7a">已逐行填写章节名称；未给出名称的行保持占位项，没有凭印象补写</label></li>
+    <li><input type="checkbox" data-c="s7-2" id="c7b"><label for="c7b">已按笔记《掌握度总览》给每行标注「已打勾 / 需重读」</label></li>
+    <li><input type="checkbox" data-c="s7-3" id="c7c"><label for="c7c">已把导出的 Markdown 映射表放进 <code>docs/REVIEW.md</code></label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s7"></p>
+</section>
+
+<!-- ============ 8 ============ -->
+<section id="s8">
+  <h2>8 · 最终归档</h2>
+  <p class="sec-lead">归档的判定标准：别人打开链接，不问你任何问题就能复跑一遍。</p>
+
+  <h3>8.1 仓库文件对照表</h3>
+  <table class="tbl-sm">
+    <tr><th>文件 / 目录</th><th>必须包含</th><th>对应验收项</th><th>常见遗漏</th></tr>
+    <tr><td><code>README.md</code></td><td>项目一句话目标、流程图、环境安装、一键复现命令、结果摘要表、目录说明、许可与数据出处</td><td>①②③</td><td>没写「一键复现」；结果与图对不上</td></tr>
+    <tr><td><code>docs/pipeline.svg / .png</code></td><td>与 PPT 完全相同的那张流程图</td><td>①</td><td>只有 PNG，改起来困难</td></tr>
+    <tr><td><code>requirements.txt</code></td><td>按本机实测版本，含 medmnist / scikit-learn / PyYAML</td><td>③</td><td>写死不存在的版本号</td></tr>
+    <tr><td><code>configs/</code></td><td>base / sweep / best 三份</td><td>③</td><td>best.yaml 与报告里的超参不一致</td></tr>
+    <tr><td><code>src/</code></td><td>data / model / train / evaluate / sweep / plots / run</td><td>③</td><td>训练脚本里硬编码路径，换机就崩</td></tr>
+    <tr><td><code>results/</code></td><td>runs.csv（含失败组）、ablation.csv、test_final.csv（一行）</td><td>③ + 复盘</td><td>只留最好那次的结果</td></tr>
+    <tr><td><code>figures/</code></td><td>6 类图 + 流程图</td><td>①③</td><td>图是截图而非脚本生成</td></tr>
+    <tr><td><code>notebooks/demo.ipynb</code></td><td>加载 best 权重、单张图推理、显示预测与置信度</td><td>③</td><td>权重没存 / 路径写死绝对路径</td></tr>
+    <tr><td><code>docs/LOG.md / PITFALLS.md / REPORT.md / REVIEW.md</code></td><td>实验日志、踩坑、结论、学习复盘与章节映射</td><td>复盘 20%</td><td>把复盘写成流水账</td></tr>
+    <tr><td><code>LICENSE</code> / <code>.gitignore</code></td><td>许可证；忽略 data / 权重 / 缓存</td><td>合规</td><td>把 .npz 或大权重传上去</td></tr>
+  </table>
+
+  <h3>8.2 收尾动作</h3>
+  <ol>
+    <li>冻结 <code>best.yaml</code>，在其后不再改任何超参；若确需修改，另开 <code>best_v2.yaml</code> 并说明原因。</li>
+    <li>打一个 tag（如 <code>v0.1-midterm</code>），把答辩当天要展示的版本锁住。</li>
+    <li>在 README 顶部放可访问的仓库链接、流程图、以及一条能直接复制的复现命令。</li>
+    <li>把 PPT 与 README 的流程图换成同一张，避免现场两张图不一致。</li>
+    <li>导出本页填写内容（JSON）与章节映射表（Markdown），一并放进 <code>docs/</code> 作为过程材料。</li>
+  </ol>
+
+  <h3>8.3 归档检查清单</h3>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s8-1" id="c8a"><label for="c8a">仓库为公开可访问，验收前已有 ≥3 次 commit，且链接当场能打开</label></li>
+    <li><input type="checkbox" data-c="s8-2" id="c8b"><label for="c8b">已打 tag，PPT / README / 代码里的流程图是同一张</label></li>
+    <li><input type="checkbox" data-c="s8-3" id="c8c"><label for="c8c">在干净环境按 README 的一键命令完整复跑成功</label></li>
+    <li><input type="checkbox" data-c="s8-4" id="c8d"><label for="c8d"><code>docs/</code> 四份文档齐全，学习复盘与章节映射已归档</label></li>
+    <li><input type="checkbox" data-c="s8-5" id="c8e"><label for="c8e">确认仓库内没有原始数据文件、没有绝对路径、没有临床表述</label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s8"></p>
+</section>
+
+<!-- ============ 9 ============ -->
+<section id="s9">
+  <h2>9 · 协作边界（三类清单）</h2>
+  <p class="sec-lead">把「谁做什么」写清楚，避免两边都等对方、也避免把必须由本人动手的部分外包出去。</p>
+
+  <div class="boundary">
+    <h3><span class="bd bd-a">A</span> 我（WorkBuddy）可直接完成，无需你先确认</h3>
+    <ul>
+      <li>在本地生成 / 修改全部<strong>文本与代码文件</strong>：<code>src/*.py</code>、<code>configs/*.yaml</code>、<code>requirements.txt</code>、<code>.gitignore</code>、<code>LICENSE</code>、README、实验报告与复盘模板。</li>
+      <li>生成项目流程图（SVG / PNG）、目录结构、超参空间表、消融表模板、检查清单、PPT 大纲与答辩问答稿。</li>
+      <li>按你给的结果 CSV 生成图件脚本、整理对比表、把实验结论写成「哪些超参敏感 / 不敏感」的规范表述。</li>
+      <li>静态检查代码（语法、路径、seed 是否三处都设、test 是否被误用）、解读报错、核对实验设计有没有泄漏。</li>
+      <li>把归档目录一次性搭好，并按第 8 节清单逐项核对文件是否齐全。</li>
+      <li>维护本教程页面：增补章节、调整表格、增加占位行、导出模板。</li>
+    </ul>
+    <p class="small">边界说明：以上均是在你本机工作区里读写文件，不涉及任何外部系统，也不需要你的账号权限。</p>
+  </div>
+
+  <div class="boundary">
+    <h3><span class="bd bd-b">B</span> 需要你确认或补充，我才能继续</h3>
+    <ul>
+      <li><strong>选题参数：</strong>主数据集（PneumoniaMNIST / BreastMNIST）、是否加第二个子数据集、仓库名、是否公开、总时长、本人负责的模块。</li>
+      <li><strong>范围取舍：</strong>是否要 Optuna、Gradio、第二个数据集、剪枝蒸馏 / Grad-CAM 加分项；导师是否要求「先复现官方 baseline 再改进」。</li>
+      <li><strong>交付参数：</strong>验收日期、PPT 页数与口径、许可证选择、是否允许把结果图放进公开仓库。</li>
+      <li><strong>环境事实：</strong>下载是否成功、单组实测耗时、报错全文、conda 环境实际可用版本、是否有 431 机房 GPU 可用。</li>
+      <li><strong>章节映射表：</strong>第 7 表里的章节名称、笔记出处、掌握度——这些是你的学习记录，必须由你填。</li>
+      <li><span class="sub-badge">确认后我可代办（涉及外部动作）</span> 在已连接的 GitHub 账号下创建公开仓库、推送文件、修改 README 徽章、打 tag。此类操作会对外可见，我会先列出将要创建 / 推送的具体内容并等你点头，不会擅自执行。</li>
+    </ul>
+  </div>
+
+  <div class="boundary">
+    <h3><span class="bd bd-c">C</span> 必须由你在本地亲自执行（本人动手 + 本人署名）</h3>
+    <ul>
+      <li>激活 <code>d2l-zh</code> 环境、安装依赖、跑通冒烟测试，并确认 <code>torch</code> 能导入、数据能下载。</li>
+      <li><strong>亲手跑完整训练与调参链路</strong>：基线、单因子扫描、网格搜索、3 seed 复跑、最终 test 评测。培训方案明确「全员必须动手跑通代码、严禁仅以文献调研结题」，这部分不能用代跑代替。</li>
+      <li>观察并记录实验现象：loss 曲线、发散、早停、报错，把失败组也写进 <code>runs.csv</code> 与踩坑清单。</li>
+      <li>填写学习复盘与章节映射表并署名；按 C1–C16 把笔记四件套登记进自学进度表（学习复盘占 20%，看的是你本人的过程记录）。</li>
+      <li>在浏览器里确认 GitHub 链接公开可访问、现场演示代码运行效果、完成 15 分钟汇报与 5 分钟答辩。</li>
+      <li>如需 GPU，自行预约 431 机房；涉及账号登录、授权、验证码的操作由你完成。</li>
+    </ul>
+    <div class="warn" style="margin-bottom:0"><strong>为什么 C 不能代办：</strong>一是培训方案的硬性要求；二是中期验收第三项要「展示代码运行效果」，评委问的是你改了哪个超参、为什么曲线长这样，这些只有亲手跑过才答得出来。我可以把脚本、命令、检查清单准备到「照着敲就能跑」，但跑和署名必须是你。</div>
+  </div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section id="s10">
+  <h2>10 · 最小工作清单（做完即达到中期验收线）</h2>
+  <p class="sec-lead">只保留三件套必需动作，砍掉一切加分项。按此清单做完即可交付；有余量再回头做第 4.3 节的 S2 / S3 与加分章节。</p>
+  <ol class="mini">
+    <li><strong>确认 3 项参数</strong>：主数据集、仓库名、本人负责模块（第 1.1 节填写框）。</li>
+    <li><strong>环境冒烟</strong>：激活 <code>d2l-zh</code> → 补装 4 个包 → 打印数据集长度与样本形状（第 3.1 节三条命令）。</li>
+    <li><strong>建公开仓库并推送第一版</strong>：至少 README + 流程图 SVG + <code>.gitignore</code> + <code>requirements.txt</code>，保证链接当场可访问。</li>
+    <li><strong>跑通一条完整链路</strong>：<code>python run.py --config configs/base.yaml</code>，产出 loss 曲线与一行 <code>runs.csv</code>。</li>
+    <li><strong>做最小调参对比</strong>：至少 8 组配置（优先扫 lr 与 optimizer），产出一张对比表 + 一张敏感性曲线。</li>
+    <li><strong>独立 test 评一次</strong>：最优配置写进 <code>best.yaml</code>，<code>test_final.csv</code> 只留一行，生成 ROC 与混淆矩阵。</li>
+    <li><strong>准备一个能现场跑的演示</strong>：<code>demo.ipynb</code> 单图推理，或一条命令重跑并打印 AUC。</li>
+    <li><strong>填第 7 节章节映射表 + 写三段式学习复盘</strong>，放进 <code>docs/REVIEW.md</code>。</li>
+    <li><strong>PPT 里放同一张流程图 + 三件套证据页</strong>（仓库链接截图、终端运行截图、结果图各一页）。</li>
+  </ol>
+  <div class="good"><strong>砍法：</strong>时间不够就砍 Optuna、Gradio、第二个子数据集、剪枝蒸馏、Grad-CAM；<strong>三件套一件都不能砍</strong>。这 9 项按 14 小时节奏排下来，对应附录 A 的四个阶段。</div>
+  <ul class="ck">
+    <li><input type="checkbox" data-c="s10-1" id="c10a"><label for="c10a">最小清单 9 项已逐项完成（此勾代表整体验收就绪）</label></li>
+  </ul>
+  <p class="ck-count" data-count-for="s10"></p>
+</section>
+
+<!-- ============ A ============ -->
+<section id="sA">
+  <h2>附录 A · 14 小时节奏表</h2>
+  <table class="tbl-sm">
+    <tr><th>阶段</th><th>累计投入</th><th>产出</th><th>对应章节</th></tr>
+    <tr><td>1 立骨架</td><td>0–2 h</td><td>建仓库并推送 README + 流程图占位；冒烟测试；16 张样本网格图</td><td>§1 / §2 / §3</td></tr>
+    <tr><td>2 跑基线</td><td>2–5 h</td><td>MLP 与 SmallCNN 两条基线、统一 config、固定 seed、日志写 CSV、保存 best.pth</td><td>§3 / §4.1</td></tr>
+    <tr><td>3 做调参</td><td>5–10 h</td><td>12–24 组网格搜索 × 3 seed、消融表、超参敏感性曲线、敏感性排序</td><td>§4.2 / §4.3</td></tr>
+    <tr><td>4 收交付</td><td>10–14 h</td><td>独立 test 评测一次；notebook 演示；README、PPT 框图、复盘与章节映射定稿</td><td>§5 / §6 / §7 / §8</td></tr>
+  </table>
+  <div class="warn"><strong>四个兜底：</strong>① 提升不显著 → 改写成超参敏感性分析；② 下载不通 → 手动放 .npz 并在 LOG 记来源；③ CPU 太慢 → 换 BreastMNIST（780 张）或减少 epoch / 组数；④ 时间不够 → 按第 10 节砍加分项。</div>
+</section>
+
+<!-- ============ B ============ -->
+<section id="sB">
+  <h2>附录 B · 命令速查</h2>
+  <pre><code>:: 建议在「Anaconda Prompt」执行
+conda activate d2l-zh
+python -c "import sys, torch; print(sys.version.split()[0], torch.__version__, torch.cuda.is_available())"
+pip install medmnist scikit-learn PyYAML tqdm
+
+:: 数据冒烟
+python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', download=True); print(len(d), d[0][0].shape)"
+
+:: 单配置训练
+python run.py --config configs/base.yaml
+python run.py --config configs/best.yaml
+
+:: 批量搜索 / 评估 / 出图
+python sweep.py --config configs/sweep.yaml
+python evaluate.py --config configs/best.yaml --split test
+python plots.py --results results/runs.csv
+
+:: 归档
+git add . &amp;&amp; git commit -m "exp: add ablation and final results"
+git tag v0.1-midterm &amp;&amp; git push origin v0.1-midterm</code></pre>
+  <p class="small">若只能在 Git Bash 里工作，可直接用 <code>D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe</code> 全路径替代 <code>python</code>，避免 conda 初始化问题。</p>
+</section>
+
+<!-- ============ C ============ -->
+<section id="sC">
+  <h2>附录 C · 参考链接与资料口径</h2>
+  <table class="tbl-sm">
+    <tr><th>用途</th><th>链接 / 文件</th></tr>
+    <tr><td>数据集 API 与下载</td><td><a href="https://github.com/MedMNIST/MedMNIST">github.com/MedMNIST/MedMNIST</a></td></tr>
+    <tr><td>官方 baseline 对照</td><td><a href="https://github.com/MedMNIST/experiments">github.com/MedMNIST/experiments</a></td></tr>
+    <tr><td>各子数据集样本量与任务说明</td><td><a href="https://medmnist.com/">medmnist.com</a></td></tr>
+    <tr><td>课程脚本骨架</td><td><a href="https://github.com/d2l-ai/d2l-zh">github.com/d2l-ai/d2l-zh</a></td></tr>
+    <tr><td>你的理论进度（口径以此为准）</td><td><code>C:\桌面\2026深度学习本校培训文档归档\深度学习笔记\</code>（四件套）</td></tr>
+    <tr><td>你的编号与周次参照</td><td><code>深度学习自学进度表.xlsx</code>（A / B / C / D / E / F 编号；未填状态不代表学习产出）</td></tr>
+    <tr><td>验收硬约束</td><td><code>附件一深度学习培训项目实施方案(1).pdf</code>、<code>附件三 深度学习培训内容与课时安排表.pdf</code></td></tr>
+    <tr><td>选题论证与优先级</td><td><code>中期大作业选题建议.html</code>（同工作区，v2 已按笔记口径更正）</td></tr>
+  </table>
+  <p class="small">外部链接在上轮会话中已核实存在；如遇版本差异，以本机 <code>medmnist</code> 实际 API 为准，不要凭印象改参数。</p>
+</section>
+
+<footer>
+  MedMNIST 医学影像分类调参实验室 · 项目全生命周期教程　｜　单文件离线可用，填写内容保存在本机浏览器<br>
+  数据集仅用于教育与研究，不用于临床。全部结论以 val 选配置、test 一次评测、3 seed 均值 ± 标准差为准。
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var KEY = 'medmnist_lab_tutorial_v1';
+  var state = { f:{}, c:{}, rows:[] };
+  try {
+    var raw = JSON.parse(localStorage.getItem(KEY) || '{}');
+    state.f = raw.f || {}; state.c = raw.c || {}; state.rows = raw.rows || [];
+  } catch(e) { state = { f:{}, c:{}, rows:[] }; }
+
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+  }
+  function restore(){
+    document.querySelectorAll('[data-k]').forEach(function(el){
+      if (Object.prototype.hasOwnProperty.call(state.f, el.dataset.k)) el.value = state.f[el.dataset.k];
+    });
+    document.querySelectorAll('[data-c]').forEach(function(el){
+      if (Object.prototype.hasOwnProperty.call(state.c, el.dataset.c)) el.checked = !!state.c[el.dataset.c];
+    });
+  }
+  function update(){
+    var boxes = Array.prototype.slice.call(document.querySelectorAll('[data-c]'));
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    document.getElementById('progBar').style.width = (boxes.length ? (done/boxes.length*100) : 0) + '%';
+    document.getElementById('progTxt').textContent = done + ' / ' + boxes.length;
+    document.querySelectorAll('[data-count-for]').forEach(function(p){
+      var sec = p.getAttribute('data-count-for');
+      var list = Array.prototype.slice.call(document.querySelectorAll('[data-c^="' + sec + '-"]'));
+      var d = list.filter(function(b){ return b.checked; }).length;
+      p.textContent = '本环节检查清单：' + d + ' / ' + list.length + (d === list.length && list.length ? ' · 已完成' : '');
+    });
+    var names = Array.prototype.slice.call(document.querySelectorAll('#mapBody input.fill')).filter(function(i){
+      return (i.placeholder || '').indexOf('章节名称待填') !== -1;
+    });
+    var filled = names.filter(function(i){ return i.value.trim() !== '' && i.value.indexOf('〈') === -1; }).length;
+    var mp = document.getElementById('mapProgress');
+    if (mp) mp.textContent = filled + ' / ' + names.length + ' 个章节名称已填写';
+  }
+
+  document.addEventListener('input', function(e){
+    var t = e.target;
+    if (t && t.dataset && t.dataset.k !== undefined) { state.f[t.dataset.k] = t.value; save(); update(); }
+  });
+  document.addEventListener('change', function(e){
+    var t = e.target;
+    if (!t || !t.dataset) return;
+    if (t.dataset.k !== undefined) { state.f[t.dataset.k] = t.value; save(); update(); }
+    if (t.dataset.c !== undefined) { state.c[t.dataset.c] = t.checked; save(); update(); }
+  });
+
+  function download(filename, text, type){
+    var blob = new Blob([text], {type: type || 'text/plain;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click();
+    setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+  }
+
+  document.getElementById('btnPrint').addEventListener('click', function(){ window.print(); });
+  document.getElementById('btnExport').addEventListener('click', function(){
+    var payload = {
+      title: 'MedMNIST 医学影像分类调参实验室 · 填写内容',
+      exported_at: new Date().toISOString(),
+      fields: state.f, checklists: state.c
+    };
+    download('medmnist-lab-填写内容.json', JSON.stringify(payload, null, 2), 'application/json;charset=utf-8');
+  });
+  document.getElementById('btnMap').addEventListener('click', function(){
+    var head = '| 项目环节 | 章节编号 | 章节名称 | 笔记出处 | 在本项目中怎么用 | 掌握度 | 我的核对 |\n|---|---|---|---|---|---|---|\n';
+    var rows = [];
+    document.querySelectorAll('#mapBody tr').forEach(function(tr){
+      var cells = Array.prototype.slice.call(tr.children).map(function(td){
+        var field = td.querySelector('input.fill, select.fill');
+        var v = field ? field.value.trim() : td.textContent.replace(/归档参考：.*$/,'').trim();
+        return (v === '' ? '〈待填〉' : v).replace(/\|/g, '\\|').replace(/\n/g, ' ');
+      });
+      rows.push('| ' + cells.join(' | ') + ' |');
+    });
+    download('章节映射表.md', '# 章节映射表（对应已学章节）\n\n' + head + rows.join('\n') + '\n', 'text/markdown;charset=utf-8');
+  });
+
+  function makeRow(prefix, restoring){
+    var tr = document.createElement('tr');
+    tr.className = 'blank-row';
+    var ph = ['〈环节待填〉','〈章节编号待填〉','〈章节名称待填〉','〈待填〉','〈待填〉','','〈待填〉'];
+    for (var i = 0; i < 7; i++) {
+      var td = document.createElement('td');
+      if (i === 5) {
+        var sel = document.createElement('select');
+        sel.className = 'fill'; sel.setAttribute('data-k', prefix + '-' + i);
+        ['〈请选择〉','已打勾','疑问已解，可打勾','需重读','未学'].forEach(function(o, idx){
+          var op = document.createElement('option'); op.value = idx ? o : ''; op.textContent = o; sel.appendChild(op);
+        });
+        td.appendChild(sel);
+      } else {
+        var inp = document.createElement('input');
+        inp.className = 'fill'; inp.setAttribute('data-k', prefix + '-' + i); inp.placeholder = ph[i];
+        td.appendChild(inp);
+      }
+      tr.appendChild(td);
+    }
+    document.getElementById('mapBody').appendChild(tr);
+    if (!restoring) { state.rows.push(prefix); save(); }
+    return tr;
+  }
+  var customNo = 0;
+  document.getElementById('btnAddRow').addEventListener('click', function(){
+    customNo++;
+    makeRow('mx' + Date.now() + '_' + customNo, false);
+    update();
+  });
+
+  document.getElementById('btnClear').addEventListener('click', function(){
+    if (window.confirm('确定清空本页所有填写内容与勾选状态？此操作只影响本机浏览器的保存记录，不会删除任何项目文件。')) {
+      try { localStorage.removeItem(KEY); } catch(e) {}
+      location.reload();
+    }
+  });
+
+  if ('IntersectionObserver' in window) {
+    var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) {
+          links.forEach(function(a){ a.classList.remove('active'); });
+          var active = links.filter(function(a){ return a.getAttribute('href') === '#' + en.target.id; })[0];
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-10% 0px -80% 0px', threshold: 0 });
+    document.querySelectorAll('section[id]').forEach(function(s){ observer.observe(s); });
+  }
+
+  state.rows.forEach(function(p){ makeRow(p, true); });
+  restore(); update();
+})();
+</script>
+</body>
+</html>
