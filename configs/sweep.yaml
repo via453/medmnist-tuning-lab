@@ -1,0 +1,22 @@
+# 单因子扫描配置（完整教程 4.3 的 S1 阶段）
+# 规则：每组只改 base_config 里的一个字段，其余保持完全一致。
+# 复现：python -m src.sweep --config configs/sweep.yaml
+
+base_config: configs/base.yaml
+seeds: [0, 1, 2]
+max_runs: null           # 冒烟时设为 2；正式实验留 null 跑全部
+epochs_override: null    # 冒烟时可设为 1
+out: results/runs.csv
+
+sweep:
+  lr: [0.0001, 0.0003, 0.001, 0.003, 0.01]
+  optimizer: [sgd, adam, adamw]
+  batch_size: [32, 64, 128]
+  weight_decay: [0.0, 0.0001, 0.001]
+  dropout: [0.0, 0.2, 0.4]
+  use_bn: [true, false]
+  augment: [none, flip, flip_rot]
+  class_weight: [none, balanced]
+  scheduler: [none, step, cosine]
+  conv_width: [16, 32, 64]
+  pooling: [light, none]

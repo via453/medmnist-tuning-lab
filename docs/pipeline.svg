@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" width="1000" height="360" role="img" aria-label="MedMNIST 调参实验室项目流程图">
+<title>MedMNIST 医学影像分类调参实验室 · 项目流程框图</title>
+<desc>上排为数据到评估的主训练链路，中排为可复现的调参闭环，底部为中期验收三项交付。</desc>
+<rect x="0" y="0" width="1000" height="360" fill="#ffffff"/>
+<text x="24" y="28" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1f2328">MedMNIST 医学影像分类调参实验室 · 项目流程框图</text>
+<text x="24" y="48" font-family="sans-serif" font-size="12" fill="#6b7480">主线（上）：一次训练与评估　｜　调参环（中）：可复现的搜索闭环　｜　底部：中期验收三项交付</text>
+
+<rect x="24" y="66" width="172" height="66" rx="9" fill="#eaf2ff" stroke="#2f6feb" stroke-width="1.4"/>
+<text x="110" y="90" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0c447c" text-anchor="middle">① 数据层</text>
+<text x="110" y="109" font-family="sans-serif" font-size="11" fill="#2f6feb" text-anchor="middle">medmnist .npz 自动下载</text>
+<text x="110" y="124" font-family="sans-serif" font-size="11" fill="#2f6feb" text-anchor="middle">train / val / test 固定</text>
+
+<rect x="222" y="66" width="172" height="66" rx="9" fill="#eaf2ff" stroke="#2f6feb" stroke-width="1.4"/>
+<text x="308" y="90" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0c447c" text-anchor="middle">② 预处理</text>
+<text x="308" y="109" font-family="sans-serif" font-size="11" fill="#2f6feb" text-anchor="middle">ToTensor / 归一化 / 增强</text>
+<text x="308" y="124" font-family="sans-serif" font-size="11" fill="#2f6feb" text-anchor="middle">类别权重 · seed 固定</text>
+
+<rect x="420" y="66" width="172" height="66" rx="9" fill="#e6f5f2" stroke="#0f7b6c" stroke-width="1.4"/>
+<text x="506" y="90" font-family="sans-serif" font-size="13" font-weight="bold" fill="#085041" text-anchor="middle">③ 基础预测模型</text>
+<text x="506" y="109" font-family="sans-serif" font-size="11" fill="#0f7b6c" text-anchor="middle">MLP → SmallCNN</text>
+<text x="506" y="124" font-family="sans-serif" font-size="11" fill="#0f7b6c" text-anchor="middle">Conv + BN + GAP + FC</text>
+
+<rect x="618" y="66" width="172" height="66" rx="9" fill="#e6f5f2" stroke="#0f7b6c" stroke-width="1.4"/>
+<text x="704" y="90" font-family="sans-serif" font-size="13" font-weight="bold" fill="#085041" text-anchor="middle">④ 训练与验证</text>
+<text x="704" y="109" font-family="sans-serif" font-size="11" fill="#0f7b6c" text-anchor="middle">交叉熵 / 优化器 / 排程</text>
+<text x="704" y="124" font-family="sans-serif" font-size="11" fill="#0f7b6c" text-anchor="middle">早停 + runs.csv 留痕</text>
+
+<rect x="816" y="66" width="160" height="66" rx="9" fill="#f1ecff" stroke="#6941c6" stroke-width="1.4"/>
+<text x="896" y="90" font-family="sans-serif" font-size="13" font-weight="bold" fill="#3c3489" text-anchor="middle">⑤ 评估</text>
+<text x="896" y="109" font-family="sans-serif" font-size="11" fill="#6941c6" text-anchor="middle">AUC / ACC / F1 / ROC</text>
+<text x="896" y="124" font-family="sans-serif" font-size="11" fill="#6941c6" text-anchor="middle">独立 test 只评一次</text>
+
+<g stroke="#2f6feb" stroke-width="1.6" fill="none">
+<path d="M196 99 H220"/><path d="M394 99 H418"/><path d="M592 99 H616"/><path d="M790 99 H814"/>
+</g>
+<g fill="#2f6feb">
+<path d="M220 99 l-7 -4 v8 z"/><path d="M418 99 l-7 -4 v8 z"/><path d="M616 99 l-7 -4 v8 z"/><path d="M814 99 l-7 -4 v8 z"/>
+</g>
+
+<rect x="24" y="160" width="952" height="94" rx="11" fill="#fff8ea" stroke="#e0c48a" stroke-width="1.2"/>
+<text x="40" y="182" font-family="sans-serif" font-size="12" font-weight="bold" fill="#a86400">调参环（可复现搜索闭环；每组配置写进 configs/ 与 results/runs.csv）</text>
+
+<rect x="40" y="192" width="176" height="46" rx="7" fill="#fff4dd" stroke="#a86400" stroke-width="1.1"/>
+<text x="128" y="219" font-family="sans-serif" font-size="11.5" fill="#412402" text-anchor="middle">configs/base.yaml</text>
+<rect x="230" y="192" width="176" height="46" rx="7" fill="#fff4dd" stroke="#a86400" stroke-width="1.1"/>
+<text x="318" y="219" font-family="sans-serif" font-size="11.5" fill="#412402" text-anchor="middle">sweep.py 单因子扫描</text>
+<rect x="420" y="192" width="176" height="46" rx="7" fill="#fff4dd" stroke="#a86400" stroke-width="1.1"/>
+<text x="508" y="219" font-family="sans-serif" font-size="11.5" fill="#412402" text-anchor="middle">消融表 + 敏感性曲线</text>
+<rect x="610" y="192" width="176" height="46" rx="7" fill="#e8f6ec" stroke="#1a7f37" stroke-width="1.1"/>
+<text x="698" y="219" font-family="sans-serif" font-size="11.5" fill="#14532d" text-anchor="middle">best.yaml → test 一次</text>
+<rect x="800" y="192" width="160" height="46" rx="7" fill="#e8f6ec" stroke="#1a7f37" stroke-width="1.1"/>
+<text x="880" y="219" font-family="sans-serif" font-size="11.5" fill="#14532d" text-anchor="middle">plots.py 出图</text>
+
+<g stroke="#a86400" stroke-width="1.5" fill="none">
+<path d="M216 215 H228"/><path d="M406 215 H418"/><path d="M596 215 H608"/><path d="M786 215 H798"/>
+</g>
+<g fill="#a86400">
+<path d="M228 215 l-7 -4 v8 z"/><path d="M418 215 l-7 -4 v8 z"/><path d="M608 215 l-7 -4 v8 z"/><path d="M798 215 l-7 -4 v8 z"/>
+</g>
+
+<path d="M704 132 V150 H318 V160" fill="none" stroke="#0f7b6c" stroke-width="1.3" stroke-dasharray="5 4"/>
+<text x="510" y="150" font-family="sans-serif" font-size="11" fill="#0f7b6c" text-anchor="middle">验证指标回馈 → 下一组配置（严格不碰 test）</text>
+
+<text x="24" y="282" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1f2328">中期验收三项交付</text>
+<rect x="24" y="292" width="304" height="46" rx="7" fill="#eaf2ff" stroke="#2f6feb" stroke-width="1"/>
+<text x="176" y="320" font-family="sans-serif" font-size="11.5" fill="#0c447c" text-anchor="middle">① 流程图 / 框图：本文件 docs/pipeline.svg</text>
+<rect x="340" y="292" width="304" height="46" rx="7" fill="#e6f5f2" stroke="#0f7b6c" stroke-width="1"/>
+<text x="492" y="320" font-family="sans-serif" font-size="11.5" fill="#085041" text-anchor="middle">② GitHub 公开仓库链接（可访问）</text>
+<rect x="656" y="292" width="320" height="46" rx="7" fill="#f1ecff" stroke="#6941c6" stroke-width="1"/>
+<text x="816" y="320" font-family="sans-serif" font-size="11.5" fill="#3c3489" text-anchor="middle">③ 一条命令复跑 + 指标曲线 / 单图推理</text>
+</svg>
