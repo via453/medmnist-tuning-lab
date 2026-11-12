@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedMNIST 医学影像分类调参实验室 · 详细教程与协作边界</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#fff; --ink:#1f2328; --ink2:#4a525e; --ink3:#6b7480;
+    --line:#e3e7ed; --blue:#2f6feb; --blue-bg:#eaf2ff; --teal:#0f7b6c; --teal-bg:#e6f5f2;
+    --amber:#a86400; --amber-bg:#fff4dd; --red:#b42318; --red-bg:#fdecea;
+    --green:#1a7f37; --green-bg:#e8f6ec; --purple:#6941c6; --purple-bg:#f1ecff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.75;
+       font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Segoe UI",sans-serif;
+       -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1160px;margin:0 auto;padding:32px 26px 80px}
+  header{background:linear-gradient(135deg,#fff 0%,#eef4ff 100%);border:1px solid var(--line);border-radius:16px;padding:28px 34px;margin-bottom:20px}
+  h1{margin:0 0 8px;font-size:26px}
+  .sub{margin:0;color:var(--ink2);font-size:14px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:12.5px;color:var(--ink2)}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 22px;margin-bottom:20px;font-size:13.5px}
+  .toc b{display:block;margin-bottom:8px}
+  .toc a{display:inline-block;margin:3px 14px 3px 0;color:var(--blue);text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 30px;margin-bottom:20px}
+  h2{font-size:20px;margin:0 0 14px;padding-bottom:9px;border-bottom:2px solid var(--blue);display:inline-block}
+  h3{font-size:16px;margin:20px 0 8px}
+  h4{font-size:14.5px;margin:14px 0 6px;color:var(--ink2)}
+  p{margin:8px 0}
+  ul,ol{margin:8px 0;padding-left:22px}
+  li{margin:5px 0}
+  table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:13.2px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#f0f4fa;font-weight:600;white-space:nowrap}
+  tbody tr:nth-child(even){background:#fafbfd}
+  code{background:#f2f4f8;border:1px solid #e5e9f0;border-radius:4px;padding:1px 5px;
+       font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:12.6px;color:#243b6b}
+  pre{background:#f7f9fc;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;
+      padding:12px 16px;overflow-x:auto;font-size:12.7px;line-height:1.65;margin:10px 0 14px;
+      font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;color:#243b6b}
+  pre code{background:none;border:none;padding:0;color:inherit}
+  a{color:var(--blue);text-decoration:none;word-break:break-all}
+  a:hover{text-decoration:underline}
+  .tag{display:inline-block;border-radius:5px;padding:1px 8px;font-size:12px;font-weight:600;white-space:nowrap}
+  .t-yes{background:var(--green-bg);color:var(--green)}
+  .t-judge{background:var(--amber-bg);color:var(--amber)}
+  .t-no{background:#f0f2f5;color:var(--ink3)}
+  .t-blue{background:var(--blue-bg);color:var(--blue)}
+  .t-teal{background:var(--teal-bg);color:var(--teal)}
+  .t-purple{background:var(--purple-bg);color:var(--purple)}
+  .callout{border-left:4px solid var(--blue);background:var(--blue-bg);padding:11px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
+  .warn{border-left:4px solid var(--amber);background:var(--amber-bg);padding:11px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
+  .good{border-left:4px solid var(--green);background:var(--green-bg);padding:11px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
+  .danger{border-left:4px solid var(--red);background:var(--red-bg);padding:11px 16px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+  .box{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fcfdff}
+  .box b{display:block;font-size:13.5px;color:var(--blue);margin-bottom:6px}
+  .box ul{margin:0;padding-left:20px}
+  .box li{font-size:13.4px}
+  .small{font-size:12.8px;color:var(--ink3)}
+  .num{display:inline-block;background:var(--ink);color:#fff;border-radius:5px;padding:1px 8px;font-size:12px;margin-right:6px}
+  footer{color:var(--ink3);font-size:12.5px;text-align:center;padding:8px 0 0}
+  @media(max-width:820px){.two{grid-template-columns:1fr}}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}section,header{break-inside:avoid;border:1px solid #ddd}pre{white-space:pre-wrap}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>MedMNIST 医学影像分类调参实验室 · 详细教程与协作边界</h1>
+  <p class="sub">对应选题 B-1　｜　纯 CPU · 40 次固定运行 · 12 个超参 · 三项验收交付　｜　工具集锁定在已提及范围</p>
+  <div class="meta">
+    <span class="chip">日期：2026-11-13</span>
+    <span class="chip">环境：d2l-zh（Python 3.9.25 / torch 2.5.1+cpu / torchvision 0.20.1+cpu）</span>
+    <span class="chip">进度口径：归档\深度学习笔记\</span>
+    <span class="chip">协作边界：第 9、10 节</span>
+  </div>
+</header>
+
+<div class="toc">
+  <b>目录（点击跳转）</b>
+  <a href="#s0">0 技术边界与固定口径</a><a href="#s1">1 实验目标与适用范围</a><a href="#s2">2 数据子集与划分</a>
+  <a href="#s3">3 基线模型与目录结构</a><a href="#s4">4 调参清单与搜索范围</a><a href="#s5">5 指标与基线对照</a>
+  <a href="#s6">6 记录字段与结果对比</a><a href="#s7">7 异常判定依据</a><a href="#s8">8 章节覆盖对照</a>
+  <a href="#s9">9 我可直接产出的交付物</a><a href="#s10">10 必须由你本地执行的事项</a><a href="#s11">11 验收对照与成功判据</a>
+</div>
+
+<section id="s0">
+  <h2>0　技术边界与固定口径</h2>
+  <p>本节先锁死工具集，后续所有章节都不得越界。<strong>「已提及」的判定依据</strong>：选题建议报告 v2、归档中的进度表 / 笔记 / 培训方案，以及本机 <code>d2l-zh</code> 环境的实测结果。</p>
+
+  <div class="two">
+    <div class="box"><b>A. 允许使用（全部已提及且已实测）</b><ul>
+      <li>Python 3.9.25（<code>D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe</code>）</li>
+      <li>torch 2.5.1+cpu、torchvision 0.20.1+cpu（含 <code>transforms</code> 与 <code>datasets.utils.download_url</code>）</li>
+      <li>numpy 1.21.5、pandas 1.2.4、matplotlib 3.5.1、Pillow 11.3.0、Jupyter 1.0.0</li>
+      <li>d2l 0.17.6：仅作课程脚本对照，本项目代码<strong>不 import d2l</strong></li>
+      <li>medmnist：<strong>唯一新增 pip 包</strong>，用于取数与官方划分</li>
+      <li>Python 标准库：json / csv / argparse / random / datetime / pathlib / os / itertools</li>
+      <li>Git、GitHub、浏览器预览、本工作区的 HTML/SVG 文件</li>
+    </ul></div>
+    <div class="box"><b>B. 明确排除（不引入、不安装、不 import）</b><ul>
+      <li>Optuna、Gradio、Streamlit、W&amp;B、TensorBoard</li>
+      <li>MONAI、timm、albumentations、segmentation_models</li>
+      <li>scikit-learn 的主动调用、scipy、medmnist.Evaluator</li>
+      <li>PyYAML / Hydra / OmegaConf、tqdm、MLflow、Docker</li>
+      <li>Kaggle API、431 机房 GPU、任何预训练权重与微调</li>
+      <li>任何新数据集、3D 子集、多标签子集、语义分割 / 检测 / RNN / Transformer</li>
+    </ul></div>
+  </div>
+
+  <div class="warn"><strong>关于 medmnist 的传递依赖（固定说明）：</strong>官方 <code>requirements.txt</code> 声明 numpy、pandas、scikit-learn、scikit-image、tqdm、Pillow、fire、torch、torchvision，因此 <code>pip install medmnist</code> 会把其中未装的包一并带上。这些属于该包的传递依赖，<strong>本项目代码不 import 它们、不调用 <code>medmnist.Evaluator</code></strong>；AUC / ROC / 混淆矩阵全部用 numpy + pandas 自行实现（见第 5 节）。</div>
+
+  <h3>0.1　两处实现层调整（相对选题建议报告 v2，理由固定且唯一）</h3>
+  <ol>
+    <li><strong>配置格式：<code>config.yaml</code> → <code>configs/*.json</code>。</strong>实测 <code>d2l-zh</code> 未装 PyYAML；YAML 需要新增依赖，JSON 用标准库 <code>json</code> 直接读。这是唯一的文件格式调整，字段内容不变。</li>
+    <li><strong>报告里的「可选 Optuna / 可选 Gradio」本教程明确不启用。</strong>调参用自写的确定性网格循环（第 4 节），演示用 <code>notebooks/demo.ipynb</code> + matplotlib 静态图（第 5 节）。理由：二者都未在环境中安装，且属于额外工具。</li>
+  </ol>
+
+  <h3>0.2　固定口径（全文不再重复解释，也不写「视情况而定」）</h3>
+  <ol>
+    <li>设备固定 <code>cpu</code>；<code>num_workers=0</code>（Windows 下不启用多进程）。</li>
+    <li>随机种子固定 <code>{42, 43, 44}</code>；单因子扫描只用 42。</li>
+    <li>训练轮数固定 20 epoch；早停监控 val AUC、patience=5、保留 best 权重再评 test。</li>
+    <li>test 集<strong>只允许在 S3 阶段的 3 个配置 × 3 seed 上评测一次</strong>；S0/S1/S2/S4/S5 一律不写 <code>test_*</code> 字段。</li>
+    <li>唯一允许的范围调整：若冒烟测试实测单 epoch &gt; 15 秒，则<strong>全 40 组统一把 epochs 改为 10</strong>，并在 <code>runs.csv</code> 写 <code>epochs_override=10</code>；禁止只改部分组。</li>
+    <li>数值统一保留 4 位小数；所有失败组保留日志、不删除、不重跑覆盖、不替换数值。</li>
+  </ol>
+</section>
+
+<section id="s1">
+  <h2>1　实验目标与适用范围</h2>
+  <h3>1.1　实验目标（三条，均可验收）</h3>
+  <ol>
+    <li><strong>链路目标</strong>：在纯 CPU、14 小时预算内跑通「数据加载 → 预处理 → 基础模型 → 训练 → 验证 → 调参环 → 独立测试 → 单图推理」完整链路，产出项目流程图、可访问的 GitHub 链接、现场可复跑的运行效果（对应中期验收三项）。</li>
+    <li><strong>方法目标</strong>：量化 12 个超参数对 PneumoniaMNIST 二分类精度的影响，给出敏感性排序、消融表、超参交互检查，并明确「哪些做法有效 / 无效 / 不显著」。</li>
+    <li><strong>学习目标</strong>：把笔记中 C1 / C2 / C3 / C13 / C14 / C16 的结论从「能讲清」推进到「能改对、能跑出曲线」，补齐笔记结尾写的「还差跑」。</li>
+  </ol>
+
+  <h3>1.2　适用范围（明确列出，不做模糊留白）</h3>
+  <div class="two">
+    <div class="box"><b>适用</b><ul>
+      <li>教学与方法验证；CPU 单机；28×28 灰度、单标签二分类</li>
+      <li>MedMNIST 官方 train/val/test 划分；12 个超参的单因子扫描 + 有限组合</li>
+      <li>基础模型：常数预测器 / 线性 Softmax / MLP / 自建 SmallCNN</li>
+      <li>数据集：仅 PneumoniaMNIST（主）与 BreastMNIST（泛化检查）两个 2D 子集</li>
+      <li>结论形式：超参敏感性、显著性判据、消融对比、异常归因</li>
+    </ul></div>
+    <div class="box"><b>不适用（硬边界）</b><ul>
+      <li>临床诊断或任何临床结论——MedMNIST 官方明确声明 <code>NOT intended for clinical use</code></li>
+      <li>追求 SOTA、刷榜、与其他论文比绝对精度</li>
+      <li>跨设备 / 跨中心泛化结论； BreastMNIST 只作偏移检查，不作域适应</li>
+      <li>64 / 128 / 224 尺寸、3D 子集、多标签 / 序数回归子集</li>
+      <li>语义分割、目标检测、RNN、注意力、Transformer、GAN、强化学习、元学习</li>
+      <li>预训练 / 微调、知识蒸馏、分布式训练、GPU 训练</li>
+      <li>类别不平衡的完整处理：只保留 <code>class_weight</code> 一个开关</li>
+    </ul></div>
+  </div>
+
+  <div class="good"><strong>成功判据（四条，全部为硬性条件）：</strong>① 40 次运行全部留档且 <code>runs.csv</code> 行数 = 40；② B0-3 / combo_top1 / 单因子最优三个配置各完成 3 个 seed；③ test 指标只出现在 S3 阶段；④ 六张结果图 + <code>runs.csv</code> + README + 流程图 + 公开可访问的 GitHub 链接齐备。</div>
+</section>
+
+<section id="s2">
+  <h2>2　所选 MedMNIST 数据子集及训练 / 验证 / 测试划分</h2>
+  <p>划分数据取自 MedMNIST 官方 <code>medmnist/info.py</code>（已核实），并通过 <code>MedMNIST.__len__</code> 内的 <code>assert</code> 自动校验，本地不重新划分、不打乱、不合并。</p>
+  <table>
+    <tr><th>用途</th><th>子集</th><th>任务 / 标签</th><th>train</th><th>val</th><th>test</th><th>合计</th><th>规格</th><th>许可</th></tr>
+    <tr><td><strong>主实验</strong></td><td><code>PneumoniaMNIST</code></td><td>二分类：0=normal，1=pneumonia</td><td>4,708</td><td>524</td><td>624</td><td>5,856</td><td rowspan="2">1×28×28 灰度，PIL Image；标签 shape (1,)</td><td>CC BY 4.0</td></tr>
+    <tr><td><strong>泛化检查（S4）</strong></td><td><code>BreastMNIST</code></td><td>二分类：0=malignant，1=normal+benign</td><td>546</td><td>78</td><td>156</td><td>780</td><td>CC BY 4.0</td></tr>
+  </table>
+
+  <h3>2.1　三个 split 的职责（固定，不可互换）</h3>
+  <ol>
+    <li><strong>train</strong>：只用于梯度更新。类别比例由本地 <code>np.bincount</code> 计算后写入 <code>data/dataset_stats.json</code>；<code>class_weight=balanced</code> 时用 <code>w_neg = N/(2·n_neg)</code>、<code>w_pos = N/(2·n_pos)</code>，不硬编码任何比例数值。</li>
+    <li><strong>val</strong>：只用于超参选择、早停、best epoch 判定。单因子扫描的排序指标是 <code>val_auc</code>。</li>
+    <li><strong>test</strong>：只在 S3 阶段对 3 个配置 × 3 seed 评测一次，输出 <code>test_acc / test_auc / test_f1 / 混淆矩阵</code>。任何在 test 上做选择的行为都触发异常 <code>test_leak</code>（第 7 节 #4），整批作废。</li>
+  </ol>
+
+  <h3>2.2　数据加载与校验（固定代码，只用已允许工具）</h3>
+  <pre><code>from medmnist import PneumoniaMNIST, BreastMNIST
+import numpy as np, json, torchvision.transforms as T
+
+train_tf = T.Compose([T.ToTensor()])                       # val / test 共用，不含随机增广
+def get_loaders(name, cfg, root=r"C:\Users\Zelvia\.medmnist"):
+    CLS = PneumoniaMNIST if name == "pneumoniamnist" else BreastMNIST
+    tf_train = T.Compose(cfg["augment_ops"] + [T.ToTensor()])   # 增广只作用于 train
+    ds = {s: CLS(split=s, transform=(tf_train if s == "train" else train_tf),
+                 download=True, root=root) for s in ("train", "val", "test")}
+    for s in ("train", "val", "test"):
+        assert ds[s].imgs.shape[1:] == (28, 28), "data_shape_error"
+        assert ds[s].labels.shape[1:] == (1,), "data_shape_error"
+    counts = {s: len(ds[s]) for s in ds}
+    stats = {"counts": counts,
+             "pos_ratio_train": float((ds["train"].labels == 1).mean())}
+    json.dump(stats, open("data/dataset_stats.json", "w"), indent=2)
+    return ds, stats</code></pre>
+  <p class="small">说明：<code>download=True</code> 首次会把 <code>.npz</code> 放到 <code>~/.medmnist</code>（MedMNIST 默认 root），通过 torchvision 的 <code>download_url</code> 完成；文件已存在时不重复下载。校验不通过即抛 <code>data_shape_error</code> 并停止，不进入训练。</p>
+
+  <div class="callout"><strong>与笔记的连接：</strong>C1 自测第三题「用训练集调参是看答案，换一个新数据就不会了」在这里落成硬规则——val 调参、test 只评一次；C11 的「协变量偏移」在 S4 里换成第二个子集做泛化检查，但不实现 DANN / MMD。</div>
+</section>
+
+<section id="s3">
+  <h2>3　基线模型与目录结构</h2>
+  <h3>3.1　四级基线阶梯（第 5 节对照用）</h3>
+  <table>
+    <tr><th>编号</th><th>模型</th><th>参数量</th><th>对应课程编号</th><th>作用</th></tr>
+    <tr><td>B0-0</td><td>常数预测器：永远输出 train 多数类</td><td>0</td><td>C1</td><td>性能下限，AUC 固定 0.5</td></tr>
+    <tr><td>B0-1</td><td>线性 Softmax：784 → 2</td><td>1,570</td><td>D08 / D09</td><td>验证「不用卷积能到哪」</td></tr>
+    <tr><td>B0-2</td><td>MLP：784 → 128 → 2，ReLU</td><td>100,546</td><td>D10</td><td>验证「非线性但无局部性」</td></tr>
+    <tr><td><strong>B0-3</strong></td><td><strong>SmallCNN（w=16，BN 开）</strong></td><td><strong>23,650</strong></td><td>C3 / D19–D23 / D28</td><td><strong>主基线，所有 Δ 都相对它计算</strong></td></tr>
+  </table>
+
+  <h3>3.2　SmallCNN 定义与输出尺寸手算</h3>
+  <pre><code>import torch.nn as nn
+
+def build_smallcnn(width=16, bn=True, activation="relu", dropout=0.0):
+    act = nn.ReLU if activation == "relu" else lambda: nn.LeakyReLU(0.01)
+    def block(cin, cout):
+        L = [nn.Conv2d(cin, cout, 3, padding=1)]
+        if bn: L.append(nn.BatchNorm2d(cout))
+        L.append(act())
+        return L
+    layers = block(1, width) + block(width, 2*width) + [nn.MaxPool2d(2)] \
+             + block(2*width, 4*width) + [nn.AdaptiveAvgPool2d(1), nn.Flatten()]
+    if dropout &gt; 0: layers.append(nn.Dropout(dropout))
+    layers.append(nn.Linear(4*width, 2))
+    return nn.Sequential(*layers)</code></pre>
+  <ul>
+    <li>按 C3 公式 <code>(H−K+2P)/S+1</code>：3×3、padding=1、stride=1 → 28→28；<code>MaxPool2d(2)</code> → 14；<code>AdaptiveAvgPool2d(1)</code> → 1×1×4w → 全连接 2 个 logits。实测前向输出 <code>(N, 2)</code>。</li>
+    <li><strong>只放一个 2×2 池化</strong>：依据笔记 C3 订正版「太小的目标（医学影像的微小结节）会在池化中丢失」，28×28 输入不堆叠下采样。</li>
+    <li>参数量公式（已用本机 torch 核算）：<code>P = 10w + 18w² + 2w + 72w² + 4w + 8w + 2 + (bn ? 14w : 0)</code>；w=16 / BN 开 = <strong>23,650</strong>，w=8 / BN 开 = 6,066，w=32 / BN 开 = 93,378。</li>
+    <li>BN 对应 D28 与 C2；<code>model.train()</code> / <code>model.eval()</code> 切换错误列入第 7 节 #7（C16 笔记里的三个「课上这样说、代码里那样写」之一）。</li>
+  </ul>
+
+  <h3>3.3　五步训练循环（A3 的「梯度清零 / 反向传播 / 更新」口诀）</h3>
+  <pre><code>for x, y in loader:                       # y shape (N,1) → squeeze 成 (N,)
+    opt.zero_grad()                       # ① 梯度清零
+    logits = model(x)                     # ② 前向
+    loss = criterion(logits, y.squeeze().long())
+    loss.backward()                       # ③ 反向传播（D07 自动求导）
+    opt.step()                            # ④ 更新
+    # ⑤ 记录：train_loss 追加到本 run 的逐 epoch 数组</code></pre>
+
+  <h3>3.4　仓库目录结构（对应进度表 A2 的 notes/ scripts/ data/ outputs/ 约定）</h3>
+  <pre><code>medmnist-tuning-lab/
+├── README.md                  # 环境、一键复现命令、三项交付说明、数据许可
+├── LICENSE                    # MIT
+├── .gitignore                 # 排除 data/*.npz、*.pth、__pycache__
+├── requirements.txt           # 仅列 medmnist（其余为已装环境自带）
+├── run.py                     # 一键入口：python run.py --config configs/best.json
+├── docs/pipeline.svg          # 项目流程图（与 PPT 同一张）
+├── docs/REPORT.md             # 结论模板（数值由本地回填）
+├── configs/*.json             # 40 组配置，一组一文件
+├── src/{data,model,metrics,train,search,plots,demo}.py
+├── notebooks/demo.ipynb       # 单图推理 + 结果图展示
+├── data/dataset_stats.json    # 本地生成的划分与类别比例
+├── results/runs.csv           # 一行一组，40 行
+├── results/&lt;run_id&gt;.json      # 逐 epoch 曲线
+├── figures/*.png              # 六张固定结果图
+└── notes/踩坑清单.md           # 本地真实报错与处置</code></pre>
+</section>
+
+<section id="s4">
+  <h2>4　纳入调参的超参数清单与取值 / 搜索范围</h2>
+  <h3>4.1　固定基线配置 B0-3（所有单因子实验的默认取值，带 * 号）</h3>
+  <pre><code>{
+  "run_id": "S0_B03_seed42", "stage": "S0", "dataset": "pneumoniamnist",
+  "model": "smallcnn", "width": 16, "bn": true, "activation": "relu", "dropout": 0.0,
+  "lr": 0.001, "optimizer": "adam", "momentum": 0.9, "batch_size": 64,
+  "epochs": 20, "weight_decay": 0.0, "scheduler": "none",
+  "augment": "none", "label_smoothing": 0.0, "class_weight": "none",
+  "early_stop_patience": 5, "loss_fn": "cross_entropy", "seed": 42,
+  "device": "cpu", "num_workers": 0
+}</code></pre>
+
+  <h3>4.2　12 个超参的固定取值集合</h3>
+  <table>
+    <tr><th>#</th><th>超参</th><th>取值集合（<code>*</code> = 默认）</th><th>新增组数</th><th>依据章节</th></tr>
+    <tr><td>1</td><td>learning rate</td><td>{1e-4, 3e-4, <strong>1e-3*</strong>, 3e-3, 1e-2}</td><td>4</td><td>C2 / D12 / D72</td></tr>
+    <tr><td>2</td><td>optimizer</td><td>{sgd_mom0.9, <strong>adam*</strong>, adamw}</td><td>2</td><td>C2 动量与自适应学习率 / D72</td></tr>
+    <tr><td>3</td><td>batch_size</td><td>{32, <strong>64*</strong>, 128}</td><td>2</td><td>C2 批量 / D09</td></tr>
+    <tr><td>4</td><td>weight_decay</td><td>{<strong>0*</strong>, 1e-4, 1e-3}</td><td>2</td><td>D12 权重衰退 / C1 正则化</td></tr>
+    <tr><td>5</td><td>dropout</td><td>{<strong>0*</strong>, 0.2, 0.5}</td><td>2</td><td>D13 丢弃法</td></tr>
+    <tr><td>6</td><td>bn</td><td>{<strong>on*</strong>, off}</td><td>1</td><td>C2 / D28 / C16</td></tr>
+    <tr><td>7</td><td>activation</td><td>{<strong>relu*</strong>, leaky_relu_0.01}</td><td>1</td><td>D14 初始化与激活函数</td></tr>
+    <tr><td>8</td><td>width（卷积通道基数）</td><td>{8, <strong>16*</strong>, 32}</td><td>2</td><td>C3 参数量 / D21 多通道</td></tr>
+    <tr><td>9</td><td>scheduler</td><td>{<strong>none*</strong>, step5_gamma0.5, cosine_T20}</td><td>2</td><td>C2 自适应学习率 / D72</td></tr>
+    <tr><td>10</td><td>augment（仅 train）</td><td>{<strong>none*</strong>, hflip, hflip+rot10}</td><td>2</td><td>D36 数据增广 / C1 加数据</td></tr>
+    <tr><td>11</td><td>label_smoothing</td><td>{<strong>0*</strong>, 0.1}</td><td>1</td><td>C2 损失函数 / D09</td></tr>
+    <tr><td>12</td><td>class_weight</td><td>{<strong>none*</strong>, balanced}</td><td>1</td><td>C1 训练 / 测试差距 / 类别不平衡</td></tr>
+    <tr><td colspan="3"><strong>合计新增单因子组数</strong></td><td><strong>22</strong></td><td>默认取值复用 S0 的 B0-3，不重复训练</td></tr>
+  </table>
+  <p class="small">实现映射：<code>step5_gamma0.5</code> = <code>StepLR(step_size=5, gamma=0.5)</code>；<code>cosine_T20</code> = <code>CosineAnnealingLR(T_max=20)</code>；<code>hflip</code> = <code>RandomHorizontalFlip()</code>；<code>hflip+rot10</code> = <code>RandomHorizontalFlip() + RandomRotation(10)</code>；<code>label_smoothing</code> 与 <code>class_weight</code> 均通过 <code>nn.CrossEntropyLoss</code> 的参数传入（本机已验证可用）。</p>
+
+  <h3>4.3　六个阶段与 40 次固定运行</h3>
+  <table>
+    <tr><th>阶段</th><th>内容</th><th>运行次数</th><th>seed</th><th>是否写 test</th></tr>
+    <tr><td>S0</td><td>基线阶梯 B0-0 / B0-1 / B0-2 / B0-3</td><td>4</td><td>42</td><td>否</td></tr>
+    <tr><td>S1</td><td>12 个因子的单因子扫描（只跑非默认取值）</td><td>22</td><td>42</td><td>否</td></tr>
+    <tr><td>S2</td><td>组合与交互：<code>combo_top1</code> 1 组 + lr{3e-4,3e-3} × optimizer{adam,sgd} 的 2×2 = 4 组</td><td>5</td><td>42</td><td>否</td></tr>
+    <tr><td>S3</td><td>三 seed 复跑：B0-3 / combo_top1 / S1 最优组，各补 43、44</td><td>6</td><td>43 / 44</td><td><strong>是（唯一一次）</strong></td></tr>
+    <tr><td>S4</td><td>跨子集泛化：上述 3 个配置在 BreastMNIST 各跑 1 次</td><td>3</td><td>42</td><td>否（仅记 val）</td></tr>
+    <tr><td>S5</td><td>附加检查：剪枝 / FGSM 扰动 / 显著性图，各 1 次，不参与排序</td><td>3（检查项）</td><td>42</td><td>否</td></tr>
+    <tr><td colspan="2"><strong>合计</strong></td><td colspan="3"><strong>37 次训练 + 3 次检查 = 40 行 runs.csv</strong></td></tr>
+  </table>
+  <div class="callout"><strong>搜索方式固定：</strong>不用贝叶斯 / 随机搜索。<code>combo_top1</code> = 取 S1 中每个因子 <code>val_auc</code> 最高的取值拼成一组；若并列取取值集合中最左者。S2 的 2×2 交互检查固定 lr × optimizer，不做全因子笛卡尔积。</div>
+
+  <h3>4.4　确定性网格循环（源码片段，无第三方调参库）</h3>
+  <pre><code>import json, csv, itertools, pathlib
+FACTORS = {
+ "lr":[1e-4,3e-4,1e-3,3e-3,1e-2], "optimizer":["sgd_mom0.9","adam","adamw"],
+ "batch_size":[32,64,128], "weight_decay":[0,1e-4,1e-3], "dropout":[0,0.2,0.5],
+ "bn":[True,False], "activation":["relu","leaky_relu_0.01"], "width":[8,16,32],
+ "scheduler":["none","step5_gamma0.5","cosine_T20"],
+ "augment":["none","hflip","hflip+rot10"], "label_smoothing":[0,0.1],
+ "class_weight":["none","balanced"]}
+BASE = json.load(open("configs/S0_B03_seed42.json"))
+for factor, values in FACTORS.items():
+    for v in values:
+        if v == BASE[factor]: continue        # 默认取值复用 S0，不重复训练
+        cfg = dict(BASE, **{factor:v, "stage":"S1", "factor":factor,
+                            "run_id":f"S1_{factor}_{v}_seed42"})
+        json.dump(cfg, open(f"configs/{cfg['run_id']}.json","w"), indent=2)
+        # train_one(cfg) → 追加一行到 results/runs.csv</code></pre>
+  <p class="small">机时约束：单组固定 20 epoch；PneumoniaMNIST 每 epoch 74 个 batch。若 S0 冒烟测试实测单 epoch &gt; 15 秒，按第 0.2 节第 5 条<strong>全组统一降到 10 epoch</strong>。</p>
+</section>
+
+<section id="s5">
+  <h2>5　评价指标与基线对照方案</h2>
+  <h3>5.1　指标定义（全部用 numpy + pandas 实现，不调用 sklearn）</h3>
+  <table>
+    <tr><th>指标</th><th>定义 / 实现</th><th>用途</th></tr>
+    <tr><td><strong>AUC（主排序）</strong></td><td>正类得分的平均秩和：<code>AUC = (Σrank(y=1) − n_pos(n_pos+1)/2) / (n_pos·n_neg)</code>，并列得分用 <code>pandas.Series.rank(method="average")</code></td><td>单因子排序、显著性判定、Δ 计算</td></tr>
+    <tr><td>ACC</td><td><code>(TP+TN)/N</code>，阈值固定 0.5</td><td>直观对照；不平衡时不得单独作结论</td></tr>
+    <tr><td>F1（正类）</td><td><code>2·TP / (2·TP + FP + FN)</code>，阈值固定 0.5</td><td>识别「ACC 虚高」</td></tr>
+    <tr><td>混淆矩阵</td><td><code>TP / FP / FN / TN</code> 四个整数</td><td>误差类型分析</td></tr>
+    <tr><td>loss 曲线</td><td>逐 epoch 的 <code>train_loss</code> 与 <code>val_loss</code></td><td>过拟合 / 欠拟合判定（第 7 节 #2 #3）</td></tr>
+    <tr><td>ROC 曲线</td><td>对 <code>np.unique(scores)</code> 降序扫阈值算 TPR / FPR，matplotlib 作图</td><td>三配置叠加对比</td></tr>
+    <tr><td>辅助量</td><td><code>params_total</code>、<code>epoch_seconds</code>、<code>total_seconds</code></td><td>成本对照与异常判定</td></tr>
+  </table>
+  <pre><code>import numpy as np, pandas as pd
+def auc_rank(scores, y):
+    r = pd.Series(np.asarray(scores)).rank(method="average").values
+    npos, nneg = int((y==1).sum()), int((y==0).sum())
+    return float((r[y==1].sum() - npos*(npos+1)/2) / (npos*nneg))
+# scores = torch.softmax(logits, dim=1)[:,1]；y = 0/1 标签；本机已验证该实现返回正确值</code></pre>
+
+  <h3>5.2　四级基线对照与 Δ 的定义</h3>
+  <ol>
+    <li>B0-0 常数预测器：<code>AUC = 0.5</code>；<code>ACC = train 多数类在 test 中的占比</code>。作为下限，不参与 Δ。</li>
+    <li>B0-1 / B0-2：只报告绝对值，用来说明「卷积的局部性假设带来多少收益」（C3 三假设）。</li>
+    <li><strong>B0-3 是唯一对照基准</strong>：<code>Δtest_auc = test_auc(config) − mean(test_auc(B0-3, 3 seeds))</code>。</li>
+    <li>S1 / S2 的排序一律用 <code>val_auc</code>；最终结论只用 S3 的 <code>test_auc</code>。</li>
+  </ol>
+
+  <h3>5.3　显著性判据（固定阈值，不留判断空间）</h3>
+  <div class="danger"><strong>提升有效 ⟺ <code>Δtest_auc ≥ 2 × std(test_auc(B0-3 的三个 seed))</code>。</strong>不满足即为 <code>not_significant</code>，写入 <code>anomaly_flags</code>，结论改写为「该超参不敏感」而不是「有提升」。所有数值保留 4 位小数，三 seed 结果一律报 <code>mean ± std</code>。</div>
+
+  <h3>5.4　固定输出的六张对比图（文件名写死）</h3>
+  <table>
+    <tr><th>文件</th><th>内容</th><th>对照方式</th></tr>
+    <tr><td><code>figures/01_loss_curves.png</code></td><td>B0-3 的 train/val loss 与 val AUC 三条曲线</td><td>单组内纵向对照，标注 best_epoch</td></tr>
+    <tr><td><code>figures/02_single_factor_bar.png</code></td><td>12 个因子各取值的 val AUC 柱状图</td><td>横向对照，虚线为 B0-3 基线</td></tr>
+    <tr><td><code>figures/03_lr_sensitivity.png</code></td><td>lr 对数轴上的 val AUC 曲线</td><td>敏感性排序主图</td></tr>
+    <tr><td><code>figures/04_seed_errorbar.png</code></td><td>3 配置 × 3 seed 的 test AUC 误差棒</td><td>mean ± std，叠加 2×std 阈值线</td></tr>
+    <tr><td><code>figures/05_roc_overlay.png</code></td><td>3 配置 ROC 叠加</td><td>同一坐标系，标注各自 AUC</td></tr>
+    <tr><td><code>figures/06_confusion_pair.png</code></td><td>B0-3 与 combo_top1 的混淆矩阵并排</td><td>四格整数 + ACC/F1</td></tr>
+  </table>
+  <p>另产出 <code>results/ablation.csv</code>：一行一因子，列出「默认值 / 最优值 / val_auc / Δval_auc / 是否显著 / 排名」。</p>
+</section>
+
+<section id="s6">
+  <h2>6　每组实验的记录字段与结果对比方式</h2>
+  <h3>6.1　固定记录 schema（<code>results/runs.csv</code> 一行一组，共 40 行）</h3>
+  <table>
+    <tr><th>字段组</th><th>字段名（全部必填）</th><th>类型 / 来源</th></tr>
+    <tr><td>① 标识</td><td><code>run_id, stage, factor, value, seed, dataset, config_file, git_commit, timestamp</code></td><td>字符串 / 整数 / ISO 时间；<code>git_commit</code> 取本地 <code>git rev-parse --short HEAD</code></td></tr>
+    <tr><td>② 配置</td><td><code>model, width, params_total, lr, optimizer, momentum, batch_size, epochs, epochs_override, weight_decay, dropout, bn, activation, scheduler, augment, label_smoothing, class_weight, early_stop_patience, loss_fn, device, num_workers</code></td><td>由 <code>configs/*.json</code> 原样抄入；<code>params_total</code> 由 <code>sum(p.numel())</code> 计算</td></tr>
+    <tr><td>③ 数据</td><td><code>n_train, n_val, n_test, pos_ratio_train, split_source, image_size, n_channels</code></td><td>来自 <code>data/dataset_stats.json</code>；<code>split_source="official"</code></td></tr>
+    <tr><td>④ 过程</td><td><code>train_loss[], val_loss[], val_acc[], val_auc[], best_epoch, stop_reason, epoch_seconds, total_seconds</code></td><td>四个数组存于 <code>results/&lt;run_id&gt;.json</code>；CSV 内只存该 JSON 的相对路径</td></tr>
+    <tr><td>⑤ 结果</td><td><code>test_acc, test_auc, test_f1, tp, fp, fn, tn, delta_test_auc, significant</code></td><td>非 S3 阶段这 9 列一律留空；<code>significant</code> 为 true/false</td></tr>
+    <tr><td>⑥ 异常</td><td><code>anomaly_flags, notes</code></td><td>逗号分隔的枚举值（第 7 节）；无异常写 <code>none</code></td></tr>
+    <tr><td>⑦ 环境</td><td><code>python_version, torch_version, medmnist_version, cuda_available</code></td><td>本机实测：3.9.25 / 2.5.1+cpu / 安装后回填 / false</td></tr>
+  </table>
+
+  <h3>6.2　对比方式（按固定顺序执行，不合并步骤）</h3>
+  <ol>
+    <li><strong>主表</strong>：<code>results/runs.csv</code> 按 <code>stage → factor → value</code> 排序；<code>results/ablation.csv</code> 按 <code>Δval_auc</code> 降序给出敏感性排名。</li>
+    <li><strong>单因子对照</strong>：每个因子的每个取值与 B0-3 的默认取值并排，只在 <code>val_auc</code> 上比较；一次只动一个因子，禁止同时改两项。</li>
+    <li><strong>组合对照</strong>：<code>combo_top1</code> 与「单因子最优组」「B0-3」三者并排，检查单因子最优叠加后是否仍优于 B0-3；若不是，记为「超参交互抵消」并写入 REPORT.md。</li>
+    <li><strong>稳定性对照</strong>：3 配置 × 3 seed 的 <code>mean ± std</code> 与 2×std 阈值线对照（第 5.3 节）。</li>
+    <li><strong>跨子集对照</strong>：S4 的 BreastMNIST <code>val_auc</code> 与主实验 <code>val_auc</code> 对比，固定阈值见第 7 节 #11。</li>
+    <li><strong>失败组处理</strong>：失败组在 CSV 中保留完整行、<code>anomaly_flags</code> 标明原因、结果列留空，并从敏感性排名中排除；<strong>不删除、不重跑覆盖、不填估计值</strong>（依据 C13「所有任务都要测一遍，不能只测最后一次」）。</li>
+  </ol>
+
+  <div class="callout"><strong>与进度表的连接：</strong>这套字段就是 F1「每讲一页：要点 / 公式 / 代码 / 疑问」在工程里的版本；<code>configs/</code> + <code>results/</code> + <code>notes/踩坑清单.md</code> 可直接作为 20% 学习复盘的过程证据，也满足进度表《使用说明》「每个编号都要有笔记」。</div>
+</section>
+
+<section id="s7">
+  <h2>7　常见异常情形的判定依据</h2>
+  <p>每条都给出<strong>固定阈值 + 写入字段 + 固定处置动作</strong>。<code>anomaly_flags</code> 只允许使用下表的枚举值，多个值用逗号分隔，无异常写 <code>none</code>。</p>
+  <table>
+    <tr><th>#</th><th>异常枚举</th><th>判定依据（固定阈值）</th><th>处置动作</th><th>依据章节</th></tr>
+    <tr><td>1</td><td><code>diverged</code></td><td>任一 <code>train_loss</code> 为 NaN/Inf；或前 3 个 epoch 的 train_loss 相对第 1 个 epoch 未下降 ≥1%</td><td>标记失败、保留日志、结果列留空；若 lr=3e-3 与 1e-2 两组都触发，就把这两个取值从搜索空间移除并在 REPORT.md 写明，其余组不变</td><td>C2 鞍点 / D14 数值稳定性</td></tr>
+    <tr><td>2</td><td><code>overfit</code></td><td><code>train_acc(best) − val_acc(best) ≥ 0.10</code>，或 val_loss 连续 3 个 epoch 上升</td><td>触发早停，记录 <code>best_epoch</code> 与 <code>stop_reason="early_stop"</code>；该组结果仍保留</td><td>C1 / D11 过拟合</td></tr>
+    <tr><td>3</td><td><code>underfit</code></td><td>第 20 epoch 的 <code>train_loss &gt; 0.6 ×</code> 第 1 epoch 的 train_loss</td><td>标记 underfit；在 REPORT.md 归因到 lr 过小或 width=8，不改配置、不补训</td><td>C1 训练损失大 / D11 欠拟合</td></tr>
+    <tr><td>4</td><td><code>test_leak</code></td><td>S0/S1/S2/S4/S5 任一行出现非空 <code>test_*</code>；或 test 被用于选择超参</td><td><strong>整批实验作废</strong>，清空 test_* 后按 S0→S5 顺序重跑全部 40 组</td><td>C1 自测第三题</td></tr>
+    <tr><td>5</td><td><code>imbalance_false_high</code></td><td><code>pos_ratio_train ≥ 0.65</code> 且 <code>ACC ≥ 0.90</code> 而 <code>F1 &lt; 0.60</code></td><td>该组排序改用 AUC；在 REPORT.md 写明 ACC 不可作结论</td><td>C1 / D09 损失函数</td></tr>
+    <tr><td>6</td><td><code>not_significant</code></td><td><code>|Δtest_auc| &lt; 2 × std(B0-3 三 seed)</code></td><td>结论改写为「该超参不敏感」，禁止写「提升」字样</td><td>C1 / D11 模型选择</td></tr>
+    <tr><td>7</td><td><code>bn_mode_bug</code></td><td>取 val 前 128 个样本组成固定 batch，同一模型在 <code>eval()</code> 与 <code>train()</code> 下 ACC 差 <code>≥ 0.05</code></td><td>停止该组、检查是否漏调 <code>model.eval()</code>；修正后该组<strong>单独重跑一次</strong>并在 notes 记录</td><td>C16 / D28</td></tr>
+    <tr><td>8</td><td><code>shape_mismatch</code></td><td>卷积输出空间尺寸与 <code>(H−K+2P)/S+1</code> 手算不一致；或 logits 不是 <code>(N,2)</code></td><td>停止、不训练；按 C3 公式核对 padding / stride 后重跑该组</td><td>C3 / C16 padding / D19–D22</td></tr>
+    <tr><td>9</td><td><code>grad_saturated</code></td><td>正类 logit 对输入的显著性图，梯度绝对值最大值 <code>&lt; 1e-6</code></td><td>记为「解释方法失效」，不删该组、不据此判断模型依据；换 best_epoch 权重再算一次</td><td>C10 显著性图 / D07</td></tr>
+    <tr><td>10</td><td><code>data_shape_error</code></td><td><code>imgs.shape[1:] != (28,28)</code> 或 <code>labels.shape[1:] != (1,)</code>；或官方 split 数量与第 2 节不符</td><td>立即停止全部实验，不进入训练；核对 <code>~/.medmnist</code> 下的 .npz</td><td>D04 数据预处理</td></tr>
+    <tr><td>11</td><td><code>domain_shift</code></td><td>同一配置在 BreastMNIST 的 val_auc 比 PneumoniaMNIST 的 val_auc 低 <code>≥ 0.15</code></td><td>记为泛化结论；<strong>不做 DANN / MMD / 伪标签</strong>，不修改模型</td><td>C11 协变量偏移</td></tr>
+    <tr><td>12</td><td><code>prune_degradation</code></td><td>按 C14 剪掉 80% 权重、微调 3 epoch 后，val_auc 比原模型下降 <code>&gt; 0.05</code></td><td>保留结果，记为压缩代价；不改变主实验排名</td><td>C14 剪枝 / 笔记五件动手的事</td></tr>
+    <tr><td>13</td><td><code>perturbation_sensitive</code></td><td>FGSM <code>ε=0.1</code>（<code>x' = x + ε·sign(∇ₓL)</code>，裁剪到 [0,1]）使 ACC 下降 <code>≥ 0.20</code></td><td>记为鲁棒性观察；<strong>不做对抗训练</strong>，不改变主实验排名</td><td>C9 对抗攻击 / 笔记五件动手的事</td></tr>
+  </table>
+  <div class="warn"><strong>S5 三项附加检查的固定参数：</strong>剪枝 = <code>torch.nn.utils.prune.l1_unstructured(amount=0.8)</code> + 微调 3 epoch；FGSM 的 ε 集合 = {0, 0.05, 0.1, 0.2, 0.3}，画「ε–ACC」曲线；显著性图取正类 logit 对输入的梯度绝对值。三项均不参与第 5 节的排序与 Δ 计算。</div>
+</section>
+
+<section id="s8">
+  <h2>8　已学章节覆盖对照表</h2>
+  <p><span class="tag t-yes">纳入</span> 直接进实验主流程　<span class="tag t-judge">仅作判据</span> 进异常 / 泛化检查，不参与排序　<span class="tag t-no">不纳入</span> 明确排除，说明理由。全表覆盖 C1–C16 与进度表 A/B/D/E/F 段的相关编号。</p>
+  <table>
+    <tr><th>编号</th><th>主题</th><th>在本实验中的落点</th><th>状态</th></tr>
+    <tr><td>C1</td><td>机器学习三步骤 / 训练测试差距 / 过拟合</td><td>val 调参与 test 只评一次；异常 #2 #3 #4 #5</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>C2</td><td>鞍点 / 动量 / 自适应 lr / 损失 / BN</td><td>lr、optimizer、scheduler、BN、交叉熵、label_smoothing 六项；异常 #1</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>C3</td><td>CNN 三假设 / 输出尺寸 / 参数共享 / 池化</td><td>SmallCNN 结构、参数量手算、只放一个池化；异常 #8</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>C4</td><td>自注意力 QKV</td><td>28×28 图像无序列结构；笔记里的「手推 attention」不进项目</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>C5</td><td>Transformer</td><td>同上；不引入编码器 / 解码器</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>C6</td><td>GAN / 生成模型</td><td>二分类判别任务，无生成器</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>C7</td><td>BERT / GPT 自监督</td><td>无预训练、无文本；不引入</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>C8</td><td>自编码器 / 异常检测</td><td>不用于特征提取；无重建损失</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>C9</td><td>对抗攻击 FGSM</td><td>S5 的 ε–ACC 曲线；异常 #13</td><td><span class="tag t-judge">仅作判据</span></td></tr>
+    <tr><td>C10</td><td>可解释性 / 显著性图 / 梯度饱和</td><td>S5 显著性图；异常 #9</td><td><span class="tag t-judge">仅作判据</span></td></tr>
+    <tr><td>C11</td><td>领域自适应 / 协变量偏移 / 负迁移</td><td>S4 跨子集泛化；异常 #11；明确不做 DANN / MMD</td><td><span class="tag t-judge">仅作判据</span></td></tr>
+    <tr><td>C12</td><td>强化学习</td><td>监督分类，无奖励与策略</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>C13</td><td>终身学习 / 「所有任务都要测一遍」</td><td>40 组全部留档，失败组不删除、不只报最优组</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>C14</td><td>剪枝 / 蒸馏 / 彩票假说</td><td>S5 剪 80% 权重 + 微调 3 epoch；异常 #12；蒸馏不纳入</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>C15</td><td>元学习 MAML</td><td>无任务级数据单位、无二阶梯度</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>C16</td><td>知识图谱 / 「读懂 ≠ 会用」/ padding、mask、BN 三例</td><td>异常 #7（BN 模式）、#8（padding 与输出尺寸）；整体定位是把概念落到精确的维度 / dtype / 模式</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>A1 / A2 / A3</td><td>环境 / 仓库结构 / 第一个 PyTorch demo</td><td>第 3.4 节目录结构；冒烟测试见第 10 节 B.4</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>B7</td><td>NumPy / Pandas / Matplotlib 三件套</td><td>AUC 秩和实现、runs.csv、六张结果图</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>D04 / D07 / D08 / D09 / D10</td><td>数据预处理 / 自动求导 / 线性回归 / Softmax+损失 / MLP</td><td>第 2.2、3.3、3.1 节的加载、训练循环与三级基线</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>D11 / D12 / D13 / D14</td><td>模型选择 / 权重衰退 / 丢弃法 / 数值稳定性与激活</td><td>早停与过拟合判据；weight_decay、dropout、activation 网格；异常 #1</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>D16 / D19–D23 / D28</td><td>nn.Module / 卷积、填充步幅、多通道、池化 / LeNet / BN</td><td>SmallCNN 定义、输出尺寸手算、BN 开关</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>D29 / D37</td><td>ResNet / 微调</td><td>小图不堆残差块；不引入预训练权重</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>D36 / D39–D40 / D72</td><td>数据增广 / Kaggle 图像分类竞赛 / 优化算法</td><td>augment 网格、结果表与消融排名、lr × optimizer 交互</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>D31–D35</td><td>硬件 / 多卡 / 分布式</td><td>固定单进程 CPU、num_workers=0</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>D46–D48</td><td>语义分割 / 转置卷积 / FCN</td><td>选题 A-2 已排除，本项目只做分类</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>D51–D70</td><td>RNN / LSTM / 注意力 / seq2seq / Transformer / BERT</td><td>无序列输入，全部排除</td><td><span class="tag t-no">不纳入</span></td></tr>
+    <tr><td>D73 / E1–E6</td><td>课程总结 / 小作业与大作业 / 汇报答辩</td><td>复盘文档、协作边界两节、15+5 答辩材料</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>F1–F6</td><td>笔记模板与四次复盘</td><td>第 6.1 节记录字段、踩坑清单、学习复盘正文</td><td><span class="tag t-yes">纳入</span></td></tr>
+  </table>
+</section>
+
+<section id="s9">
+  <h2>9　协作边界 · 第一节：我可直接产出的交付物及完成程度</h2>
+  <div class="callout"><strong>完成程度只有三档，定义固定：</strong><span class="tag t-blue">100%</span> 不依赖本地运行，可完整写出、你无需补内容；<span class="tag t-purple">模板 100% / 数值 0%</span> 结构与脚本齐全，真实数值只能由本地运行产生；<span class="tag t-no">0%</span> 不由我产出。「本轮已产出」指本次对话已生成的文件，「下一轮可产出」指按本教程一次性写出的文件。</div>
+
+  <div class="danger"><strong>边界判定规则（唯一一条）：</strong>凡是<strong>只在本工作区写文本 / SVG / 代码文件</strong>的动作归本节；凡是<strong>需要联网下载、写入 <code>C:\Users\Zelvia\.medmnist</code>、执行训练、创建或推送 GitHub 仓库、打开浏览器操作</strong>的动作一律归第 10 节，我不代为执行。</div>
+
+  <h3>9.1　文档与设计类（100% 定稿）</h3>
+  <table>
+    <tr><th>#</th><th>交付物</th><th>完成程度</th><th>状态</th><th>内容边界</th></tr>
+    <tr><td>1</td><td>本 HTML 详细教程（第 0–11 节全部内容）</td><td><span class="tag t-blue">100%</span></td><td><strong>本轮已产出</strong></td><td>实验目标、划分、12 个超参、指标、记录字段、异常判据、章节覆盖、两节协作边界</td></tr>
+    <tr><td>2</td><td>技术边界清单与章节覆盖对照表</td><td><span class="tag t-blue">100%</span></td><td><strong>本轮已产出</strong></td><td>即本教程第 0、8 节；允许 / 排除的工具集已列全</td></tr>
+    <tr><td>3</td><td>项目流程图 / 框图（SVG，五步主线 + 调参环 + 三项交付）</td><td><span class="tag t-blue">100%</span></td><td><strong>已在选题建议报告 v2 内产出</strong></td><td>下一轮可另存为独立 <code>docs/pipeline.svg</code> 与 PNG；内容与 README/PPT 共用同一张</td></tr>
+    <tr><td>4</td><td>验收三件套对照清单与成功判据</td><td><span class="tag t-blue">100%</span></td><td><strong>本轮已产出</strong></td><td>即本教程第 1.2、11 节</td></tr>
+    <tr><td>5</td><td><code>README.md</code> 全文</td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>环境、绝对解释器路径、一键复现命令、目录说明、数据许可与「非临床使用」声明、三项交付索引</td></tr>
+    <tr><td>6</td><td><code>LICENSE</code>（MIT）、<code>.gitignore</code>、<code>requirements.txt</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>requirements 只写 medmnist 一行；gitignore 排除 .npz / .pth / __pycache__</td></tr>
+    <tr><td>7</td><td><code>docs/REPORT.md</code> 结论模板</td><td><span class="tag t-purple">模板 100% / 数值 0%</span></td><td>下一轮可产出</td><td>章节标题、结论占位字段、显著性判据说明齐备；所有 AUC / ACC / std 数值留空由你回填</td></tr>
+  </table>
+
+  <h3>9.2　代码与配置类（源码 100%，本地运行验证 0%）</h3>
+  <table>
+    <tr><th>#</th><th>交付物</th><th>完成程度</th><th>状态</th><th>内容边界</th></tr>
+    <tr><td>8</td><td><code>configs/*.json</code> 共 40 组配置</td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>第 4 节已给出 B0-3 全文与生成循环；40 个文件内容确定，不含任何本地实测值</td></tr>
+    <tr><td>9</td><td><code>src/data.py, model.py, metrics.py, train.py, search.py, plots.py, demo.py</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出（核心片段本轮已内嵌）</td><td>第 2.2、3.2、3.3、4.4、5.1 节已给出可复制代码；只用第 0 节 A 清单内的库</td></tr>
+    <tr><td>10</td><td><code>run.py</code> 一键入口与 <code>notebooks/demo.ipynb</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td><code>python run.py --config configs/&lt;id&gt;.json</code>；notebook 做单图推理与结果图展示</td></tr>
+    <tr><td>11</td><td><code>results/runs.csv</code> 表头与空模板、<code>results/ablation.csv</code> 表头</td><td><span class="tag t-purple">模板 100% / 数值 0%</span></td><td>下一轮可产出</td><td>第 6.1 节 7 组字段全部写成表头；40 行实测数据必须由本地运行产生</td></tr>
+    <tr><td>12</td><td>六张结果图的绘图脚本 <code>src/plots.py</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>脚本完整；<strong>图片本身 0%</strong>，必须本地运行后生成</td></tr>
+  </table>
+
+  <h3>9.3　明确不由我产出（0%）</h3>
+  <ol>
+    <li>训练权重 <code>*.pth</code>、<code>best.pth</code> 与任何模型状态字典。</li>
+    <li><code>runs.csv</code> 的 40 行实测数值、所有 <code>test_*</code> 数值、显著性结论的最终真假值。</li>
+    <li><code>figures/*.png</code> 六张真实图片与 <code>data/dataset_stats.json</code> 的真实类别比例。</li>
+    <li>数据集 <code>*.npz</code> 文件本身（需联网下载到 <code>~/.medmnist</code>）。</li>
+    <li>GitHub 公开仓库、任何 commit、任何可访问链接（外部操作，按 SOUL.md 的边界不代为执行）。</li>
+    <li>答辩 PPT、演示视频、汇报稿、被提问清单。</li>
+    <li><code>notes/踩坑清单.md</code> 中的真实报错与处置过程、进度表登记、学习复盘正文。</li>
+  </ol>
+</section>
+
+<section id="s10">
+  <h2>10　协作边界 · 第二节：必须由你在本地准备或执行的事项</h2>
+  <p>以下七组动作<strong>全部由你完成</strong>；命令与顺序固定。Windows 下直接用环境解释器的绝对路径，避免 Git Bash 里 <code>conda activate</code> 失效。</p>
+  <pre><code>set PY="D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe"
+# 后续所有命令统一用 %PY% -m ... 或 "%PY%" xxx.py 的形式执行</code></pre>
+
+  <h3>10.1　B.1　环境准备（3 步，按顺序）</h3>
+  <ol>
+    <li><code>"%PY%" -m pip install medmnist</code>——唯一允许的安装动作。</li>
+    <li><code>"%PY%" -c "import torch, torchvision, numpy, pandas, matplotlib, medmnist; print(torch.__version__, medmnist.__version__)"</code>——把打印结果抄入 <code>runs.csv</code> 的环境字段。</li>
+    <li>确认 <code>torch.cuda.is_available()</code> 返回 False，并在 README 写明「纯 CPU」；不预约 431 机房、不启用 GPU。</li>
+  </ol>
+
+  <h3>10.2　B.2　数据准备与校验（3 步）</h3>
+  <ol>
+    <li>首次执行第 2.2 节的 <code>get_loaders()</code>，<code>download=True</code> 会把 <code>pneumoniamnist.npz</code> 与 <code>breastmnist.npz</code> 下载到 <code>C:\Users\Zelvia\.medmnist</code>。</li>
+    <li>核对四个 <code>assert</code> 全部通过；核对 split 数量等于 4,708/524/624 与 546/78/156；任一不符即按异常 #10 停止。</li>
+    <li>确认 <code>data/dataset_stats.json</code> 已生成，并把 <code>pos_ratio_train</code> 抄入 REPORT.md 的数据说明。</li>
+  </ol>
+
+  <h3>10.3　B.3　仓库与链接（4 步，外部操作）</h3>
+  <ol>
+    <li>在 GitHub 账号 <code>via453</code> 下新建公开仓库 <code>medmnist-tuning-lab</code>。</li>
+    <li>本地 <code>git init</code>、<code>git remote add origin &lt;仓库地址&gt;</code>，把第 3.4 节目录结构建好。</li>
+    <li>至少 3 次 commit：① README + 流程图 + LICENSE；② src/ 与 configs/；③ results/ 与 figures/ 与 REPORT.md。</li>
+    <li><code>git push</code> 后用浏览器确认链接公开可访问，并把 URL 写进 PPT 与 README 首屏。</li>
+  </ol>
+
+  <h3>10.4　B.4　冒烟测试（固定 1 个动作）</h3>
+  <ol>
+    <li>执行 <code>"%PY%" run.py --config configs/S0_B03_seed42.json --smoke</code>，只跑 1 个 epoch，确认打印出 <code>out torch.Size([N, 2])</code>、loss 为有限正数、单 epoch 耗时数值。</li>
+    <li>按第 0.2 节第 5 条判断是否<strong>全组统一</strong>把 epochs 改为 10；记录 <code>epochs_override</code>。不做其他范围调整。</li>
+  </ol>
+
+  <h3>10.5　B.5　执行 40 次运行（固定顺序，不可跳阶）</h3>
+  <ol>
+    <li>按 <code>S0 → S1 → S2 → S3 → S4 → S5</code> 顺序执行 <code>python run.py --config configs/&lt;run_id&gt;.json</code>。</li>
+    <li>每完成一组立即追加一行到 <code>results/runs.csv</code>、写出 <code>results/&lt;run_id&gt;.json</code>；失败组按第 6.2 节第 6 条保留。</li>
+    <li>只有 S3 阶段允许调用 test 评测；S0/S1/S2/S4/S5 的 test_* 列保持空白。</li>
+    <li>全部完成后执行 <code>python src/plots.py</code> 生成六张图，并执行 S5 的三项附加检查。</li>
+  </ol>
+
+  <h3>10.6　B.6　回填与复盘（4 个文件）</h3>
+  <ol>
+    <li>把实测数值回填 <code>docs/REPORT.md</code>：基线阶梯、敏感性排名、3 seed 的 mean±std、显著性真假、失败组归因。</li>
+    <li>把本地真实报错与处置写入 <code>notes/踩坑清单.md</code>；每条对应第 7 节的一个枚举值。</li>
+    <li>把 <code>configs/</code> + <code>results/</code> + 笔记四件套按 C1–C16 编号登记进 <code>深度学习自学进度表.xlsx</code>，标注「已打勾 / 需重读」。</li>
+    <li>撰写学习复盘正文（对应 F6 与 20% 权重），说明 C1/C2/C3/C13/C14/C16 的结论如何在代码里被验证。</li>
+  </ol>
+
+  <h3>10.7　B.7　验收展示（3 项外部动作）</h3>
+  <ol>
+    <li>现场执行 <code>python run.py --config configs/best.json</code>，展示打印的 ACC/AUC 与自动生成的图；再打开 <code>notebooks/demo.ipynb</code> 做单图推理。</li>
+    <li>准备结题 PPT（15 分钟）与演示视频：流程图用第 3 项同一张 SVG，结果图用六张固定 PNG，链接用 B.3 的公开 URL。</li>
+    <li>准备 5 分钟答辩问答：重点准备「为什么不用 test 调参」「2×std 显著性判据」「为什么 28×28 只放一个池化」「哪些超参不敏感」四问。</li>
+  </ol>
+
+  <div class="warn"><strong>边界兜底：</strong>若 B.1–B.7 中任一步无法完成，停止在该步并把受阻动作与原始报错写入 <code>notes/踩坑清单.md</code>；<strong>不由我代为联网、代为训练、代为创建或推送仓库</strong>。教材侧（第 9 节）可在受阻期间继续补齐，不受影响。</div>
+</section>
+
+<section id="s11">
+  <h2>11　验收三件套对照与固定成功判据</h2>
+  <table>
+    <tr><th>中期验收要求</th><th>对应交付物</th><th>由谁产出</th><th>完成标志</th></tr>
+    <tr><td>① 项目流程图 / 框图</td><td><code>docs/pipeline.svg</code>（五步主线 + 调参环 + 三项交付）</td><td>我（第 9 节 #3，SVG 已产出）+ 你导出 PNG 并放进 PPT（B.7）</td><td>README 首屏与 PPT 用的是同一张图</td></tr>
+    <tr><td>② 可访问的已上传 GitHub 项目链接</td><td><code>github.com/via453/medmnist-tuning-lab</code></td><td>你（B.3）；README / 代码由我写（第 9 节 #5 #6 #8–#10）</td><td>浏览器匿名可打开、≥3 次 commit、含 README 与流程图</td></tr>
+    <tr><td>③ 项目流程与代码运行效果</td><td>一条命令复跑 + 40 行 <code>runs.csv</code> + 六张 PNG + notebook 单图推理</td><td>脚本由我写；运行与数值由你（B.4 / B.5 / B.7）</td><td>现场能打印 ACC/AUC 并当场生成图，而非贴静态截图</td></tr>
+  </table>
+  <div class="good"><strong>四条固定成功判据（与第 1.2 节一致）：</strong>① <code>runs.csv</code> 恰好 40 行且失败组保留；② 3 个配置 × 3 seed 完成；③ <code>test_*</code> 只出现在 S3；④ 六张图 + runs.csv + README + 流程图 + 公开链接齐备。四条全部满足即视为中期验收通过，不追加第 0 节 B 清单之外的任何工具或实验。</div>
+</section>
+
+<footer>依据：归档\深度学习笔记\（进度口径）、深度学习自学进度表.xlsx（编号与周次参照）、附件一实施方案.pdf、附件三课时安排表.pdf、选题建议报告 v2；技术事实经本机 d2l-zh 环境与 MedMNIST 官方仓库（info.py / dataset.py / requirements.txt）核实。本教程不含任何未在已提及范围内的框架或工具。</footer>
+
+</div>
+</body>
+</html>
