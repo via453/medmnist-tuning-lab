@@ -1,0 +1,27 @@
+# MedMNIST 调参实验室 · 依赖锁定
+# 适用：d2l-zh 环境（Python 3.9.25 / Windows / torch 2.5.1+cpu 已预装，无 GPU）
+# 用法：conda activate d2l-zh && python -m pip install -r requirements.txt && python -m pip check
+#
+# 为什么每个包都要钉版本：
+#   d2l==0.17.6 把 numpy==1.21.5 / matplotlib==3.5.1 / pandas==1.2.4 全部钉死。
+#   裸装 `pip install medmnist scikit-learn` 会经 scipy>=1.22.4 把 numpy 顶到 2.x，
+#   随后 pandas / matplotlib / scikit-learn 因 NumPy 2 的 C ABI 变化直接无法导入
+#   (_ARRAY_API not found / numpy.dtype size changed)。
+#   以下组合全部基于 numpy 1.x ABI，实测 pip check 无冲突、14 个关键包均可导入。
+#
+# torch / torchvision / d2l / Jupyter 由环境预装，不在此文件中重复安装。
+
+numpy==1.21.5
+pandas==1.2.4
+matplotlib==3.5.1
+scipy==1.7.3
+scikit-learn==1.0.2
+scikit-image==0.19.3
+tifffile==2021.11.2
+PyWavelets==1.3.0
+imageio==2.19.3
+networkx==2.8.8
+Pillow==9.5.0
+medmnist==3.0.2
+PyYAML==6.0.3
+tqdm==4.70.1

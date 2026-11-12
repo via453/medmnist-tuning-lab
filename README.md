@@ -42,8 +42,9 @@
 ## 环境与复现口径
 
 - Conda 环境 `d2l-zh`：Python 3.9.25、torch 2.5.1+cpu、torchvision 0.20.1+cpu、d2l 0.17.6、Jupyter
-- 需补装：`medmnist`、`scikit-learn`、`PyYAML`、`tqdm`
-- 数据集：`pip install medmnist` 后由官方 API 下载 `.npz`；`data/` 不入库
+- 依赖已锁定在 **numpy 1.x ABI 兼容组合**：numpy 1.21.5 / pandas 1.2.4 / matplotlib 3.5.1 / scipy 1.7.3 / scikit-learn 1.0.2 / scikit-image 0.19.3 / Pillow 9.5.0 / medmnist 3.0.2 / PyYAML / tqdm；`pip check` 返回无冲突，14 个关键包实测可导入
+- **不要裸装** `pip install medmnist scikit-learn ...`：会经 `scipy` 把 numpy 顶到 2.x，触发 `d2l 0.17.6 requires numpy==1.21.5`，且 pandas / matplotlib / sklearn 因 C ABI 变化直接无法导入。复现请用钉版本命令（完整教程 3.1 / 附录 B）；更彻底的做法是给项目单独建 conda 环境
+- 数据集：官方 API `download=True` 自动下载 `.npz` 到 `~/.medmnist/`（PneumoniaMNIST 约 4.2 MB，已实测 4708 / 524 / 624、28×28）；`data/` 不入库
 - 详细命令见完整教程「附录 B · 命令速查」
 
 ## 数据与学术口径

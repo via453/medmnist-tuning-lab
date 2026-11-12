@@ -97,7 +97,7 @@
     <div class="box"><b>A. 允许使用（全部已提及且已实测）</b><ul>
       <li>Python 3.9.25（<code>D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe</code>）</li>
       <li>torch 2.5.1+cpu、torchvision 0.20.1+cpu（含 <code>transforms</code> 与 <code>datasets.utils.download_url</code>）</li>
-      <li>numpy 1.21.5、pandas 1.2.4、matplotlib 3.5.1、Pillow 11.3.0、Jupyter 1.0.0</li>
+      <li>numpy 1.21.5、pandas 1.2.4、matplotlib 3.5.1、Pillow 9.5.0、Jupyter 1.0.0、medmnist 3.0.2</li>
       <li>d2l 0.17.6：仅作课程脚本对照，本项目代码<strong>不 import d2l</strong></li>
       <li>medmnist：<strong>唯一新增 pip 包</strong>，用于取数与官方划分</li>
       <li>Python 标准库：json / csv / argparse / random / datetime / pathlib / os / itertools</li>
@@ -506,8 +506,8 @@ def auc_rank(scores, y):
 
   <h3>10.1　B.1　环境准备（3 步，按顺序）</h3>
   <ol>
-    <li><code>"%PY%" -m pip install medmnist</code>——唯一允许的安装动作。</li>
-    <li><code>"%PY%" -c "import torch, torchvision, numpy, pandas, matplotlib, medmnist; print(torch.__version__, medmnist.__version__)"</code>——把打印结果抄入 <code>runs.csv</code> 的环境字段。</li>
+    <li><code>"%PY%" -m pip install --no-deps "medmnist==3.0.2"</code>——唯一允许的安装动作。<strong>必须带 <code>--no-deps</code> 并钉版本</strong>：medmnist 的传递依赖（scipy / scikit-learn / scikit-image）会把 numpy 顶到 2.x，与 <code>d2l 0.17.6</code> 钉死的 <code>numpy==1.21.5</code> 冲突，且 pandas / matplotlib 会因 C ABI 变化无法导入。本项目不 import 这些传递依赖，故 <code>--no-deps</code> 与本文件第 0 节口径一致。本机已按兼容组合装好（numpy 1.21.5 / scipy 1.7.3 / scikit-learn 1.0.2 / scikit-image 0.19.3 / Pillow 9.5.0），<code>pip check</code> 无冲突。</li>
+    <li><code>"%PY%" -c "import torch, torchvision, numpy, pandas, matplotlib, medmnist; print(torch.__version__, medmnist.__version__)"</code>——把打印结果抄入 <code>runs.csv</code> 的环境字段；建议同时执行 <code>"%PY%" -m pip check</code>。</li>
     <li>确认 <code>torch.cuda.is_available()</code> 返回 False，并在 README 写明「纯 CPU」；不预约 431 机房、不启用 GPU。</li>
   </ol>
 
