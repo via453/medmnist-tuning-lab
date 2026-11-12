@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中期大作业验收 · 选题建议报告</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2328; --ink2:#4a525e; --ink3:#6b7480;
+    --line:#e3e7ed; --blue:#2f6feb; --blue-bg:#eaf2ff; --teal:#0f7b6c; --teal-bg:#e6f5f2;
+    --amber:#a86400; --amber-bg:#fff4dd; --red:#b42318; --red-bg:#fdecea; --green:#1a7f37; --green-bg:#e8f6ec;
+    --purple:#6941c6; --purple-bg:#f1ecff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Hiragino Sans GB","Segoe UI",sans-serif;
+       line-height:1.75;font-size:15px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:36px 28px 80px}
+  header{background:linear-gradient(135deg,#ffffff 0%,#eef4ff 100%);border:1px solid var(--line);
+         border-radius:16px;padding:30px 34px;margin-bottom:26px}
+  h1{margin:0 0 8px;font-size:27px;letter-spacing:.3px}
+  .sub{color:var(--ink2);font-size:14px;margin:0}
+  .meta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:12.5px;color:var(--ink2)}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 30px;margin-bottom:22px}
+  h2{font-size:20px;margin:0 0 16px;padding-bottom:10px;border-bottom:2px solid var(--blue);display:inline-block}
+  h3{font-size:16.5px;margin:22px 0 10px;color:var(--ink)}
+  h4{font-size:15px;margin:16px 0 6px;color:var(--ink)}
+  p{margin:8px 0}
+  ul,ol{margin:8px 0 8px 0;padding-left:22px}
+  li{margin:5px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0 18px;font-size:13.6px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f0f4fa;color:var(--ink);font-weight:600;white-space:nowrap}
+  tbody tr:nth-child(even){background:#fafbfd}
+  .tag{display:inline-block;border-radius:5px;padding:1px 8px;font-size:12px;font-weight:600;white-space:nowrap}
+  .t-low{background:var(--green-bg);color:var(--green)}
+  .t-mid{background:var(--amber-bg);color:var(--amber)}
+  .t-high{background:var(--red-bg);color:var(--red)}
+  .t-blue{background:var(--blue-bg);color:var(--blue)}
+  .t-teal{background:var(--teal-bg);color:var(--teal)}
+  .t-purple{background:var(--purple-bg);color:var(--purple)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:14px 0}
+  .box{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fcfdff}
+  .box b{display:block;font-size:13px;color:var(--blue);margin-bottom:5px}
+  .box span{font-size:13.5px;color:var(--ink2)}
+  .callout{border-left:4px solid var(--blue);background:var(--blue-bg);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14px}
+  .warn{border-left:4px solid var(--amber);background:var(--amber-bg);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14px}
+  .good{border-left:4px solid var(--green);background:var(--green-bg);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14px}
+  code{background:#f2f4f8;border:1px solid #e5e9f0;border-radius:4px;padding:1px 5px;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:12.8px;color:#243b6b}
+  a{color:var(--blue);text-decoration:none;word-break:break-all}
+  a:hover{text-decoration:underline}
+  .topic{border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:16px 0;background:#fff}
+  .topic.rec{border:2px solid var(--blue);background:linear-gradient(180deg,#f7fbff 0%,#fff 45%)}
+  .topic h3{margin-top:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .num{font-size:12px;background:var(--ink);color:#fff;border-radius:6px;padding:2px 9px;letter-spacing:.5px}
+  .kv{font-size:13.8px}
+  .kv>div{display:grid;grid-template-columns:104px 1fr;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .kv>div:last-child{border-bottom:none}
+  .kv .k{color:var(--ink3);font-weight:600}
+  .small{font-size:12.8px;color:var(--ink3)}
+  .flow{width:100%;height:auto;border:1px solid var(--line);border-radius:10px;background:#fff;margin:10px 0 4px}
+  footer{color:var(--ink3);font-size:12.5px;text-align:center;padding:10px 0 0}
+  @media print{
+    body{background:#fff} .wrap{max-width:none;padding:0}
+    section,header,.topic{break-inside:avoid;box-shadow:none;border:1px solid #ddd}
+    h2{border-bottom-color:#999}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>中期大作业验收 · 选题建议报告</h1>
+  <p class="sub">面向：医学图像分割 / 预测任务 / 调参优化　｜　两条路线：复刻现有 GitHub 项目 · 自建项目　｜　5 个候选 + 1 个首推</p>
+  <div class="meta">
+    <span class="chip">日期：2026-11-10（对应进度表参考周 W5）</span>
+    <span class="chip">进度来源：归档\深度学习笔记\（四份笔记产出）</span>
+    <span class="chip">约束来源：归档\培训方案 + 课时安排表</span>
+    <span class="chip">本机环境实测 + GitHub 账号核查</span>
+    <span class="chip">v2：已按笔记口径更正进度诊断</span>
+  </div>
+</header>
+
+<section>
+  <h2>一、先看清你现在的真实起点</h2>
+  <p>选题不能按「理想中的我」来定，要按「验收那天能跑出什么」来定。<strong>进度口径更正：</strong><code>深度学习自学进度表.xlsx</code> 是一张未填写的计划 / 追踪模板（状态列全为「未开始」，共 115 任务 / 176.3 小时），它<strong>不代表学习产出</strong>；真实进度以 <code>深度学习笔记\</code> 文件夹的四份产出为准。以下结论按此口径重新核对。</p>
+
+  <div class="grid">
+    <div class="box"><b>真实进度：C1–C15 已走完「学 → 测 → 纠错 → 重写 → 压缩 → 归档」闭环</b><span><code>深度学习笔记\</code> 四件套（2026-11-07 18:49 → 19:28 连续产出）：① <code>深度学习自测.html</code> 原始自测，C1–C15 逐题作答、19 处「？」、C16 空白；② <code>深度学习笔记_C1-C16.docx</code> 据自测重写，<strong>26 处疑问全部答掉、7 处错记订正</strong>，每页固定「问题 / 机制 / 你的答案与订正 / 疑问已解 / 三句话」五段；③ <code>深度学习笔记_一页纸版.docx</code> 按一页纸三栏法压缩；④ <code>深度学习自测笔记.html</code> 归档排版版。这是实打实的理论进度，不是 0%。</span></div>
+    <div class="box"><b>掌握度分层：7 个可打勾 / 8 个需重读，唯一缺口是「跑」</b><span>按笔记自己的《掌握度总览》：C1、C13 可直接打勾；C2、C4、C8、C10、C14「补完疑问即可打勾」——订正版已逐条答掉，可视为已过（C14 蒸馏温度那题被批注「整份自测里答得最好的一题」）；C3、C5、C6、C7、C11、C12、C15、C16 仍需重读，C16 自测原本空白。<strong>代码仍是空白</strong>：笔记结尾《下一步：五件动手的事》写明「笔记到此为止都是读和写，还差跑」，五件事（NumPy 手算卷积、手推 attention、FGSM ε 曲线、剪枝微调、稀疏奖励迷宫）尚未动手；李沐 D00–D73 脚本也未系统跑通。</span></div>
+    <div class="box"><b>环境：其实已经就绪，但是纯 CPU</b><span>本机 Anaconda 位于 <code>D:\microsoft_download\anaconda3\Anaconda</code>，其中 <code>d2l-zh</code> 环境已装 Python 3.9.25 / torch 2.5.1+cpu / torchvision 0.20.1+cpu / d2l 0.17.6 / Jupyter / numpy / pandas / matplotlib；<code>pesc</code> 环境另有 torch 2.4.1+cpu + cv2。<code>torch.cuda.is_available()=False</code>，无 nvidia-smi → <strong>只能 CPU 训练</strong>。</span></div>
+    <div class="box"><b>工程资产：已有可访问 GitHub 项目与现成框图模板</b><span>账号 <code>via453</code>，公开仓库含 <a href="https://github.com/via453/ecg-denoise-lab">ecg-denoise-lab</a>（Python + Flask + Canvas 心电实时波形，README 里已有完整 ASCII 系统架构框图、指标表、版本历史、MIT 许可）。说明你不缺 Python 工程、可视化、README 组织和医学信号背景；缺的是「一个深度学习训练 + 调参闭环」。</span></div>
+  </div>
+
+  <h3>验收约束（培训方案 / 课时安排表原文要点）</h3>
+  <table>
+    <tr><th>来源</th><th>硬约束</th><th>对选题的含义</th></tr>
+    <tr><td>你给出的中期验收要求</td><td>① 项目流程图 / 框图　② 可访问的已上传 GitHub 项目链接　③ 能展示项目流程与代码运行效果</td><td>三项都要有「可当场打开的东西」，不能只交 PPT 截图；<strong>现场能真跑</strong>比精度高更重要</td></tr>
+    <tr><td>附件一《实施方案》</td><td>小组大作业占 40%；学习复盘占 20%；严禁仅以文献调研结题；全员必须动手跑通完整实验链路；15 分钟汇报 + 5 分钟提问；本机跑不动可预约 431 机房</td><td>选题要能明确切出「本人负责的一块」；调参实验记录可直接喂给 20% 复盘</td></tr>
+    <tr><td>附件三《课时安排表》</td><td>10 周；第 7/9 周收集大作业选题意向；第 10 周答辩</td><td>今天 W5，E5 大作业预算 14 小时 → 选题总工作量应压在 <strong>12–16 小时</strong></td></tr>
+    <tr><td>进度表《使用说明》</td><td>每个编号都要有笔记；学习复盘比任何一项都容易丢分；D 段与 E 段不能压缩</td><td>把「配置 / 日志 / 消融表」当笔记写，一举两得</td></tr>
+  </table>
+
+  <div class="callout"><strong>笔记口径下的「理论 → 项目」直接映射（这是本次更正最有价值的部分）：</strong>C1 自测第三题「用训练集调参是看答案，换个新数据就不会了」→ 项目里 val 调参、test 只评一次；C2 订正了「分类必须用交叉熵」以及 Adam / RMSProp 各自解决哪一段 → 损失函数与优化器对比消融；<strong>C3 订正版明确点出「太小的目标（医学影像的微小结节）会在池化中丢失」</strong> → 28×28 小图上不要堆池化；C14 蒸馏温度 → 有余量时的加分实验。<strong>结论：首推选题不变，但理论理解成本下降，可把 2–3 小时从「补概念」挪到「做一组正式的理论对照消融」，项目分量更足。</strong>动手前建议先重读 C3（笔记判定需重读），它正好卡在医学小图像这个点上。</div>
+
+  <div class="callout"><strong>由此得到 5 条筛选标准：</strong>① CPU 上单次训练 ≤ 10 分钟、全套实验 ≤ 2–3 小时机时；② 数据公开、免审批、体积 &lt; 100 MB；③ 基线只用笔记已覆盖的 MLP / 小 CNN 结构（对应李沐 D10、D23，需边做边补脚本）/ U-Net（D46–48 FCN + 转置卷积）；④ 调参空间必须能产出曲线、表格、对比图；⑤ 流程图、GitHub、运行演示三项各自有明确文件落点，且固定随机种子、区分验证集与测试集。</div>
+
+  <div class="warn"><strong>一个顺手要补的呈现问题：</strong>进度表是计划模板，状态列没填不代表没学；但验收时如果只交这张表，20% 的学习复盘会吃亏。建议中期前把 <code>深度学习笔记\</code> 四件套按 C1–C16 对应编号登记进进度表，并附一份「自测 → 订正 → 重写 → 一页纸」的产出清单与日期，把真实进度显性化。</div>
+</section>
+
+<section>
+  <h2>二、五个候选选题</h2>
+  <p>按两条路线分组：<span class="tag t-blue">A 复刻现有 GitHub 项目</span> 2 个，<span class="tag t-teal">B 自建项目</span> 3 个。每个选题均按「任务目标 / 方向匹配 / 基线与调参空间 / 三项交付覆盖 / 工作量与风险」展开。</p>
+
+  <!-- A1 -->
+  <div class="topic">
+    <h3><span class="num">A-1</span> 复刻 MedMNIST 官方 Benchmark + 调参提升 <span class="tag t-blue">复刻路线</span> <span class="tag t-low">风险 低—中</span></h3>
+    <div class="kv">
+      <div><span class="k">任务目标</span><span>Fork 并跑通 <a href="https://github.com/MedMNIST/MedMNIST">MedMNIST/MedMNIST</a> + <a href="https://github.com/MedMNIST/experiments">MedMNIST/experiments</a> 的 2D 训练/评估链路（已核实两个仓库均存在），在 <code>PneumoniaMNIST</code>（胸片二分类，5,856 张，4708/524/624）或 <code>BreastMNIST</code>（乳腺超声二分类，780 张，546/78/156）上复现官方 baseline，再做系统调参，给出可复现的 AUC / ACC 提升与消融表。</span></div>
+      <div><span class="k">方向匹配</span><span><strong>双命中</strong>：医学影像「预测任务」 + 「基于基础预测模型、通过调参提升预测精度」。数据 28×28、CC 许可、标准 train/val/test 划分，官方自带 evaluator（AUC/ACC），不需要医学背景知识。</span></div>
+      <div><span class="k">基线 / 调参</span><span>基线：官方 2D 简单 CNN 或 ResNet-18（<code>pip install medmnist</code> 一行取数）。调参空间：学习率 1e-4～1e-2 对数搜索、SGD+momentum / Adam / AdamW、batch 32/64/128、weight decay、dropout、cosine/step 调度、翻转旋转与 Cutout 增强、类别权重（胸片不平衡）、早停 patience、BN 开关、3 个随机种子。输出「超参敏感性排序 + 交互作用」。</span></div>
+      <div><span class="k">三项交付</span><span><strong>流程图</strong>：数据下载 → 标准化/增强 → 模型 → 训练 → 验证 → 调参循环 → 独立测试 → 推理，官方实验脚本可直接反画成框图；<strong>GitHub</strong>：在自己账号建 <code>medmnist-tuning</code>，README 首行注明 upstream 仓库、License 与「本人改动清单」（应对「严禁抄袭代码」）；<strong>运行效果</strong>：loss/AUC 曲线、混淆矩阵、ROC、预测样本网格、单张图推理 CLI，现场一条命令可复跑。</span></div>
+      <div><span class="k">工作量 / 风险</span><span><strong>10–14 h</strong>。风险：官方 experiments 代码偏老，与 torch 2.5 有版本适配成本；提升幅度可能只有 1–3 个点、甚至小于种子波动 → 结论必须写成「哪些超参敏感 / 不敏感」，而不是宣称刷点；medmnist 包与 .npz 需联网下载；复刻路线要额外解释「我自己动手做了什么」。</span></div>
+    </div>
+  </div>
+
+  <!-- A2 -->
+  <div class="topic">
+    <h3><span class="num">A-2</span> 复刻 milesial/Pytorch-UNet + DRIVE 视网膜血管分割 <span class="tag t-blue">复刻路线</span> <span class="tag t-high">风险 高</span></h3>
+    <div class="kv">
+      <div><span class="k">任务目标</span><span>把 <a href="https://github.com/milesial/Pytorch-UNet">milesial/Pytorch-UNet</a>（单文件 <code>train.py</code>/<code>predict.py</code>，CLI 已暴露 epochs / batch / lr / scale / validation / amp / mask-threshold）从 Carvana 汽车掩码迁移到 DRIVE 眼底血管二值分割（40 张，训练/测试各 20 张，584×565，专家手工血管掩码 + FOV 掩码），跑通训练与预测并调参提升 Dice / IoU。</span></div>
+      <div><span class="k">方向匹配</span><span><strong>最贴导师字面建议的「医学图像分割」</strong>，也对应李沐 D46–48（语义分割 / 转置卷积 / FCN）与 C3 CNN。分割掩码叠色图是全组最直观的演示素材。</span></div>
+      <div><span class="k">基线 / 调参</span><span>基线：<code>UNet(n_channels=3, n_classes=1)</code> + BCE。调参：<code>--scale</code>（0.5→0.25 降分辨率换 CPU 速度）、lr、batch、epochs、BCE 与 BCE+Dice 损失、FOV 掩码加权、翻转/旋转增强、<strong>推理阈值 <code>--mask-threshold</code> 扫描</strong>（把「阈值」当超参画 Dice-阈值曲线，是最出彩的一张图）、早停。指标 Dice / IoU / Sensitivity。</span></div>
+      <div><span class="k">三项交付</span><span><strong>流程图</strong>：数据 → FOV/归一化 → patch 切块 → U-Net → 阈值 → 后处理 → 评估；原仓库 README 已有结构说明可改画。<strong>GitHub</strong>：fork + 自建仓库，README 写清数据获取方式；<span class="t-high">注意 DRIVE 许可禁止再分发，仓库只能放脚本与结果图，不能放原始图</span>。<strong>运行效果</strong>：原图 / 金标准 / 预测掩码三联叠色图 + <code>python predict.py -i 01_test.tif --viz</code> 现场推理。</span></div>
+      <div><span class="k">工作量 / 风险</span><span><strong>18–25 h</strong>，五个里最高。风险：CPU 上 584×565 的 U-Net 训练慢，必须缩放或切 patch；DRIVE 官网需注册（可用 OpenDataLab 镜像 CC BY 4.0）；TIF 图像 + GIF 调色板掩码的读取/格式转换是经典坑；血管像素仅约 9%，类别极不平衡；原仓库默认 W&B / AMP / CUDA，需裁剪；最可能在中期验收时只交得出「推理 demo + 少量 epoch」。</span></div>
+    </div>
+  </div>
+
+  <!-- B1 -->
+  <div class="topic rec">
+    <h3><span class="num">B-1</span> 自建「MedMNIST 医学影像分类调参实验室」 <span class="tag t-teal">自建路线</span> <span class="tag t-green" style="background:#e8f6ec;color:#1a7f37">★ 首推</span> <span class="tag t-low">风险 低</span></h3>
+    <div class="kv">
+      <div><span class="k">任务目标</span><span>不 fork 别人的训练框架，在 <code>d2l-zh</code> 环境里从零写一个 200–300 行的完整项目：数据加载 → 自建 <code>SmallCNN</code>（2–3 个 conv + BN + GAP + FC，另设 MLP 作最低基线）→ 统一 <code>config.yaml</code> → 网格/随机搜索（可选 Optuna）→ 消融表 → 最优模型 → 单图推理与交互演示。核心命题：<strong>把同一个基础预测模型，靠系统调参把 AUC/ACC 稳定抬高，并说清是哪些超参在起作用</strong>。</span></div>
+      <div><span class="k">方向匹配</span><span><strong>正中导师第三条</strong>（基于基础预测模型，通过调参提升预测精度），同时是医学影像预测任务。且能把你笔记里的概念逐个验证：C1 用训练/测试损失判断该动模型还是动数据、C2 优化器与学习率排程、C3 CNN 参数量、C11 换子数据集看分布偏移、C14 可加剪枝/蒸馏作加分项、C10 可加 Grad-CAM 作加分项。</span></div>
+      <div><span class="k">基线 / 调参</span><span>基线阶梯：逻辑回归 → MLP → SmallCNN（全部自己写，骨架来自李沐 D10/D23）。调参空间：lr（对数）、optimizer（SGD+mom / Adam / AdamW）、batch、width、BN 开关、激活函数、dropout、weight decay、cosine/step + warmup、增强强度、标签平滑、类别权重、早停 patience、3 个 seed；主数据集锁定 1–2 个（建议 PneumoniaMNIST 主 + BreastMNIST 做泛化验证）。产出：超参重要性排序、敏感性曲线、消融表、调参前后对比柱状图。</span></div>
+      <div><span class="k">三项交付</span><span><strong>流程图</strong>：见下方五泳道框图（README 与 PPT 用同一张，附 SVG/PNG 源文件）。<strong>GitHub</strong>：新建公开仓库 <code>https://github.com/via453/medmnist-tuning-lab</code>，含 README、<code>requirements.txt</code>、<code>configs/</code>、<code>src/</code>、<code>results/*.csv</code>、<code>figures/*.png</code>、<code>notebooks/</code>、LICENSE，验收前至少 3 次 commit，链接当场可访问。<strong>运行效果</strong>：<code>python run.py --config configs/best.yaml</code> 打印 ACC/AUC 并生成 4 张图；<code>demo.ipynb</code> 或 Gradio 上传一张图显示预测与置信度；loss 曲线、ROC、混淆矩阵、超参热力图全部由代码现场生成，而非贴静态截图。</span></div>
+      <div><span class="k">工作量 / 风险</span><span><strong>12–16 h</strong>，与 E5 的 14 h 预算吻合；28×28 小图 CPU 单次训练 1–3 分钟 → 可跑 30–60 组配置，调参结论有统计意义。风险：小数据上方差大（尤其 BreastMNIST 仅 780 张），必须 3 seed + 独立测试集；<strong>绝不能拿测试集调参</strong>（这正是你 C1 自测第三题考过的点）；<code>optuna</code> / <code>medmnist</code> 需 pip 联网安装；范围务必锁死在 1–2 个子数据集，别扩张。</span></div>
+    </div>
+
+    <h4>配套：B-1 项目流程图 / 框图（可直接用于 README 与汇报 PPT）</h4>
+    <svg class="flow" viewBox="0 0 1000 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MedMNIST 调参实验室项目流程图">
+      <rect x="0" y="0" width="1000" height="340" fill="#ffffff"/>
+      <text x="24" y="28" font-size="14" font-weight="700" fill="#1f2328">MedMNIST 医学影像分类调参实验室 · 项目流程框图</text>
+      <text x="24" y="48" font-size="11.5" fill="#6b7480">主线（上）：一次训练与评估　｜　调参环（下）：可复现的搜索闭环　｜　右侧：验收三项交付</text>
+
+      <!-- top row boxes -->
+      <g font-size="12.5" fill="#1f2328" text-anchor="middle">
+        <rect x="24" y="70" width="160" height="66" rx="9" fill="#eaf2ff" stroke="#2f6feb" stroke-width="1.5"/>
+        <text x="104" y="95" font-weight="700">① 数据层</text><text x="104" y="114" font-size="11">medmnist .npz 自动下载</text><text x="104" y="130" font-size="11">train / val / test 固定划分</text>
+
+        <rect x="214" y="70" width="160" height="66" rx="9" fill="#eaf2ff" stroke="#2f6feb" stroke-width="1.5"/>
+        <text x="294" y="95" font-weight="700">② 预处理</text><text x="294" y="114" font-size="11">归一化 / 增强开关</text><text x="294" y="130" font-size="11">类别权重 / seed 固定</text>
+
+        <rect x="404" y="70" width="160" height="66" rx="9" fill="#e6f5f2" stroke="#0f7b6c" stroke-width="1.5"/>
+        <text x="484" y="95" font-weight="700">③ 基础预测模型</text><text x="484" y="114" font-size="11">MLP → SmallCNN</text><text x="484" y="130" font-size="11">Conv + BN + GAP + FC</text>
+
+        <rect x="594" y="70" width="160" height="66" rx="9" fill="#e6f5f2" stroke="#0f7b6c" stroke-width="1.5"/>
+        <text x="674" y="95" font-weight="700">④ 训练与验证</text><text x="674" y="114" font-size="11">交叉熵 / Adam / 调度</text><text x="674" y="130" font-size="11">早停 + 日志 CSV</text>
+
+        <rect x="784" y="70" width="190" height="66" rx="9" fill="#f1ecff" stroke="#6941c6" stroke-width="1.5"/>
+        <text x="879" y="95" font-weight="700">⑤ 评估</text><text x="879" y="114" font-size="11">AUC / ACC / F1 / ROC</text><text x="879" y="130" font-size="11">独立 test 只评一次</text>
+      </g>
+      <!-- arrows top -->
+      <g stroke="#2f6feb" stroke-width="1.8" fill="none" marker-end="url(#ah)">
+        <path d="M184 103 H212"/><path d="M374 103 H402"/><path d="M564 103 H592"/><path d="M754 103 H782"/>
+      </g>
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2f6feb"/></marker>
+             <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#a86400"/></marker></defs>
+
+      <!-- tuning loop band -->
+      <rect x="24" y="176" width="950" height="88" rx="11" fill="#fff8ea" stroke="#e0c48a" stroke-width="1.3"/>
+      <text x="40" y="198" font-size="12" font-weight="700" fill="#a86400">调参环（可复现搜索闭环，每组配置写进 configs/ 与 results/）</text>
+      <g font-size="12" fill="#1f2328" text-anchor="middle">
+        <rect x="44" y="208" width="180" height="42" rx="7" fill="#fff4dd" stroke="#a86400" stroke-width="1.2"/>
+        <text x="134" y="234">config.yaml：lr / optim / batch / BN / aug</text>
+        <rect x="254" y="208" width="180" height="42" rx="7" fill="#fff4dd" stroke="#a86400" stroke-width="1.2"/>
+        <text x="344" y="234">网格 / 随机搜索 × 3 seed</text>
+        <rect x="464" y="208" width="180" height="42" rx="7" fill="#fff4dd" stroke="#a86400" stroke-width="1.2"/>
+        <text x="554" y="234">消融表 + 超参敏感性曲线</text>
+        <rect x="674" y="208" width="180" height="42" rx="7" fill="#e8f6ec" stroke="#1a7f37" stroke-width="1.2"/>
+        <text x="764" y="234">最优配置 → 独立 test 评测</text>
+        <rect x="874" y="208" width="86" height="42" rx="7" fill="#e8f6ec" stroke="#1a7f37" stroke-width="1.2"/>
+        <text x="917" y="234" font-size="11">best.pth</text>
+      </g>
+      <g stroke="#a86400" stroke-width="1.6" fill="none" marker-end="url(#ah2)">
+        <path d="M224 229 H252"/><path d="M434 229 H462"/><path d="M644 229 H672"/><path d="M854 229 H872"/>
+      </g>
+      <!-- loop arrows -->
+      <path d="M674 136 V160 H344 V176" stroke="#a86400" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#ah2)"/>
+      <text x="500" y="158" font-size="11" fill="#a86400" text-anchor="middle">验证指标回馈 → 下一组配置（严格不碰 test）</text>
+      <path d="M104 136 V160 H134 V176" stroke="#2f6feb" stroke-width="1.3" fill="none"/>
+      <text x="119" y="158" font-size="10.5" fill="#6b7480">数据恒定</text>
+
+      <!-- deliverables -->
+      <text x="24" y="292" font-size="12" font-weight="700" fill="#1f2328">验收三项交付</text>
+      <g font-size="11.5" fill="#1f2328">
+        <rect x="24" y="302" width="300" height="26" rx="6" fill="#eaf2ff" stroke="#2f6feb" stroke-width="1"/>
+        <text x="36" y="319">① 流程图 / 框图：本图 SVG+PNG → README + PPT</text>
+        <rect x="336" y="302" width="310" height="26" rx="6" fill="#e6f5f2" stroke="#0f7b6c" stroke-width="1"/>
+        <text x="348" y="319">② GitHub：github.com/via453/medmnist-tuning-lab（公开可访问）</text>
+        <rect x="658" y="302" width="316" height="26" rx="6" fill="#f1ecff" stroke="#6941c6" stroke-width="1"/>
+        <text x="670" y="319">③ 运行效果：一条命令复跑 + 曲线/ROC/单图推理演示</text>
+      </g>
+    </svg>
+    <p class="small">图中「验证指标回馈」用虚线表示：这是调参与「拿测试集调参」的分界线，也是答辩时最容易被问到的一点。</p>
+  </div>
+
+  <!-- B2 -->
+  <div class="topic">
+    <h3><span class="num">B-2</span> 升级既有 ecg-denoise-lab：1D-CNN 心电节拍分类 + 预处理/模型联合调参 <span class="tag t-teal">自建（延伸）</span> <span class="tag t-mid">风险 中</span></h3>
+    <div class="kv">
+      <div><span class="k">任务目标</span><span>在 <a href="https://github.com/via453/ecg-denoise-lab">via453/ecg-denoise-lab</a> 上新增深度学习分支：把已有 8 种传统去噪算法（FFT 门控、陷波、SSA、PCA、ICA、LMS 等）当作<strong>可调的预处理超参</strong>，与模型超参一起搜索，训练 1D-CNN 做正常/异常节拍分类（或量化「去噪前 vs 去噪后」对预测精度的影响）。</span></div>
+      <div><span class="k">方向匹配</span><span>医学「预测任务」+ 调参优化，且视角比纯图像更新颖（联合调参）；直接用你最熟的心电领域与已有工程资产，几乎不用新建可视化层。</span></div>
+      <div><span class="k">基线 / 调参</span><span>基线：固定长度心跳片段上的 MLP / 1D-CNN。调参：去噪方法 8 选 1、窗口长度与 R 峰对齐、lr / batch / dropout / 类别权重、判定阈值；指标 ACC / F1 / AUC，附「去噪方法 × 精度」热力图。</span></div>
+      <div><span class="k">三项交付</span><span><strong>流程图</strong>：仓库 README 里已有现成 ASCII 系统架构框图，扩成「离线/串口数据 → 去噪 → 切片 → 1D-CNN → 评估 → 调参环 → Web 波形」即可；<strong>GitHub</strong>：直接复用已有公开仓库或新分支 + tag，链接天然可访问；<strong>运行效果</strong>：已有 Flask + Canvas 实时波形页，加一条「预测标签 / 置信度」面板就能现场演示，<strong>五个里展示效果最强</strong>。</span></div>
+      <div><span class="k">工作量 / 风险</span><span><strong>14–20 h</strong>。风险：需要额外带标签的心电数据（现有 kai4.csv 只是单条 20 s / 250 Hz 信号，不足以训练分类器），MIT-BIH / PTB-XL 的下载、切片、R 峰对齐是主要坑；主题容易滑回「信号处理工程」而弱化深度学习与调参；若复用旧仓库，README 必须写明「复用本人既有代码 + 本次新增部分」，避免与「严禁抄袭」产生歧义。</span></div>
+    </div>
+  </div>
+
+  <!-- B3 -->
+  <div class="topic">
+    <h3><span class="num">B-3</span> UCI 医学表格数据 MLP 预测 + 调参 + 可解释性 <span class="tag t-teal">自建（保底）</span> <span class="tag t-low">风险 极低</span></h3>
+    <div class="kv">
+      <div><span class="k">任务目标</span><span>用 <code>sklearn.datasets.load_breast_cancer</code>（569×30，乳腺癌良恶性）或 Pima 糖尿病数据做二分类：逻辑回归 → MLP 基线 → 系统调参 + 置换特征重要性（呼应 C10 可解释性），做一个极轻的「预测精度提升」闭环。</span></div>
+      <div><span class="k">方向匹配</span><span>医学「预测任务」+ 调参优化，但非影像、非分割，视觉演示偏弱，更接近课程练习。</span></div>
+      <div><span class="k">基线 / 调参</span><span>基线：LR → MLP(30-16-2)。调参：lr、隐层宽度、dropout、weight decay、BN、标准化、类别权重、早停、k 折交叉验证；指标 AUC / F1 + 校准曲线 + 特征重要性条形图。</span></div>
+      <div><span class="k">三项交付</span><span><strong>流程图</strong>：简单六步链路；<strong>GitHub</strong>：纯脚本 + 结果图，几分钟即可在别人机器上复现；<strong>运行效果</strong>：ROC、学习曲线、超参热力图、混淆矩阵，或 Streamlit 输入 30 项指标输出风险分数。</span></div>
+      <div><span class="k">工作量 / 风险</span><span><strong>6–8 h</strong>，最快出成果、零数据风险。但 30 特征小数据天花板低、项目感与创新性最弱，撑不起占 40% 权重的「完整实验链路」；适合作为保底，或并入 B-1 当作「最低基线」章节。</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>三、横向对比与优先级</h2>
+  <table>
+    <tr><th>编号</th><th>路线</th><th>方向命中</th><th>CPU 训练量</th><th>数据获取</th><th>演示效果</th><th>工作量</th><th>风险</th><th>优先级</th></tr>
+    <tr><td><strong>B-1</strong></td><td>自建</td><td>预测 + 调参（双）</td><td>1–3 min / 组，30–60 组</td><td>pip 自动下载</td><td>强（曲线 + 单图推理）</td><td>12–16 h</td><td><span class="tag t-low">低</span></td><td><strong>① 首推</strong></td></tr>
+    <tr><td>A-1</td><td>复刻</td><td>预测 + 调参（双）</td><td>1–3 min / 组</td><td>pip 自动下载</td><td>强</td><td>10–14 h</td><td><span class="tag t-low">低—中</span></td><td>② 次选 / 可作 B-1 官方对照</td></tr>
+    <tr><td>B-2</td><td>自建延伸</td><td>预测 + 调参</td><td>小</td><td>需另找带标签 ECG</td><td>最强（实时波形页）</td><td>14–20 h</td><td><span class="tag t-mid">中</span></td><td>③ 留到最终大作业</td></tr>
+    <tr><td>A-2</td><td>复刻</td><td>医学图像分割</td><td>慢，需缩放/切块</td><td>注册或镜像，格式坑多</td><td>强（掩码叠色）</td><td>18–25 h</td><td><span class="tag t-high">高</span></td><td>④ 有 GPU/431 机房再上</td></tr>
+    <tr><td>B-3</td><td>自建</td><td>预测 + 调参</td><td>秒级</td><td>sklearn 内置</td><td>中（纯图表）</td><td>6–8 h</td><td><span class="tag t-low">极低</span></td><td>⑤ 保底 / 并入 B-1</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>四、最推荐：B-1 自建「MedMNIST 调参实验室」</h2>
+  <div class="good"><strong>一句话理由：</strong>它是唯一一个在你<strong>当前真实条件</strong>（C1–C15 自测与订正已完成、代码实操刚起步、纯 CPU、14 小时预算、中期就要交三件套）下，能把「任务目标 + 三项交付 + 导师方向 + 学习复盘」同时全部兑现，且几乎不会翻车的选题。</div>
+  <ol>
+    <li><strong>三项硬约束成本最低且质量最高。</strong>流程图自己画（上面的框图可直接用）；GitHub 账号已有公开仓库，新建即可保证链接可访问；运行效果是 CPU 分钟级训练 → 现场能真跑一条命令并当场出图，而不是只放截图。这一条在「能展示代码运行效果」上比所有分割类选题都稳。</li>
+    <li><strong>与导师建议双命中，而且严格是「基础预测模型」。</strong>医学影像预测任务 + 基于基础预测模型通过调参提升精度；SmallCNN / MLP 就是李沐 D10、D23 与笔记 C3 的骨架，不需要临时去学 Transformer、GAN 或 MONAI。</li>
+    <li><strong>与你的笔记进度严丝合缝，正好补上「还差跑」。</strong>笔记四件套已经把 C1（双损失诊断、不能用测试集调参）、C2（交叉熵、Adam / RMSProp 分段）、C3（卷积参数量、小目标池化丢失）、C14（蒸馏温度）讲清并订正过；B-1 就是把这些结论从「能讲」推到「能改、能跑出曲线」。<code>configs/</code> 与 <code>results/</code> 同时充当「每个编号都有笔记」的延续，直接支撑 20% 学习复盘；也满足培训方案「严禁纯文献调研、全员动手跑通完整链路」。理论理解成本已由笔记付过，14 h 里可以更聚焦在实验设计与消融上。</li>
+    <li><strong>硬件与数据零卡点。</strong><code>d2l-zh</code> 环境已装好 torch 2.5.1+cpu / d2l / Jupyter；MedMNIST 是 28×28 的 .npz、CC 许可、标准划分、<code>pip install medmnist</code> 自动下载，不需要注册、Kaggle 账号或数据清洗；单次训练 1–3 分钟意味着能做 30–60 组配置 + 3 seed，调参结论有统计意义而不是「运气好」。</li>
+    <li><strong>可进可退。</strong>时间紧就砍掉 Optuna 和 Gradio，只留网格搜索 + notebook 即可交付；有余量就加第二个子数据集（跨数据集泛化 → C11）、剪枝/蒸馏（→ C14）、Grad-CAM（→ C10），平滑升级为最终大作业，不用换题重来。</li>
+  </ol>
+
+  <h3>最小可交付清单（MVP，直接对照验收表）</h3>
+  <table>
+    <tr><th>验收项</th><th>最小交付物</th><th>仓库中位置</th></tr>
+    <tr><td>① 项目流程图 / 框图</td><td>五泳道流程图（数据 / 训练 / 调参环 / 评估 / 交付），SVG + PNG 各一份；PPT 与 README 用同一张</td><td><code>docs/pipeline.svg</code>、<code>README.md</code> 首屏</td></tr>
+    <tr><td>② 可访问的 GitHub 链接</td><td>公开仓库 <code>https://github.com/via453/medmnist-tuning-lab</code>；README 含环境与一键复现命令；<code>requirements.txt</code>、<code>configs/</code>、<code>src/</code>、<code>results/</code>、<code>figures/</code>、<code>notebooks/</code>、LICENSE；验收前 ≥3 次 commit</td><td>仓库根</td></tr>
+    <tr><td>③ 项目流程与运行效果</td><td><code>python run.py --config configs/best.yaml</code> 打印 ACC/AUC 并生成 loss 曲线、ROC、混淆矩阵、超参热力图；<code>demo.ipynb</code> / Gradio 单图上传显示预测与置信度；调参前后对比柱状图</td><td><code>src/</code>、<code>notebooks/</code>、<code>figures/</code></td></tr>
+    <tr><td>附加（答辩加分）</td><td>消融表、3 seed 均值±标准差、失败配置记录、踩坑清单、学习复盘段落</td><td><code>results/</code>、<code>docs/REPORT.md</code></td></tr>
+  </table>
+
+  <h3>14 小时落地节奏</h3>
+  <table>
+    <tr><th>阶段</th><th>投入</th><th>产出</th></tr>
+    <tr><td>1. 立骨架</td><td>0–2 h</td><td>建仓库并推送 README + 流程图占位；<code>python -c "import torch, medmnist"</code> 冒烟测试；下载 PneumoniaMNIST 并画 16 张样本网格</td></tr>
+    <tr><td>2. 跑基线</td><td>2–5 h</td><td>MLP 与 SmallCNN 两条基线、统一 config、固定 seed、训练日志写 CSV、保存 best.pth</td></tr>
+    <tr><td>3. 做调参</td><td>5–10 h</td><td>12–24 组网格搜索 × 3 seed、消融表、超参敏感性曲线、敏感性排序</td></tr>
+    <tr><td>4. 收交付</td><td>10–14 h</td><td>最优配置在独立 test 上评测一次；notebook / Gradio 演示；README、PPT 框图、复盘文档定稿</td></tr>
+  </table>
+
+  <div class="warn"><strong>四个兜底预案：</strong>① 提升不显著 → 把结论改成「超参敏感性分析 + 哪些做法无效」，这同样是合格实验结论；② 网络不通 → 手动下载 .npz 放 <code>data/</code> 并写好路径说明；③ CPU 太慢 → 换 BreastMNIST（780 张）或减 epoch / 用 28×28；④ 时间不够 → 砍 Optuna、Gradio、第二个子数据集，三项交付一件不砍。</div>
+</section>
+
+<section>
+  <h2>五、其余四个优先级较低的原因</h2>
+  <table>
+    <tr><th>选题</th><th>为什么排在后面</th><th>什么情况下值得升级</th></tr>
+    <tr><td><strong>A-1</strong>（复刻 MedMNIST 官方）</td><td>技术上几乎和 B-1 一样稳，但复刻路线天然多两层成本：一是上游 <code>experiments</code> 代码偏老、要适配 torch 2.5；二是培训方案明写「严禁抄袭代码」，必须逐条标注 upstream 与本人改动，答辩时还要回答「你和官方 baseline 差在哪」。它更适合当 B-1 的<strong>官方对照基线</strong>，而不是单独成题。</td><td>导师明确要求「先复现再改进」；或你想把「复现一致性验证」写成报告亮点</td></tr>
+    <tr><td><strong>B-2</strong>（ECG 平台升级）</td><td>演示效果五个里最强、领域最熟，但<strong>数据风险最大</strong>：现有 kai4.csv 只是单条 20 s 信号，训练分类器必须另找带标签数据集（MIT-BIH / PTB-XL），切片与 R 峰对齐会吃掉大量时间；而且容易写成「信号处理工程」而非「深度学习调参」，偏离导师方向。中期验收时间窗太窄。</td><td>最终大作业有小组分工、有人专门负责数据；或导师组直接提供带标签心电数据</td></tr>
+    <tr><td><strong>A-2</strong>（U-Net + DRIVE 分割）</td><td>最贴「医学图像分割」字面，却是风险最高的一项：CPU 上 584×565 的 U-Net 训练慢、DRIVE 需注册或找镜像、TIF+GIF 调色板掩码格式坑多、血管像素仅约 9% 类别极不平衡、原仓库默认 CUDA/AMP/W&B 要裁剪、许可还禁止把原始图放进仓库。18–25 h 也超出 E5 的 14 h 预算，中期很可能只交得出推理 demo。</td><td>能稳定使用 431 机房 GPU（培训方案明确可预约），且把范围缩到「缩放至 128×128 + 20 张训练图 + 少量 epoch」</td></tr>
+    <tr><td><strong>B-3</strong>（UCI 表格 MLP）</td><td>最稳、最快，但 569×30 的小表格天花板低、没有图像可视化，容易被评价为「课程练习」而非占 40% 权重、要求完整实验链路的大作业；也不含医学影像，只占导师建议里最边缘的一块。</td><td>作为验收前的保底交付，或并入 B-1 当「最低性能基线 / 调参方法论验证」章节</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>六、现在就可以做的三件事</h2>
+  <ol>
+    <li><strong>把笔记产出登记进进度表，而不是反过来拿进度表当进度。</strong>在 C1–C16 对应编号挂上四件套（自测 HTML → 订正版 docx → 一页纸版 → 自测笔记 HTML）及 11/07 日期，按笔记《掌握度总览》标注「已打勾 / 需重读」；A1–A3 环境实测已就绪也一并登记。学习复盘占 20%，这份「自测 → 纠错 → 重写 → 压缩」的闭环本身就是最有力的过程证据。</li>
+    <li><strong>今天就把 GitHub 仓库建起来并推送第一版。</strong>哪怕只有 README + 流程图 SVG + <code>requirements.txt</code>。中期验收要的是「可访问的已上传链接」，等到验收前一晚才 push 最容易出岔子。你已有公开仓库与带架构框图的 README，可直接照 <code>ecg-denoise-lab</code> 的版式套。</li>
+    <li><strong>跑一次冒烟测试再定题。</strong>在 <code>d2l-zh</code> 环境里执行 <code>conda activate d2l-zh &amp;&amp; pip install medmnist &amp;&amp; python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', download=True); print(len(d), d[0][0].shape)"</code>。能打印形状，B-1 就基本没有环境风险；不能，就立刻切到 B-3 保底或改用本地 .npz。</li>
+  </ol>
+  <p class="small">参考链接（均已核实可访问）：<a href="https://github.com/MedMNIST/MedMNIST">MedMNIST/MedMNIST</a> · <a href="https://github.com/MedMNIST/experiments">MedMNIST/experiments</a> · <a href="https://medmnist.com/">medmnist.com 数据集说明</a> · <a href="https://github.com/milesial/Pytorch-UNet">milesial/Pytorch-UNet</a> · <a href="https://drive.grand-challenge.org/">DRIVE 官方</a> · <a href="https://opendatalab.com/OpenDataLab/DRIVE">DRIVE OpenDataLab 镜像</a> · <a href="https://www.kaggle.com/datasets/aryashah2k/breast-ultrasound-images-dataset">BUSI 数据集</a> · <a href="https://github.com/d2l-ai/d2l-zh">d2l-ai/d2l-zh</a> · <a href="https://github.com/via453/ecg-denoise-lab">via453/ecg-denoise-lab</a></p>
+</section>
+
+<footer>进度依据（口径以此为准）：归档\深度学习笔记\ —— 深度学习自测.html、深度学习笔记_C1-C16.docx、深度学习笔记_一页纸版.docx、深度学习自测笔记.html；计划与约束依据：深度学习自学进度表.xlsx（仅作编号与周次参照，未填写状态不代表学习产出）、李宏毅讲义 ×2、附件一实施方案.pdf、附件三课时安排表.pdf；环境实测：d2l-zh / pesc conda 环境；账号核查：GitHub via453。v2 更正：已移除「进度 0%」的表述，改按笔记四件套与《掌握度总览》描述真实进度。</footer>
+
+</div>
+</body>
+</html>
