@@ -357,7 +357,8 @@
 
   <div class="danger"><strong>已踩过的坑（先看这一段再装包）：</strong>直接执行 <code>pip install medmnist scikit-learn PyYAML tqdm</code> 会经由 <code>scipy 1.13.1</code>（要求 <code>numpy&gt;=1.22.4</code>）把 numpy 顶到 <strong>2.0.2</strong>，于是报 <code>d2l 0.17.6 requires numpy==1.21.5</code>。这不只是警告：<code>pandas 1.2.4</code>、<code>matplotlib 3.5.1</code>、<code>scikit-learn 1.6.1</code> 会因 NumPy 2 的 C ABI 变化<strong>直接无法导入</strong>（<code>_ARRAY_API not found</code> / <code>numpy.dtype size changed, may indicate binary incompatibility</code>）。修复用下面的钉版本命令；更彻底的做法是给本项目单独建 conda 环境，别动上课用的 <code>d2l-zh</code>。</div>
 
-  <pre><code>conda activate d2l-zh
+  <pre><code>:: 环境级命令：下面几条在任意目录都能执行（不涉及相对路径）
+conda activate d2l-zh
 python -c "import sys, torch; print(sys.version.split()[0], torch.__version__, torch.cuda.is_available())"
 
 :: 一次性钉死兼容组合（numpy 已被顶到 2.x 时用它拉回来；环境已修好时执行也是安全的）
@@ -367,6 +368,7 @@ python -m pip install numpy==1.21.5 scipy==1.7.3 scikit-learn==1.0.2 scikit-imag
 python -m pip check
 python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', download=True); print(len(d), d[0][0].shape)"</code></pre>
   <div class="warn">最后一条会联网下载 <code>.npz</code>（PneumoniaMNIST 约 4.2 MB），本机实测已缓存于 <code>C:\Users\&lt;你的用户名&gt;\.medmnist\</code>（<code>medmnist 3.0.2</code> 的 <code>root</code> 默认值）。若下载失败，不要猜 API 参数：先用 <code>inspect.signature(PneumoniaMNIST.__init__)</code> 看实际签名，把手动下载的文件放到它读取的目录，并把来源、路径、校验方式写进 <code>docs/LOG.md</code>。实测划分：train 4708 / val 524 / test 624，单样本 28×28、uint8。</div>
+  <div class="warn"><strong>注意区分两类命令：</strong>本节这几条是<strong>环境级</strong>操作（装包、检查依赖），在任意目录都能跑；而 <code>pip install -r requirements.txt</code>、<code>python -m src.run</code>、<code>python -m src.sweep</code> 是<strong>项目级</strong>命令，<strong>必须先 <code>cd</code> 到仓库根目录</strong>，否则会报 <code>Could not open requirements file</code> 或 <code>No module named 'src'</code>。<code>pip check</code> 通过只说明环境没坏，不能说明当前目录正确。</div>
 
   <h3 id="s3-2">3.2 目录结构与配置字段</h3>
   <pre><code>medmnist-tuning-lab/
@@ -831,7 +833,7 @@ python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', 
   <p class="sec-lead">只保留三件套必需动作，砍掉一切加分项。按此清单做完即可交付；有余量再回头做第 4.3 节的 S2 / S3 与加分章节。</p>
   <ol class="mini">
     <li><strong>确认 3 项参数</strong>：主数据集、仓库名、本人负责模块（第 1.1 节填写框）。</li>
-    <li><strong>环境冒烟</strong>：激活 <code>d2l-zh</code> → 按第 3.1 节钉死兼容组合 → <code>pip check</code> 无冲突 → 打印数据集长度与样本形状（本机已验证：4708 / 524 / 624、28×28）。</li>
+    <li><strong>环境冒烟</strong>：<strong>先 <code>cd</code> 到仓库根目录</strong> → 激活 <code>d2l-zh</code> → <code>pip install -r requirements.txt</code> → <code>pip check</code> 无冲突 → 跑一次 <code>python -m src.run --epochs 1 --limit-train 256 ...</code>（本机已验证：4708 / 524 / 624、28×28、1 epoch 可跑通）。</li>
     <li><strong>建公开仓库并推送第一版</strong>：至少 README + 流程图 SVG + <code>.gitignore</code> + <code>requirements.txt</code>，保证链接当场可访问。</li>
     <li><strong>跑通一条完整链路</strong>：<code>python run.py --config configs/base.yaml</code>，产出 loss 曲线与一行 <code>runs.csv</code>。</li>
     <li><strong>做最小调参对比</strong>：至少 8 组配置（优先扫 lr 与 optimizer），产出一张对比表 + 一张敏感性曲线。</li>
@@ -863,30 +865,35 @@ python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', 
 <!-- ============ B ============ -->
 <section id="sB">
   <h2>附录 B · 命令速查</h2>
-  <pre><code>:: 建议在「Anaconda Prompt」执行
+  <div class="warn"><strong>第一条命令必须是切到仓库根目录。</strong><code>src</code> 是本地包，<code>requirements.txt</code> / <code>configs/</code> / <code>results/</code> 都是相对路径。在家目录执行会报 <code>Could not open requirements file</code> 或 <code>No module named 'src'</code>；<code>pip check</code> 通过只说明环境没问题，不能说明当前目录正确（它是环境级检查，与 cwd 无关）。</div>
+  <pre><code>:: Anaconda Prompt / 已 conda init 的 PowerShell 都可执行
 conda activate d2l-zh
-python -c "import sys, torch; print(sys.version.split()[0], torch.__version__, torch.cuda.is_available())"
+cd "C:\Users\Zelvia\DeskBox\NOW_11\深度学习大作业1"
+:: 若从 GitHub clone 到别处，把上面路径换成 clone 后的实际目录
 
-:: 钉死兼容组合（切勿裸装 medmnist / scikit-learn，会把 numpy 顶到 2.x）
-python -m pip install numpy==1.21.5 scipy==1.7.3 scikit-learn==1.0.2 scikit-image==0.19.3 tifffile==2021.11.2 PyWavelets==1.3.0 imageio==2.19.3 networkx==2.8.8 Pillow==9.5.0 medmnist==3.0.2 PyYAML tqdm
+:: 环境与依赖（requirements.txt 已钉死 numpy 1.x ABI 兼容组合）
+python -m pip install -r requirements.txt
 python -m pip check
+python -c "import sys, torch; print(sys.version.split()[0], torch.__version__, torch.cuda.is_available())"
 
 :: 数据冒烟
 python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', download=True); print(len(d), d[0][0].shape)"
 
-:: 单配置训练
-python run.py --config configs/base.yaml
-python run.py --config configs/best.yaml
+:: 单配置训练（先冒烟，再正式）
+python -m src.run --config configs/base.yaml --epochs 1 --limit-train 256 --limit-val 128 --no-ckpt --out .workbuddy/smoke_runs.csv
+python -m src.run --config configs/base.yaml
 
-:: 批量搜索 / 评估 / 出图
-python sweep.py --config configs/sweep.yaml
-python evaluate.py --config configs/best.yaml --split test
-python plots.py --results results/runs.csv
+:: 批量搜索 / 出图
+python -m src.sweep --config configs/sweep.yaml
+python -m src.plots --results results/runs.csv
+
+:: 填好 configs/best.yaml 后，test 只评一次
+python -m src.run --config configs/best.yaml --split test
 
 :: 归档
 git add . &amp;&amp; git commit -m "exp: add ablation and final results"
 git tag v0.1-midterm &amp;&amp; git push origin v0.1-midterm</code></pre>
-  <p class="small">若只能在 Git Bash 里工作，可直接用 <code>D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe</code> 全路径替代 <code>python</code>，避免 conda 初始化问题。</p>
+  <p class="small">环境若曾被裸装命令顶到 numpy 2.x，用 3.1 节那条钉版本命令拉回。若只能在 Git Bash 里工作，可用 <code>D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe</code> 全路径替代 <code>python</code>；PowerShell 里用 <code>Get-Location</code> 随时确认当前目录。</p>
 </section>
 
 <!-- ============ C ============ -->

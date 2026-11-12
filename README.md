@@ -48,8 +48,13 @@ medmnist-tuning-lab/
 
 ## 快速开始（在 `d2l-zh` 环境）
 
-```bash
+> **所有命令都必须在仓库根目录执行。** `src` 是本地包，`requirements.txt` / `configs/` / `results/` 都是相对路径；在家目录或任意别处运行会报 `No module named 'src'` 或 `Could not open requirements file`。
+
+**PowerShell（本机）**：
+
+```powershell
 conda activate d2l-zh
+cd "C:\Users\Zelvia\DeskBox\NOW_11\深度学习大作业1"
 python -m pip install -r requirements.txt
 python -m pip check
 
@@ -66,6 +71,16 @@ python -m src.run --config configs/best.yaml --split test
 ```
 
 `src/plots.py` 在没有实验结果时会明确提示并退出，**不会生成示意数据或假图**。
+
+### 常见启动错误
+
+| 报错 | 原因 | 处理 |
+| --- | --- | --- |
+| `Could not open requirements file: ... 'requirements.txt'` | 当前目录不是仓库根 | `cd` 到仓库根目录再执行 |
+| `No module named 'src'` | 同上；`src` 是本地包，Python 只从当前目录 / `PYTHONPATH` 里找 | 同上 |
+| `pip check` 通过但上面的命令仍报错 | `pip check` 只检查**环境里已装包**的依赖一致性，与当前目录无关 | 它不能用来验证 cwd 是否正确 |
+
+若从 GitHub clone 到别的目录，把 `cd` 换成 clone 后的实际路径；之后所有命令都保持在该目录下执行。用 `Get-Location`（PowerShell）或 `pwd`（Git Bash）可随时确认当前目录。
 
 ## 中期验收三件套对照
 

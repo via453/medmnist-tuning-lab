@@ -500,7 +500,7 @@ def auc_rank(scores, y):
 
 <section id="s10">
   <h2>10　协作边界 · 第二节：必须由你在本地准备或执行的事项</h2>
-  <p>以下七组动作<strong>全部由你完成</strong>；命令与顺序固定。Windows 下直接用环境解释器的绝对路径，避免 Git Bash 里 <code>conda activate</code> 失效。</p>
+  <p>以下七组动作<strong>全部由你完成</strong>；命令与顺序固定。Windows 下直接用环境解释器的绝对路径，避免 Git Bash 里 <code>conda activate</code> 失效。<strong>另需先 <code>cd</code> 到仓库根目录再执行项目级命令</strong>（<code>run.py</code>、<code>configs/</code>、<code>results/</code> 都是相对路径）；在 <code>C:\Users\Zelvia</code> 家目录执行会报找不到文件或 <code>No module named 'src'</code>。只有 <code>pip install</code> / <code>pip check</code> 这类环境级命令与当前目录无关。</p>
   <pre><code>set PY="D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe"
 # 后续所有命令统一用 %PY% -m ... 或 "%PY%" xxx.py 的形式执行</code></pre>
 
