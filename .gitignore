@@ -20,3 +20,6 @@ venv/
 # 系统文件
 .DS_Store
 Thumbs.db
+
+# PPT 工具链本地元数据
+**/.slidep/
