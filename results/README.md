@@ -1,8 +1,8 @@
 # results/ · 实验记录
 
-本目录存放**由本人本地跑出来的真实结果**。仓库第一版只提供骨架，不含任何实验数据。
+本目录存放**本机跑出来的真实结果**。仓库第一版只提供骨架，不含任何实验数据。
 
-| 文件 | 由谁生成 | 说明 |
+| 文件 | 生成方式 | 说明 |
 | --- | --- | --- |
 | `runs.csv` | `src/run.py` / `src/sweep.py` | S1 单因子扫描，每组配置一行，含成功与失败组；字段见完整教程 6.1 |
 | `grid.csv` | `src/repeat.py --mode grid` | S2 小网格，看超参交互作用（可选） |
@@ -12,7 +12,7 @@
 | `adv_curve.csv` | `src/adv_train.py` | ε 曲线按 3 个 seed 聚合的均值 ± std，对应 `figures/fgsm_adv_compare.png` |
 | `capacity.csv` | `src/capacity_match.py` | 容量对齐：每个 (目标参数量, 结构, seed) 一行，含实际旋钮取值与参数量 |
 | `capacity_summary.csv` | `src/capacity_match.py` | 上面的均值 ± std 汇总，`--replot` 直接读它画 `figures/capacity_curve.png` |
-| `ablation.csv` | 本人整理 | 消融表，也可见 `docs/REPORT.md` 第 2、3 节 |
+| `ablation.csv` | 手工整理 | 消融表，也可见 `docs/REPORT.md` 第 2、3 节 |
 | `test_final.csv` | `src/run.py --split test` | **只应有一行**，覆盖写；生成时间必须晚于所有调参实验 |
 
 约定：

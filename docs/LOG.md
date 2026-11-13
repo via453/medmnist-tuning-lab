@@ -1,6 +1,6 @@
 # 实验日志
 
-> 逐条记录**机器字段之外的判断与现象**；结构化字段由 `src/run.py` / `src/sweep.py` / `src/repeat.py` 自动写入 `results/*.csv`。
+> 逐条记录**结构化字段之外的判断与现象**；结构化字段由 `src/run.py` / `src/sweep.py` / `src/repeat.py` 自动写入 `results/*.csv`。
 > 环境：`d2l-zh` / Python 3.9.25 / torch 2.5.1+cpu / numpy 1.21.5 / **纯 CPU，无 CUDA** / `num_workers=0`
 > 记录规则：每组实验（含失败组）一行，失败组不删；test 全程只评一次；每条带 `git rev-parse --short HEAD`。
 

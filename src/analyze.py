@@ -1,4 +1,4 @@
-"""把 results/runs.csv 整理成阶段分析摘要（机器整理，供本人填写 REPORT.md 参考）。
+"""把 results/runs.csv 整理成阶段分析摘要（只给数据，结论写在 REPORT.md）。
 
     python -m src.analyze --results results/runs.csv
     python -m src.analyze --results results/runs.csv --out docs/S1_ANALYSIS.md
@@ -32,7 +32,7 @@ def build_summary(path, top_n=5):
     delta = float(best["val_auc"]) - base_auc
 
     lines = []
-    lines.append("# S1 单因子扫描 · 数据摘要（机器整理，非本人结论）")
+    lines.append("# S1 单因子扫描 · 数据摘要")
     lines.append("")
     lines.append("> 由 `src/analyze.py` 从 `%s` 自动整理，生成时间 %s。" % (
         path, datetime.now().strftime("%Y-%m-%d %H:%M")))

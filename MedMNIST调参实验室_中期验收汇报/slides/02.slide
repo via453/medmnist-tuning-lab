@@ -48,9 +48,9 @@
 
         <Box style={{ marginTop: 24, display: 'flex', flexDirection: 'row', gap: 32 }}>
             <Box style={{ display: 'flex', flexDirection: 'column', width: 548 }}>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>由本人完成的部分</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>上台前只剩三步</Text>
                 <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
-                    四份署名文档已定稿；本 PPT 与答辩预演刚完成。现场演示按第 11 页脚本执行。
+                    四份署名文档已定稿；PPT 与预演稿已就绪；现场按第 11 页脚本执行一遍。
                 </Text>
             </Box>
             <Box style={{ width: 1, background: '#D6DCE5' }} />

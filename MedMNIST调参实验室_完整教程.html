@@ -179,8 +179,7 @@
     <li><a href="#s6">6 · 过程记录</a></li>
     <li><a href="#s7">7 · 可填写章节映射表</a></li>
     <li><a href="#s8">8 · 最终归档</a></li>
-    <li><a href="#s9">9 · 协作边界（三类清单）</a></li>
-    <li><a href="#s10">10 · 最小工作清单</a></li>
+    <li><a href="#s9">9 · 最小工作清单</a></li>
     <li><a href="#sA">附录 A · 14 小时节奏</a></li>
     <li><a href="#sB">附录 B · 命令速查</a></li>
     <li><a href="#sC">附录 C · 参考链接</a></li>
@@ -231,7 +230,7 @@
   <div class="note"><strong>口径声明：</strong>你的真实学习进度以 <code>C:\桌面\2026深度学习本校培训文档归档\深度学习笔记\</code> 四份产出为准（自测 HTML → C1-C16 订正版 → 一页纸版 → 自测笔记 HTML），而不是进度表里未填写的状态列。本页第 7 节的映射表就是为这套笔记准备的。</div>
   <div class="warn"><strong>关于医学数据的边界：</strong>MedMNIST 官方明确说明数据集仅用于教育与研究，<strong>不用于临床</strong>。项目里只谈 AUC/ACC 与超参敏感性，不做任何诊断结论、不写「可用于辅助诊断」之类表述。</div>
   <ul class="ck">
-    <li><input type="checkbox" data-c="s0-1" id="c0a"><label for="c0a">已确认本页填写内容只保存在本机浏览器，不会自动上传<span class="hint">导出与打印由你手动触发；清空按钮会删除本机记录。</span></label></li>
+    <li><input type="checkbox" data-c="s0-1" id="c0a"><label for="c0a">已确认本页填写内容只保存在本机浏览器，不会自动上传<span class="hint">导出与打印需手动触发；清空按钮会删除本机记录。</span></label></li>
     <li><input type="checkbox" data-c="s0-2" id="c0b"><label for="c0b">已确认「章节名称未给出时用占位项」这一规则</label></li>
   </ul>
 </section>
@@ -265,7 +264,7 @@
     <div class="box"><b>主数据集（待确认）</b><span><input class="fill" data-k="p1-ds" placeholder="〈待填：PneumoniaMNIST / BreastMNIST〉"></span></div>
     <div class="box"><b>GitHub 仓库名（待确认）</b><span><input class="fill" data-k="p1-repo" placeholder="〈待填：medmnist-tuning-lab〉"></span></div>
     <div class="box"><b>计划完成日期（待确认）</b><span><input class="fill" data-k="p1-date" placeholder="〈待填：YYYY-MM-DD〉"></span></div>
-    <div class="box"><b>本人负责的模块（待确认）</b><span><input class="fill" data-k="p1-role" placeholder="〈待填：数据 / 训练 / 调参 / 可视化〉"></span></div>
+    <div class="box"><b>负责的模块（待确认）</b><span><input class="fill" data-k="p1-role" placeholder="〈待填：数据 / 训练 / 调参 / 可视化〉"></span></div>
     <div class="box"><b>可用总时长（待确认）</b><span><input class="fill" data-k="p1-hours" placeholder="〈待填：14 小时〉"></span></div>
     <div class="box"><b>导师额外要求（待确认）</b><span><input class="fill" data-k="p1-mentor" placeholder="〈待填：是否要求先复现官方 baseline〉"></span></div>
   </div>
@@ -282,7 +281,7 @@
   <h3>1.3 立项检查清单</h3>
   <ul class="ck">
     <li><input type="checkbox" data-c="s1-1" id="c1a"><label for="c1a">已写下并锁定一句话目标，且明确「不做什么」</label></li>
-    <li><input type="checkbox" data-c="s1-2" id="c1b"><label for="c1b">已确认主数据集、仓库名、本人负责模块、总时长<span class="hint">上方五个填写框至少填数据集与仓库名。</span></label></li>
+    <li><input type="checkbox" data-c="s1-2" id="c1b"><label for="c1b">已确认主数据集、仓库名、负责模块、总时长<span class="hint">上方五个填写框至少填数据集与仓库名。</span></label></li>
     <li><input type="checkbox" data-c="s1-3" id="c1c"><label for="c1c">已把三件套各自指定到一个具体文件 / 目录</label></li>
     <li><input type="checkbox" data-c="s1-4" id="c1d"><label for="c1d">已确认培训方案要求：全员动手、严禁纯文献调研、学习复盘占 20%</label></li>
   </ul>
@@ -574,7 +573,7 @@ python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', 
 <!-- ============ 7 ============ -->
 <section id="s7">
   <h2>7 · 可填写章节映射表（对应我已学的各章节）</h2>
-  <p class="sec-lead">把项目环节逐一挂到你已经学过的章节上。<strong>章节名称未给出时，一律保留「〈章节名称待填〉」占位项</strong>，由你自己填写；小灰字只是归档目录里出现过的参考名，不是替你填好的答案。</p>
+  <p class="sec-lead">把项目环节逐一挂到已学章节上。<strong>章节名称未给出时，一律保留「〈章节名称待填〉」占位项</strong>；小灰字只是归档目录里出现过的参考名，不代表标准答案。</p>
 
   <div class="grid3">
     <div class="box"><b>填写方式</b><span>点击虚线框直接输入；下拉框选掌握度；内容自动保存在本机。</span></div>
@@ -785,54 +784,10 @@ python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', 
 
 <!-- ============ 9 ============ -->
 <section id="s9">
-  <h2>9 · 协作边界（三类清单）</h2>
-  <p class="sec-lead">把「谁做什么」写清楚，避免两边都等对方、也避免把必须由本人动手的部分外包出去。</p>
-
-  <div class="boundary">
-    <h3><span class="bd bd-a">A</span> 我（WorkBuddy）可直接完成，无需你先确认</h3>
-    <ul>
-      <li>在本地生成 / 修改全部<strong>文本与代码文件</strong>：<code>src/*.py</code>、<code>configs/*.yaml</code>、<code>requirements.txt</code>、<code>.gitignore</code>、<code>LICENSE</code>、README、实验报告与复盘模板。</li>
-      <li>生成项目流程图（SVG / PNG）、目录结构、超参空间表、消融表模板、检查清单、PPT 大纲与答辩问答稿。</li>
-      <li>按你给的结果 CSV 生成图件脚本、整理对比表、把实验结论写成「哪些超参敏感 / 不敏感」的规范表述。</li>
-      <li>静态检查代码（语法、路径、seed 是否三处都设、test 是否被误用）、解读报错、核对实验设计有没有泄漏。</li>
-      <li>把归档目录一次性搭好，并按第 8 节清单逐项核对文件是否齐全。</li>
-      <li>维护本教程页面：增补章节、调整表格、增加占位行、导出模板。</li>
-    </ul>
-    <p class="small">边界说明：以上均是在你本机工作区里读写文件，不涉及任何外部系统，也不需要你的账号权限。</p>
-  </div>
-
-  <div class="boundary">
-    <h3><span class="bd bd-b">B</span> 需要你确认或补充，我才能继续</h3>
-    <ul>
-      <li><strong>选题参数：</strong>主数据集（PneumoniaMNIST / BreastMNIST）、是否加第二个子数据集、仓库名、是否公开、总时长、本人负责的模块。</li>
-      <li><strong>范围取舍：</strong>是否要 Optuna、Gradio、第二个数据集、剪枝蒸馏 / Grad-CAM 加分项；导师是否要求「先复现官方 baseline 再改进」。</li>
-      <li><strong>交付参数：</strong>验收日期、PPT 页数与口径、许可证选择、是否允许把结果图放进公开仓库。</li>
-      <li><strong>环境事实：</strong>下载是否成功、单组实测耗时、报错全文、conda 环境实际可用版本、是否有 431 机房 GPU 可用。</li>
-      <li><strong>章节映射表：</strong>第 7 表里的章节名称、笔记出处、掌握度——这些是你的学习记录，必须由你填。</li>
-      <li><span class="sub-badge">确认后我可代办（涉及外部动作）</span> 在已连接的 GitHub 账号下创建公开仓库、推送文件、修改 README 徽章、打 tag。此类操作会对外可见，我会先列出将要创建 / 推送的具体内容并等你点头，不会擅自执行。</li>
-    </ul>
-  </div>
-
-  <div class="boundary">
-    <h3><span class="bd bd-c">C</span> 必须由你在本地亲自执行（本人动手 + 本人署名）</h3>
-    <ul>
-      <li>激活 <code>d2l-zh</code> 环境、安装依赖、跑通冒烟测试，并确认 <code>torch</code> 能导入、数据能下载。</li>
-      <li><strong>亲手跑完整训练与调参链路</strong>：基线、单因子扫描、网格搜索、3 seed 复跑、最终 test 评测。培训方案明确「全员必须动手跑通代码、严禁仅以文献调研结题」，这部分不能用代跑代替。</li>
-      <li>观察并记录实验现象：loss 曲线、发散、早停、报错，把失败组也写进 <code>runs.csv</code> 与踩坑清单。</li>
-      <li>填写学习复盘与章节映射表并署名；按 C1–C16 把笔记四件套登记进自学进度表（学习复盘占 20%，看的是你本人的过程记录）。</li>
-      <li>在浏览器里确认 GitHub 链接公开可访问、现场演示代码运行效果、完成 15 分钟汇报与 5 分钟答辩。</li>
-      <li>如需 GPU，自行预约 431 机房；涉及账号登录、授权、验证码的操作由你完成。</li>
-    </ul>
-    <div class="warn" style="margin-bottom:0"><strong>为什么 C 不能代办：</strong>一是培训方案的硬性要求；二是中期验收第三项要「展示代码运行效果」，评委问的是你改了哪个超参、为什么曲线长这样，这些只有亲手跑过才答得出来。我可以把脚本、命令、检查清单准备到「照着敲就能跑」，但跑和署名必须是你。</div>
-  </div>
-</section>
-
-<!-- ============ 10 ============ -->
-<section id="s10">
-  <h2>10 · 最小工作清单（做完即达到中期验收线）</h2>
+  <h2>9 · 最小工作清单（做完即达到中期验收线）</h2>
   <p class="sec-lead">只保留三件套必需动作，砍掉一切加分项。按此清单做完即可交付；有余量再回头做第 4.3 节的 S2 / S3 与加分章节。</p>
   <ol class="mini">
-    <li><strong>确认 3 项参数</strong>：主数据集、仓库名、本人负责模块（第 1.1 节填写框）。</li>
+    <li><strong>确认 3 项参数</strong>：主数据集、仓库名、负责模块（第 1.1 节填写框）。</li>
     <li><strong>环境冒烟</strong>：<strong>先 <code>cd</code> 到仓库根目录</strong> → 激活 <code>d2l-zh</code> → <code>pip install -r requirements.txt</code> → <code>pip check</code> 无冲突 → 跑一次 <code>python -m src.run --epochs 1 --limit-train 256 ...</code>（本机已验证：4708 / 524 / 624、28×28、1 epoch 可跑通）。</li>
     <li><strong>建公开仓库并推送第一版</strong>：至少 README + 流程图 SVG + <code>.gitignore</code> + <code>requirements.txt</code>，保证链接当场可访问。</li>
     <li><strong>跑通一条完整链路</strong>：<code>python run.py --config configs/base.yaml</code>，产出 loss 曲线与一行 <code>runs.csv</code>。</li>
@@ -844,9 +799,9 @@ python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', 
   </ol>
   <div class="good"><strong>砍法：</strong>时间不够就砍 Optuna、Gradio、第二个子数据集、剪枝蒸馏、Grad-CAM；<strong>三件套一件都不能砍</strong>。这 9 项按 14 小时节奏排下来，对应附录 A 的四个阶段。</div>
   <ul class="ck">
-    <li><input type="checkbox" data-c="s10-1" id="c10a"><label for="c10a">最小清单 9 项已逐项完成（此勾代表整体验收就绪）</label></li>
+    <li><input type="checkbox" data-c="s9-1" id="c9a"><label for="c9a">最小清单 9 项已逐项完成（此勾代表整体验收就绪）</label></li>
   </ul>
-  <p class="ck-count" data-count-for="s10"></p>
+  <p class="ck-count" data-count-for="s9"></p>
 </section>
 
 <!-- ============ A ============ -->
@@ -859,7 +814,7 @@ python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', 
     <tr><td>3 做调参</td><td>5–10 h</td><td>12–24 组网格搜索 × 3 seed、消融表、超参敏感性曲线、敏感性排序</td><td>§4.2 / §4.3</td></tr>
     <tr><td>4 收交付</td><td>10–14 h</td><td>独立 test 评测一次；notebook 演示；README、PPT 框图、复盘与章节映射定稿</td><td>§5 / §6 / §7 / §8</td></tr>
   </table>
-  <div class="warn"><strong>四个兜底：</strong>① 提升不显著 → 改写成超参敏感性分析；② 下载不通 → 手动放 .npz 并在 LOG 记来源；③ CPU 太慢 → 换 BreastMNIST（780 张）或减少 epoch / 组数；④ 时间不够 → 按第 10 节砍加分项。</div>
+  <div class="warn"><strong>四个兜底：</strong>① 提升不显著 → 改写成超参敏感性分析；② 下载不通 → 手动放 .npz 并在 LOG 记来源；③ CPU 太慢 → 换 BreastMNIST（780 张）或减少 epoch / 组数；④ 时间不够 → 按第 9 节砍加分项。</div>
 </section>
 
 <!-- ============ B ============ -->
@@ -892,7 +847,7 @@ python -m src.analyze --results results/runs.csv --out docs/S1_ANALYSIS.md
 python -m src.repeat --mode grid --grid "lr=0.001,0.003;conv_width=32,64"
 python -m src.repeat --mode seeds --results results/runs.csv
 
-:: 确认显著后：从 runs.csv 取配置写 best.yaml（--write 才写，仍需本人核对）
+:: 确认显著后：从 runs.csv 取配置写 best.yaml（--write 才写，写出后仍需核对）
 python -m src.select_best --results results/runs.csv --write
 python -m src.run --config configs/best.yaml
 python -m src.run --config configs/best.yaml --split test

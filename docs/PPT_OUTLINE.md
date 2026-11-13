@@ -1,6 +1,6 @@
 # 中期汇报 PPT 大纲（建议稿）
 
-> 由本人按实际汇报习惯调整。培训方案要求 **15 分钟汇报 + 5 分钟提问**，建议 14–15 页、每页 1 分钟左右，重点放在「流程图 + 实验设计 + 结果 + 现场演示」。所有数字以 `docs/FINAL_ANALYSIS.md` 与 `results/*.csv` 为准。
+> 可按实际汇报习惯调整。培训方案要求 **15 分钟汇报 + 5 分钟提问**，建议 14–15 页、每页 1 分钟左右，重点放在「流程图 + 实验设计 + 结果 + 现场演示」。所有数字以 `docs/FINAL_ANALYSIS.md` 与 `results/*.csv` 为准。
 
 ## 页面与时间分配
 
@@ -43,7 +43,7 @@ jupyter notebook notebooks/demo.ipynb
 ## 答辩前最后核对
 
 - `results/test_final.csv` 只有一行，生成时间晚于所有调参实验。
-- `docs/REPORT.md`、`LOG.md`、`PITFALLS.md`、`REVIEW.md` 已由本人填写并署名。
+- `docs/REPORT.md`、`LOG.md`、`PITFALLS.md`、`REVIEW.md` 已填写并署名。
 - 章节映射表已从教程第 7 节导出并贴入 `docs/REVIEW.md`。
 - 仓库为 Public、commit 已推送、Pages 可访问。
 - 预测题准备好：`docs/DEFENSE_QA.md`。

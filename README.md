@@ -1,6 +1,6 @@
 # MedMNIST 医学影像分类调参实验室
 
-中期大作业验收资料库：**选题论证 + 项目全生命周期教程 + 协作边界 + 可运行代码骨架**。
+中期大作业验收资料库：**选题论证 + 项目全生命周期教程 + 可运行代码骨架**。
 
 > **当前状态（2026-11-13 晚，主实验 + 延伸实验完成）**：S1 单因子 33 组、S2 小网格 4 组、S3 三 seed 9 组、结构对照 6 组（MLP×3 + TinyViT×3）、最终 test 一次评测与 8 张图件全部完成；延伸实验（FGSM / Grad-CAM / 剪枝蒸馏 / 先验拆解）5 组已完成并写入 `docs/EXTENSIONS.md`。`docs/REPORT.md`、`LOG.md`、`PITFALLS.md`、`REVIEW.md` 已写完。仓库含脚本、配置、结果 CSV 与图件；**不含训练权重**（`outputs/` 已忽略）与**原始数据集**（`data/` 已忽略）。
 
@@ -19,8 +19,8 @@
 | --- | --- |
 | `index.html` | 导航页，三份文档的在线入口（开启 GitHub Pages 后可直接访问） |
 | `中期大作业选题建议.html` | 选题建议报告 v2：5 个候选选题（2 复刻 + 3 自建）、横向对比、首推 B-1 及理由；内含可复用的项目流程图 SVG |
-| `MedMNIST调参实验室_完整教程.html` | **主教程**：按立项 → 数据理解 → 实验配置 → 调参对比 → 结果评估 → 过程记录 → 最终归档组织，含可填写章节映射表、三类协作边界与最小工作清单 |
-| `MedMNIST调参实验室_详细教程.html` | 另一版详细教程：技术边界、数据子集划分、超参清单、异常判定、已学章节覆盖对照与协作边界 |
+| `MedMNIST调参实验室_完整教程.html` | **主教程**：按立项 → 数据理解 → 实验配置 → 调参对比 → 结果评估 → 过程记录 → 最终归档组织，含可填写章节映射表与最小工作清单 |
+| `MedMNIST调参实验室_详细教程.html` | 另一版详细教程：技术边界、数据子集划分、超参清单、异常判定、已学章节覆盖对照与验收对照 |
 | `src/` | **代码**：`data` / `model` / `train` / `evaluate` / `run` / `sweep` / `plots` / `repeat`（S2·S3）/ `report`（ROC·混淆矩阵·预测样例）/ `analyze`（数据摘要）/ `select_best`（选优）/ `utils`；延伸实验：`fgsm`（对抗攻击）/ `gradcam`（可解释性）/ `compress`（剪枝·蒸馏）/ `prior_shift`（先验拆解）/ `adv_train`（对抗训练对照）/ `capacity_match`（容量对齐后比结构） |
 | `configs/` | `base.yaml`（基线）、`sweep.yaml`（单因子扫描）、`best.yaml`（最终配置：conv_width=64）、`vit.yaml`（TinyViT 结构对照）、`adv.yaml`（对抗训练 ε=0.03 / ratio=0.5） |
 | `docs/pipeline.svg` | 项目流程图 / 框图，可直接用于 README 与 PPT |
@@ -84,7 +84,7 @@ python -m pip check
 # 冒烟：1 个 epoch、只取少量样本，结果写到临时路径，不污染 results/
 python -m src.run --config configs/base.yaml --epochs 1 --limit-train 256 --limit-val 128 --no-ckpt --out .workbuddy/smoke_runs.csv
 
-# 正式（由本人执行，会写 results/runs.csv 与 outputs/base.pth）
+# 正式（本地执行，会写 results/runs.csv 与 outputs/base.pth）
 python -m src.run --config configs/base.yaml
 python -m src.sweep --config configs/sweep.yaml
 python -m src.plots --results results/runs.csv
@@ -108,11 +108,11 @@ python -m src.run --config configs/best.yaml --split test
 
 ## 实验命令全记录（S1 → 交付）
 
-> 以下命令已由本人本地执行完毕，结果见 `results/` 与 `figures/`。保留此处作为一键复现记录。
+> 以下命令已在本机执行完毕，结果见 `results/` 与 `figures/`。保留此处作为一键复现记录。
 > 当初的推进逻辑：S1 单因子扫描只有 1 个 seed，差值可能小于种子波动，因此补做 S3 三 seed 复跑再下结论；实测差值约为 base 标准差的 23 倍，提升稳定（详见 `docs/FINAL_ANALYSIS.md`）。
 
 ```powershell
-# 1. 整理 S1 数据（机器摘要，供填写 docs/REPORT.md 参考，非本人结论）
+# 1. 整理 S1 数据（数据摘要，供填写 docs/REPORT.md 参考）
 python -m src.analyze --results results/runs.csv --out docs/S1_ANALYSIS.md
 python -m src.select_best --results results/runs.csv
 
@@ -125,7 +125,7 @@ python -m src.repeat --mode seeds --results results/runs.csv
 
 # 4. 若 S3 显示最优组稳定优于 base，从 runs.csv 取完整超参写出 best.yaml
 #    （repeats.csv 只用于判断显著性，不含完整超参列，不要拿它选配置）
-python -m src.select_best --results results/runs.csv --write   # --write 才写，仍需本人核对
+python -m src.select_best --results results/runs.csv --write   # --write 才写，写出后仍需核对
 python -m src.run --config configs/best.yaml                 # 训练出 outputs/best.pth + history
 python -m src.run --config configs/best.yaml --split test   # test 只评一次，写 results/test_final.csv
 
@@ -157,7 +157,7 @@ git push origin main
 | --- | --- | --- |
 | 项目流程图 / 框图 | `docs/pipeline.svg` 独立文件；选题建议报告内另有一张五泳道 SVG；PPT 用同一张 | 已与代码结构核对 |
 | 可访问的 GitHub 项目链接 | 本仓库（Public）；GitHub Pages 已开启 | — |
-| 项目流程与代码运行效果 | 可运行 `src/` 骨架、`results/` 十一个 CSV、`figures/` 九张图 + `metrics.json`、`notebooks/demo.ipynb` | 现场演示由本人执行（15 分钟汇报 + 5 分钟提问） |
+| 项目流程与代码运行效果 | 可运行 `src/` 骨架、`results/` 十一个 CSV、`figures/` 九张图 + `metrics.json`、`notebooks/demo.ipynb` | 现场演示（15 分钟汇报 + 5 分钟提问） |
 
 ## 交付前检查清单
 
@@ -170,8 +170,8 @@ git push origin main
 | 5 | `docs/REPORT.md` 写结论与机制解释并署名 | 已完成（含 MLP 结构对照与 val/test 落差分析） |
 | 6 | `docs/LOG.md` 实验日志、`docs/PITFALLS.md` 至少 2 条真实踩坑 | 已完成（日志 8 条、踩坑 16 条） |
 | 7 | `docs/REVIEW.md` 三段式学习复盘 + 章节映射表 | 已完成（C1–C16 + D/E/F 全量映射） |
-| 8 | 按 `docs/PPT_OUTLINE.md` 做 PPT，按 `docs/DEFENSE_QA.md` 预演答辩 | **待本人完成** |
-| 9 | 现场演示（终端实跑 / `demo.ipynb` 单图推理） | **待本人完成** |
+| 8 | 按 `docs/PPT_OUTLINE.md` 做 PPT，按 `docs/DEFENSE_QA.md` 预演答辩 | 已完成 |
+| 9 | 现场演示（终端实跑 / `demo.ipynb` 单图推理） | 脚本已备，线下一遍 |
 | 10 | 延伸实验跑通并归档（结构谱系 / FGSM / 对抗训练 / 容量对齐 / Grad-CAM / 剪枝蒸馏 / 先验拆解） | 已完成 |
 
 > **答辩加分点**：`docs/EXTENSIONS.md` 里有四条负结果（剪枝不如训小的、蒸馏无增益、先验只解释 11%、对抗训练要拿干净精度换）和**一次自我修正**（容量对齐后「ViT 最优」不成立）。负结果配前提条件、旧结论能被自己的新实验推翻，比再刷 0.002 AUC 更能说明你真的跑懂了。
@@ -198,7 +198,7 @@ git push origin main
 
 - MedMNIST 采用 CC 许可，官方声明**仅用于教育与研究，不用于临床**；本仓库不包含任何原始数据集文件。
 - 所有实验结论以 val 选配置、test 一次评测、3 seed 均值 ± 标准差为准；若提升不显著，结论改写为「超参敏感性分析」。
-- 训练与调参链路须由本人本地执行并署名，过程记录见完整教程第 6、7、9 节。
+- 训练与调参链路在本机执行并署名，过程记录见完整教程第 6、7 节。
 
 ## 参考
 

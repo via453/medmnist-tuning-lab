@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MedMNIST 医学影像分类调参实验室 · 详细教程与协作边界</title>
+<title>MedMNIST 医学影像分类调参实验室 · 详细教程</title>
 <style>
   :root{
     --bg:#f5f7fa; --card:#fff; --ink:#1f2328; --ink2:#4a525e; --ink3:#6b7480;
@@ -71,13 +71,12 @@
 <div class="wrap">
 
 <header>
-  <h1>MedMNIST 医学影像分类调参实验室 · 详细教程与协作边界</h1>
+  <h1>MedMNIST 医学影像分类调参实验室 · 详细教程</h1>
   <p class="sub">对应选题 B-1　｜　纯 CPU · 40 次固定运行 · 12 个超参 · 三项验收交付　｜　工具集锁定在已提及范围</p>
   <div class="meta">
     <span class="chip">日期：2026-11-13</span>
     <span class="chip">环境：d2l-zh（Python 3.9.25 / torch 2.5.1+cpu / torchvision 0.20.1+cpu）</span>
     <span class="chip">进度口径：归档\深度学习笔记\</span>
-    <span class="chip">协作边界：第 9、10 节</span>
   </div>
 </header>
 
@@ -86,7 +85,7 @@
   <a href="#s0">0 技术边界与固定口径</a><a href="#s1">1 实验目标与适用范围</a><a href="#s2">2 数据子集与划分</a>
   <a href="#s3">3 基线模型与目录结构</a><a href="#s4">4 调参清单与搜索范围</a><a href="#s5">5 指标与基线对照</a>
   <a href="#s6">6 记录字段与结果对比</a><a href="#s7">7 异常判定依据</a><a href="#s8">8 章节覆盖对照</a>
-  <a href="#s9">9 我可直接产出的交付物</a><a href="#s10">10 必须由你本地执行的事项</a><a href="#s11">11 验收对照与成功判据</a>
+  <a href="#s9">9 本地执行清单</a><a href="#s10">10 验收对照与成功判据</a>
 </div>
 
 <section id="s0">
@@ -443,7 +442,7 @@ def auc_rank(scores, y):
     <tr><td>C14</td><td>剪枝 / 蒸馏 / 彩票假说</td><td>S5 剪 80% 权重 + 微调 3 epoch；异常 #12；蒸馏不纳入</td><td><span class="tag t-yes">纳入</span></td></tr>
     <tr><td>C15</td><td>元学习 MAML</td><td>无任务级数据单位、无二阶梯度</td><td><span class="tag t-no">不纳入</span></td></tr>
     <tr><td>C16</td><td>知识图谱 / 「读懂 ≠ 会用」/ padding、mask、BN 三例</td><td>异常 #7（BN 模式）、#8（padding 与输出尺寸）；整体定位是把概念落到精确的维度 / dtype / 模式</td><td><span class="tag t-yes">纳入</span></td></tr>
-    <tr><td>A1 / A2 / A3</td><td>环境 / 仓库结构 / 第一个 PyTorch demo</td><td>第 3.4 节目录结构；冒烟测试见第 10 节 B.4</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>A1 / A2 / A3</td><td>环境 / 仓库结构 / 第一个 PyTorch demo</td><td>第 3.4 节目录结构；冒烟测试见第 9 节 B.4</td><td><span class="tag t-yes">纳入</span></td></tr>
     <tr><td>B7</td><td>NumPy / Pandas / Matplotlib 三件套</td><td>AUC 秩和实现、runs.csv、六张结果图</td><td><span class="tag t-yes">纳入</span></td></tr>
     <tr><td>D04 / D07 / D08 / D09 / D10</td><td>数据预处理 / 自动求导 / 线性回归 / Softmax+损失 / MLP</td><td>第 2.2、3.3、3.1 节的加载、训练循环与三级基线</td><td><span class="tag t-yes">纳入</span></td></tr>
     <tr><td>D11 / D12 / D13 / D14</td><td>模型选择 / 权重衰退 / 丢弃法 / 数值稳定性与激活</td><td>早停与过拟合判据；weight_decay、dropout、activation 网格；异常 #1</td><td><span class="tag t-yes">纳入</span></td></tr>
@@ -453,72 +452,32 @@ def auc_rank(scores, y):
     <tr><td>D31–D35</td><td>硬件 / 多卡 / 分布式</td><td>固定单进程 CPU、num_workers=0</td><td><span class="tag t-no">不纳入</span></td></tr>
     <tr><td>D46–D48</td><td>语义分割 / 转置卷积 / FCN</td><td>选题 A-2 已排除，本项目只做分类</td><td><span class="tag t-no">不纳入</span></td></tr>
     <tr><td>D51–D70</td><td>RNN / LSTM / 注意力 / seq2seq / Transformer / BERT</td><td>无序列输入，全部排除</td><td><span class="tag t-no">不纳入</span></td></tr>
-    <tr><td>D73 / E1–E6</td><td>课程总结 / 小作业与大作业 / 汇报答辩</td><td>复盘文档、协作边界两节、15+5 答辩材料</td><td><span class="tag t-yes">纳入</span></td></tr>
+    <tr><td>D73 / E1–E6</td><td>课程总结 / 小作业与大作业 / 汇报答辩</td><td>复盘文档、验收对照、15+5 答辩材料</td><td><span class="tag t-yes">纳入</span></td></tr>
     <tr><td>F1–F6</td><td>笔记模板与四次复盘</td><td>第 6.1 节记录字段、踩坑清单、学习复盘正文</td><td><span class="tag t-yes">纳入</span></td></tr>
   </table>
 </section>
 
 <section id="s9">
-  <h2>9　协作边界 · 第一节：我可直接产出的交付物及完成程度</h2>
-  <div class="callout"><strong>完成程度只有三档，定义固定：</strong><span class="tag t-blue">100%</span> 不依赖本地运行，可完整写出、你无需补内容；<span class="tag t-purple">模板 100% / 数值 0%</span> 结构与脚本齐全，真实数值只能由本地运行产生；<span class="tag t-no">0%</span> 不由我产出。「本轮已产出」指本次对话已生成的文件，「下一轮可产出」指按本教程一次性写出的文件。</div>
-
-  <div class="danger"><strong>边界判定规则（唯一一条）：</strong>凡是<strong>只在本工作区写文本 / SVG / 代码文件</strong>的动作归本节；凡是<strong>需要联网下载、写入 <code>C:\Users\Zelvia\.medmnist</code>、执行训练、创建或推送 GitHub 仓库、打开浏览器操作</strong>的动作一律归第 10 节，我不代为执行。</div>
-
-  <h3>9.1　文档与设计类（100% 定稿）</h3>
-  <table>
-    <tr><th>#</th><th>交付物</th><th>完成程度</th><th>状态</th><th>内容边界</th></tr>
-    <tr><td>1</td><td>本 HTML 详细教程（第 0–11 节全部内容）</td><td><span class="tag t-blue">100%</span></td><td><strong>本轮已产出</strong></td><td>实验目标、划分、12 个超参、指标、记录字段、异常判据、章节覆盖、两节协作边界</td></tr>
-    <tr><td>2</td><td>技术边界清单与章节覆盖对照表</td><td><span class="tag t-blue">100%</span></td><td><strong>本轮已产出</strong></td><td>即本教程第 0、8 节；允许 / 排除的工具集已列全</td></tr>
-    <tr><td>3</td><td>项目流程图 / 框图（SVG，五步主线 + 调参环 + 三项交付）</td><td><span class="tag t-blue">100%</span></td><td><strong>已在选题建议报告 v2 内产出</strong></td><td>下一轮可另存为独立 <code>docs/pipeline.svg</code> 与 PNG；内容与 README/PPT 共用同一张</td></tr>
-    <tr><td>4</td><td>验收三件套对照清单与成功判据</td><td><span class="tag t-blue">100%</span></td><td><strong>本轮已产出</strong></td><td>即本教程第 1.2、11 节</td></tr>
-    <tr><td>5</td><td><code>README.md</code> 全文</td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>环境、绝对解释器路径、一键复现命令、目录说明、数据许可与「非临床使用」声明、三项交付索引</td></tr>
-    <tr><td>6</td><td><code>LICENSE</code>（MIT）、<code>.gitignore</code>、<code>requirements.txt</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>requirements 只写 medmnist 一行；gitignore 排除 .npz / .pth / __pycache__</td></tr>
-    <tr><td>7</td><td><code>docs/REPORT.md</code> 结论模板</td><td><span class="tag t-purple">模板 100% / 数值 0%</span></td><td>下一轮可产出</td><td>章节标题、结论占位字段、显著性判据说明齐备；所有 AUC / ACC / std 数值留空由你回填</td></tr>
-  </table>
-
-  <h3>9.2　代码与配置类（源码 100%，本地运行验证 0%）</h3>
-  <table>
-    <tr><th>#</th><th>交付物</th><th>完成程度</th><th>状态</th><th>内容边界</th></tr>
-    <tr><td>8</td><td><code>configs/*.json</code> 共 40 组配置</td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>第 4 节已给出 B0-3 全文与生成循环；40 个文件内容确定，不含任何本地实测值</td></tr>
-    <tr><td>9</td><td><code>src/data.py, model.py, metrics.py, train.py, search.py, plots.py, demo.py</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出（核心片段本轮已内嵌）</td><td>第 2.2、3.2、3.3、4.4、5.1 节已给出可复制代码；只用第 0 节 A 清单内的库</td></tr>
-    <tr><td>10</td><td><code>run.py</code> 一键入口与 <code>notebooks/demo.ipynb</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td><code>python run.py --config configs/&lt;id&gt;.json</code>；notebook 做单图推理与结果图展示</td></tr>
-    <tr><td>11</td><td><code>results/runs.csv</code> 表头与空模板、<code>results/ablation.csv</code> 表头</td><td><span class="tag t-purple">模板 100% / 数值 0%</span></td><td>下一轮可产出</td><td>第 6.1 节 7 组字段全部写成表头；40 行实测数据必须由本地运行产生</td></tr>
-    <tr><td>12</td><td>六张结果图的绘图脚本 <code>src/plots.py</code></td><td><span class="tag t-blue">100%</span></td><td>下一轮可产出</td><td>脚本完整；<strong>图片本身 0%</strong>，必须本地运行后生成</td></tr>
-  </table>
-
-  <h3>9.3　明确不由我产出（0%）</h3>
-  <ol>
-    <li>训练权重 <code>*.pth</code>、<code>best.pth</code> 与任何模型状态字典。</li>
-    <li><code>runs.csv</code> 的 40 行实测数值、所有 <code>test_*</code> 数值、显著性结论的最终真假值。</li>
-    <li><code>figures/*.png</code> 六张真实图片与 <code>data/dataset_stats.json</code> 的真实类别比例。</li>
-    <li>数据集 <code>*.npz</code> 文件本身（需联网下载到 <code>~/.medmnist</code>）。</li>
-    <li>GitHub 公开仓库、任何 commit、任何可访问链接（外部操作，按 SOUL.md 的边界不代为执行）。</li>
-    <li>答辩 PPT、演示视频、汇报稿、被提问清单。</li>
-    <li><code>notes/踩坑清单.md</code> 中的真实报错与处置过程、进度表登记、学习复盘正文。</li>
-  </ol>
-</section>
-
-<section id="s10">
-  <h2>10　协作边界 · 第二节：必须由你在本地准备或执行的事项</h2>
-  <p>以下七组动作<strong>全部由你完成</strong>；命令与顺序固定。Windows 下直接用环境解释器的绝对路径，避免 Git Bash 里 <code>conda activate</code> 失效。<strong>另需先 <code>cd</code> 到仓库根目录再执行项目级命令</strong>（<code>run.py</code>、<code>configs/</code>、<code>results/</code> 都是相对路径）；在 <code>C:\Users\Zelvia</code> 家目录执行会报找不到文件或 <code>No module named 'src'</code>。只有 <code>pip install</code> / <code>pip check</code> 这类环境级命令与当前目录无关。</p>
+  <h2>9　本地执行清单（B.1–B.7）</h2>
+  <p>以下七组动作按固定顺序执行；命令与顺序固定。Windows 下直接用环境解释器的绝对路径，避免 Git Bash 里 <code>conda activate</code> 失效。<strong>另需先 <code>cd</code> 到仓库根目录再执行项目级命令</strong>（<code>run.py</code>、<code>configs/</code>、<code>results/</code> 都是相对路径）；在 <code>C:\Users\Zelvia</code> 家目录执行会报找不到文件或 <code>No module named 'src'</code>。只有 <code>pip install</code> / <code>pip check</code> 这类环境级命令与当前目录无关。</p>
   <pre><code>set PY="D:\microsoft_download\anaconda3\Anaconda\envs\d2l-zh\python.exe"
 # 后续所有命令统一用 %PY% -m ... 或 "%PY%" xxx.py 的形式执行</code></pre>
 
-  <h3>10.1　B.1　环境准备（3 步，按顺序）</h3>
+  <h3>9.1　B.1　环境准备（3 步，按顺序）</h3>
   <ol>
     <li><code>"%PY%" -m pip install --no-deps "medmnist==3.0.2"</code>——唯一允许的安装动作。<strong>必须带 <code>--no-deps</code> 并钉版本</strong>：medmnist 的传递依赖（scipy / scikit-learn / scikit-image）会把 numpy 顶到 2.x，与 <code>d2l 0.17.6</code> 钉死的 <code>numpy==1.21.5</code> 冲突，且 pandas / matplotlib 会因 C ABI 变化无法导入。本项目不 import 这些传递依赖，故 <code>--no-deps</code> 与本文件第 0 节口径一致。本机已按兼容组合装好（numpy 1.21.5 / scipy 1.7.3 / scikit-learn 1.0.2 / scikit-image 0.19.3 / Pillow 9.5.0），<code>pip check</code> 无冲突。</li>
     <li><code>"%PY%" -c "import torch, torchvision, numpy, pandas, matplotlib, medmnist; print(torch.__version__, medmnist.__version__)"</code>——把打印结果抄入 <code>runs.csv</code> 的环境字段；建议同时执行 <code>"%PY%" -m pip check</code>。</li>
     <li>确认 <code>torch.cuda.is_available()</code> 返回 False，并在 README 写明「纯 CPU」；不预约 431 机房、不启用 GPU。</li>
   </ol>
 
-  <h3>10.2　B.2　数据准备与校验（3 步）</h3>
+  <h3>9.2　B.2　数据准备与校验（3 步）</h3>
   <ol>
     <li>首次执行第 2.2 节的 <code>get_loaders()</code>，<code>download=True</code> 会把 <code>pneumoniamnist.npz</code> 与 <code>breastmnist.npz</code> 下载到 <code>C:\Users\Zelvia\.medmnist</code>。</li>
     <li>核对四个 <code>assert</code> 全部通过；核对 split 数量等于 4,708/524/624 与 546/78/156；任一不符即按异常 #10 停止。</li>
     <li>确认 <code>data/dataset_stats.json</code> 已生成，并把 <code>pos_ratio_train</code> 抄入 REPORT.md 的数据说明。</li>
   </ol>
 
-  <h3>10.3　B.3　仓库与链接（4 步，外部操作）</h3>
+  <h3>9.3　B.3　仓库与链接（4 步，外部操作）</h3>
   <ol>
     <li>在 GitHub 账号 <code>via453</code> 下新建公开仓库 <code>medmnist-tuning-lab</code>。</li>
     <li>本地 <code>git init</code>、<code>git remote add origin &lt;仓库地址&gt;</code>，把第 3.4 节目录结构建好。</li>
@@ -526,13 +485,13 @@ def auc_rank(scores, y):
     <li><code>git push</code> 后用浏览器确认链接公开可访问，并把 URL 写进 PPT 与 README 首屏。</li>
   </ol>
 
-  <h3>10.4　B.4　冒烟测试（固定 1 个动作）</h3>
+  <h3>9.4　B.4　冒烟测试（固定 1 个动作）</h3>
   <ol>
     <li>执行 <code>"%PY%" run.py --config configs/S0_B03_seed42.json --smoke</code>，只跑 1 个 epoch，确认打印出 <code>out torch.Size([N, 2])</code>、loss 为有限正数、单 epoch 耗时数值。</li>
     <li>按第 0.2 节第 5 条判断是否<strong>全组统一</strong>把 epochs 改为 10；记录 <code>epochs_override</code>。不做其他范围调整。</li>
   </ol>
 
-  <h3>10.5　B.5　执行 40 次运行（固定顺序，不可跳阶）</h3>
+  <h3>9.5　B.5　执行 40 次运行（固定顺序，不可跳阶）</h3>
   <ol>
     <li>按 <code>S0 → S1 → S2 → S3 → S4 → S5</code> 顺序执行 <code>python run.py --config configs/&lt;run_id&gt;.json</code>。</li>
     <li>每完成一组立即追加一行到 <code>results/runs.csv</code>、写出 <code>results/&lt;run_id&gt;.json</code>；失败组按第 6.2 节第 6 条保留。</li>
@@ -540,7 +499,7 @@ def auc_rank(scores, y):
     <li>全部完成后执行 <code>python src/plots.py</code> 生成六张图，并执行 S5 的三项附加检查。</li>
   </ol>
 
-  <h3>10.6　B.6　回填与复盘（4 个文件）</h3>
+  <h3>9.6　B.6　回填与复盘（4 个文件）</h3>
   <ol>
     <li>把实测数值回填 <code>docs/REPORT.md</code>：基线阶梯、敏感性排名、3 seed 的 mean±std、显著性真假、失败组归因。</li>
     <li>把本地真实报错与处置写入 <code>notes/踩坑清单.md</code>；每条对应第 7 节的一个枚举值。</li>
@@ -548,25 +507,25 @@ def auc_rank(scores, y):
     <li>撰写学习复盘正文（对应 F6 与 20% 权重），说明 C1/C2/C3/C13/C14/C16 的结论如何在代码里被验证。</li>
   </ol>
 
-  <h3>10.7　B.7　验收展示（3 项外部动作）</h3>
+  <h3>9.7　B.7　验收展示（3 项外部动作）</h3>
   <ol>
     <li>现场执行 <code>python run.py --config configs/best.json</code>，展示打印的 ACC/AUC 与自动生成的图；再打开 <code>notebooks/demo.ipynb</code> 做单图推理。</li>
     <li>准备结题 PPT（15 分钟）与演示视频：流程图用第 3 项同一张 SVG，结果图用六张固定 PNG，链接用 B.3 的公开 URL。</li>
     <li>准备 5 分钟答辩问答：重点准备「为什么不用 test 调参」「2×std 显著性判据」「为什么 28×28 只放一个池化」「哪些超参不敏感」四问。</li>
   </ol>
 
-  <div class="warn"><strong>边界兜底：</strong>若 B.1–B.7 中任一步无法完成，停止在该步并把受阻动作与原始报错写入 <code>notes/踩坑清单.md</code>；<strong>不由我代为联网、代为训练、代为创建或推送仓库</strong>。教材侧（第 9 节）可在受阻期间继续补齐，不受影响。</div>
+  <div class="warn"><strong>边界兜底：</strong>若 B.1–B.7 中任一步无法完成，停止在该步并把受阻动作与原始报错写入 <code>notes/踩坑清单.md</code>；跳过、伪造数据或改写结果都比停下来更糟；如实记录受阻原因即可。</div>
 </section>
 
-<section id="s11">
-  <h2>11　验收三件套对照与固定成功判据</h2>
+<section id="s10">
+  <h2>10　验收三件套对照与固定成功判据</h2>
   <table>
-    <tr><th>中期验收要求</th><th>对应交付物</th><th>由谁产出</th><th>完成标志</th></tr>
-    <tr><td>① 项目流程图 / 框图</td><td><code>docs/pipeline.svg</code>（五步主线 + 调参环 + 三项交付）</td><td>我（第 9 节 #3，SVG 已产出）+ 你导出 PNG 并放进 PPT（B.7）</td><td>README 首屏与 PPT 用的是同一张图</td></tr>
-    <tr><td>② 可访问的已上传 GitHub 项目链接</td><td><code>github.com/via453/medmnist-tuning-lab</code></td><td>你（B.3）；README / 代码由我写（第 9 节 #5 #6 #8–#10）</td><td>浏览器匿名可打开、≥3 次 commit、含 README 与流程图</td></tr>
-    <tr><td>③ 项目流程与代码运行效果</td><td>一条命令复跑 + 40 行 <code>runs.csv</code> + 六张 PNG + notebook 单图推理</td><td>脚本由我写；运行与数值由你（B.4 / B.5 / B.7）</td><td>现场能打印 ACC/AUC 并当场生成图，而非贴静态截图</td></tr>
+    <tr><th>中期验收要求</th><th>对应交付物</th><th>完成标志</th></tr>
+    <tr><td>① 项目流程图 / 框图</td><td><code>docs/pipeline.svg</code>（五步主线 + 调参环 + 三项交付）</td><td>README 首屏与 PPT 用的是同一张 SVG，导出 PNG 后放进 PPT（B.7）</td></tr>
+    <tr><td>② 可访问的已上传 GitHub 项目链接</td><td><code>github.com/via453/medmnist-tuning-lab</code></td><td>浏览器匿名可打开、≥3 次 commit，含 README 与流程图（B.3）</td></tr>
+    <tr><td>③ 项目流程与代码运行效果</td><td>一条命令复跑 + 40 行 <code>runs.csv</code> + 六张 PNG + notebook 单图推理</td><td>现场能打印 ACC/AUC 并当场生成图，而非贴静态截图（B.4 / B.5 / B.7）</td></tr>
   </table>
-  <div class="good"><strong>四条固定成功判据（与第 1.2 节一致）：</strong>① <code>runs.csv</code> 恰好 40 行且失败组保留；② 3 个配置 × 3 seed 完成；③ <code>test_*</code> 只出现在 S3；④ 六张图 + runs.csv + README + 流程图 + 公开链接齐备。四条全部满足即视为中期验收通过，不追加第 0 节 B 清单之外的任何工具或实验。</div>
+  <div class="good"><strong>四条固定成功判据（与第 1.2 节一致）：</strong>① <code>runs.csv</code> 恰好 40 行且失败组保留；② 3 个配置 × 3 seed 完成；③ <code>test_*</code> 只出现在 S3；④ 六张图 + runs.csv + README + 流程图 + 公开链接齐备。四条全部满足即视为中期验收通过，不追加第 0 节清单之外的任何工具或实验。</div>
 </section>
 
 <footer>依据：归档\深度学习笔记\（进度口径）、深度学习自学进度表.xlsx（编号与周次参照）、附件一实施方案.pdf、附件三课时安排表.pdf、选题建议报告 v2；技术事实经本机 d2l-zh 环境与 MedMNIST 官方仓库（info.py / dataset.py / requirements.txt）核实。本教程不含任何未在已提及范围内的框架或工具。</footer>

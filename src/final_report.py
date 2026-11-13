@@ -1,4 +1,4 @@
-"""把 S1/S2/S3/test/val 全部结果整理成交付摘要（机器整理，非本人结论）。
+"""把 S1/S2/S3/test/val 全部结果整理成交付摘要（只给数据，结论写在 REPORT.md）。
 
     python -m src.final_report --out docs/FINAL_ANALYSIS.md
 
@@ -54,7 +54,7 @@ def main(argv=None):
     hist = read_json(args.history)
 
     L = []
-    L.append("# 全阶段结果摘要（机器整理，非本人结论）")
+    L.append("# 全阶段结果摘要")
     L.append("")
     L.append("> 由 `src/final_report.py` 生成于 %s。" %
              datetime.now().strftime("%Y-%m-%d %H:%M"))
