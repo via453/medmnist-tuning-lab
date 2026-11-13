@@ -2,7 +2,7 @@
 
 中期大作业验收资料库：**选题论证 + 项目全生命周期教程 + 协作边界 + 可运行代码骨架**。
 
-> **当前状态（2026-11-13，第一版骨架）**：文档、配置与训练链路代码已就位，并在本机通过冒烟验证（`src/run.py` 与 `src/sweep.py` 可跑通）。**仓库内不含任何实验结果、训练权重或数据集文件**——按协作边界，训练、调参、结果记录与现场演示必须由本人本地执行并署名。
+> **当前状态（2026-11-13，实验链路完成）**：S1 单因子 33 组、S2 小网格 4 组、S3 三 seed 9 组、最终 test 一次评测与 6 张图件均已完成并归档。仓库含脚本、配置、结果 CSV 与图件；**不含训练权重**（`outputs/` 已忽略）与**原始数据集**（`data/` 已忽略）。`docs/REPORT.md` / `LOG.md` / `PITFALLS.md` / `REVIEW.md` 仍为模板，待本人填写并署名；`docs/FINAL_ANALYSIS.md`、`PPT_OUTLINE.md`、`DEFENSE_QA.md` 为机器整理的参考材料。
 
 ## 项目一句话目标
 
@@ -24,7 +24,7 @@
 | `src/` | **代码骨架**：`data` / `model` / `train` / `evaluate` / `run` / `sweep` / `plots` / `repeat`（S2·S3）/ `report`（ROC·混淆矩阵·预测样例）/ `analyze`（数据摘要）/ `select_best`（选优）/ `utils` |
 | `configs/` | `base.yaml`（基线）、`sweep.yaml`（单因子扫描）、`best.yaml`（待本人跑完调参后填写） |
 | `docs/pipeline.svg` | 项目流程图 / 框图，可直接用于 README 与 PPT |
-| `docs/*.md` | 实验日志、踩坑清单、实验报告、学习复盘模板；`S1_ANALYSIS.md` 由 `src/analyze.py` 自动整理（参考用，非结论） |
+| `docs/*.md` | `S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿；`LOG.md` / `PITFALLS.md` / `REPORT.md` / `REVIEW.md` 为待本人填写的署名文档 |
 | `requirements.txt` | 钉死 numpy 1.x ABI 兼容组合，防止依赖冲突复发 |
 | `notebooks/demo.ipynb` | 单图推理演示（需先有本地训练出的权重） |
 
@@ -83,9 +83,10 @@ python -m src.run --config configs/best.yaml --split test
 
 若从 GitHub clone 到别的目录，把 `cd` 换成 clone 后的实际路径；之后所有命令都保持在该目录下执行。用 `Get-Location`（PowerShell）或 `pwd`（Git Bash）可随时确认当前目录。
 
-## 下一阶段：从 S1 到交付
+## 实验命令全记录（S1 → 交付）
 
-> S1 单因子扫描只跑 **1 个 seed**。最优组相对 base 的差值若小于种子波动，不能写成「调参提升了精度」——按教程第 5 节改写成「超参敏感性分析」。下面是完整推进顺序。
+> 以下命令已由本人本地执行完毕，结果见 `results/` 与 `figures/`。保留此处作为一键复现记录。
+> 当初的推进逻辑：S1 单因子扫描只有 1 个 seed，差值可能小于种子波动，因此补做 S3 三 seed 复跑再下结论；实测差值约为 base 标准差的 23 倍，提升稳定（详见 `docs/FINAL_ANALYSIS.md`）。
 
 ```powershell
 # 1. 整理 S1 数据（机器摘要，供填写 docs/REPORT.md 参考，非本人结论）
@@ -121,9 +122,25 @@ git push origin main
 
 | 验收项 | 本仓库当前提供 | 待补 |
 | --- | --- | --- |
-| 项目流程图 / 框图 | `docs/pipeline.svg` 独立文件；选题建议报告内另有一张五泳道 SVG | 与最终代码结构同步核对 |
+| 项目流程图 / 框图 | `docs/pipeline.svg` 独立文件；选题建议报告内另有一张五泳道 SVG；PPT 用同一张 | 已与代码结构核对 |
 | 可访问的 GitHub 项目链接 | 本仓库（Public）；GitHub Pages 已开启 | — |
-| 项目流程与代码运行效果 | 完整教程命令 + 可运行 `src/` 骨架 + 冒烟验证通过 | `results/`、`figures/` 真实实验产出、单图推理 demo 现场演示 |
+| 项目流程与代码运行效果 | 可运行 `src/` 骨架、`results/` 四个 CSV、`figures/` 六张图 + `metrics.json`、`notebooks/demo.ipynb` | 现场演示由本人执行（15 分钟汇报 + 5 分钟提问） |
+
+## 交付前检查清单
+
+| # | 事项 | 状态 |
+| --- | --- | --- |
+| 1 | 流程图 / 框图入库，PPT 用同一张 | 已完成 |
+| 2 | 仓库 Public、commit 已推送、Pages 可访问 | 已完成 |
+| 3 | `results/` 四个 CSV + `figures/` 六张图 + `metrics.json` 归档 | 已完成 |
+| 4 | `configs/best.yaml` 定稿、`test_final.csv` 只有一行 | 已完成 |
+| 5 | `docs/REPORT.md` 写结论与机制解释并署名 | **待本人完成** |
+| 6 | `docs/LOG.md` 实验日志、`docs/PITFALLS.md` 至少 2 条真实踩坑 | **待本人完成** |
+| 7 | `docs/REVIEW.md` 三段式学习复盘 + 教程第 7 节章节映射表导出 | **待本人完成** |
+| 8 | 按 `docs/PPT_OUTLINE.md` 做 PPT，按 `docs/DEFENSE_QA.md` 预演答辩 | **待本人完成** |
+| 9 | 现场演示（终端实跑 / `demo.ipynb` 单图推理） | **待本人完成** |
+
+> **不能返工的两件事**：`test` 只评过一次，不要为了 S2 里更优的组合回头改 `best.yaml` 再评第二次；也不要拿 test 调阈值。两者都写进「遗留改进方向」并在答辩主动说明（见 `docs/DEFENSE_QA.md` Q4/Q5）。
 
 ## 如何在浏览器打开
 

@@ -1,24 +1,16 @@
-# 最优配置：待由本人跑完调参后填写，禁止在实验前凭猜测填。
-# 流程：sweep.py 产出 results/runs.csv -> 按 val_auc 选最优 -> 把那组超参抄到这里
-#       -> python -m src.run --config configs/best.yaml --split test
-#       -> results/test_final.csv 只应有一行。
-#
-# 当前为 base.yaml 的副本，仅用于让骨架能跑通，不代表任何实验结论。
+# 由 src/select_best.py 按 val_auc 从 results/runs.csv 选出，待本人核对后使用。
+# 注意：单次 seed 的最优不一定稳定；请先完成 3 seed 复跑（S3）再评测 test。
 
 dataset: pneumoniamnist
 size: 28
-data_root: null
-seed: 0
-
 model: smallcnn
-conv_width: 32
+conv_width: 64
 use_bn: true
 activation: relu
 pooling: light
 dropout: 0.2
 n_classes: 2
 n_channels: 1
-
 optimizer: adam
 lr: 0.001
 momentum: 0.9
@@ -28,14 +20,13 @@ epochs: 20
 scheduler: none
 warmup_epochs: 0
 label_smoothing: 0.0
-
 augment: flip
 class_weight: none
 early_stop_patience: 5
-
 device: cpu
 num_workers: 0
 limit_train: null
 limit_val: null
 out_dir: results
 ckpt_dir: outputs
+seed: 0

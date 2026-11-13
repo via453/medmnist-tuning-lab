@@ -2,7 +2,9 @@
 
 > 本文件由本人填写并署名，当前**不含最终结论**。所有数字必须来自 `results/*.csv` 与 `figures/*.png`。
 >
-> `docs/S1_ANALYSIS.md` 是 `src/analyze.py` 从 `results/runs.csv` 自动整理的数据摘要（Top-N、超参极差、AUC/ACC 分离现象），**仅供参考、不是结论**，可作为填写本文件第 2、3、5 节的素材；结论、判断与署名仍由本人完成。
+> `docs/S1_ANALYSIS.md`（S1 摘要）与 `docs/FINAL_ANALYSIS.md`（S1/S2/S3/test 全阶段摘要）由脚本自动整理，含 Top-N、超参极差、三 seed 均值±标准差、val/test 落差与章节挂钩点，**仅供参考、不是结论**，可作为填写本文件第 2–5 节的素材；结论、判断与署名仍由本人完成。
+>
+> 汇报与答辩可另参考 `docs/PPT_OUTLINE.md`、`docs/DEFENSE_QA.md`。
 
 ## 1. 任务与数据
 

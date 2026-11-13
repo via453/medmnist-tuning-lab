@@ -1,0 +1,10 @@
+﻿run_id,timestamp,mode,tag,source_run_id,seed,git_commit,status,note,changed_key,changed_value,val_auc,val_acc,epochs_run,duration_min,params
+seeds_base_0,2026-11-13 13:31:17,seeds,base,s1_01,0,1010240,ok,,base,nan,0.984404,0.927481,20,1.156,19042
+seeds_base_1,2026-11-13 13:32:26,seeds,base,s1_01,1,1010240,ok,,base,nan,0.984423,0.933206,20,1.178,19042
+seeds_base_2,2026-11-13 13:33:37,seeds,base,s1_01,2,1010240,ok,,base,nan,0.984785,0.933206,20,1.184,19042
+seeds_conv_width-64_0,2026-11-13 13:34:48,seeds,conv_width=64,s1_31,0,1010240,ok,,conv_width,64,0.988956,0.95229,20,1.966,74946
+seeds_conv_width-64_1,2026-11-13 13:36:46,seeds,conv_width=64,s1_31,1,1010240,ok,,conv_width,64,0.98808,0.931298,20,2.51,74946
+seeds_conv_width-64_2,2026-11-13 13:39:17,seeds,conv_width=64,s1_31,2,1010240,ok,,conv_width,64,0.988898,0.938931,20,2.248,74946
+seeds_lr-0.003_0,2026-11-13 13:41:32,seeds,lr=0.003,s1_05,0,1010240,ok,,lr,0.003,0.98787,0.944656,20,1.181,19042
+seeds_lr-0.003_1,2026-11-13 13:42:43,seeds,lr=0.003,s1_05,1,1010240,ok,,lr,0.003,0.98608,0.94084,15,1.023,19042
+seeds_lr-0.003_2,2026-11-13 13:43:44,seeds,lr=0.003,s1_05,2,1010240,ok,,lr,0.003,0.987432,0.948473,17,1.031,19042

@@ -1,0 +1,2 @@
+﻿run_id,timestamp,seed,git_commit,config,dataset,test_auc,test_acc,test_f1,confusion_matrix,note
+final,2026-11-13 13:46:57,0,1010240,configs/best.yaml,pneumoniamnist,0.954635,0.834936,0.882554,"[[134, 100], [3, 387]]",

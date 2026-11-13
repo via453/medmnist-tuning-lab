@@ -1,0 +1,5 @@
+﻿run_id,timestamp,mode,tag,source_run_id,seed,git_commit,status,note,changed_key,changed_value,val_auc,val_acc,epochs_run,duration_min,params
+"grid_lr-0.001,conv_width-32_0",2026-11-13 13:24:22,grid,"lr=0.001,conv_width=32",grid,0,1010240,ok,,lr+conv_width,"[0.001, 32]",0.984404,0.927481,20,1.185,19042
+"grid_lr-0.001,conv_width-64_0",2026-11-13 13:25:33,grid,"lr=0.001,conv_width=64",grid,0,1010240,ok,,lr+conv_width,"[0.001, 64]",0.988956,0.95229,20,1.849,74946
+"grid_lr-0.003,conv_width-32_0",2026-11-13 13:27:24,grid,"lr=0.003,conv_width=32",grid,0,1010240,ok,,lr+conv_width,"[0.003, 32]",0.98787,0.944656,20,1.901,19042
+"grid_lr-0.003,conv_width-64_0",2026-11-13 13:29:18,grid,"lr=0.003,conv_width=64",grid,0,1010240,ok,,lr+conv_width,"[0.003, 64]",0.990669,0.946565,20,1.875,74946

@@ -1,0 +1,20 @@
+{
+  "auc": 0.9889555365133771,
+  "acc": 0.9522900763358778,
+  "f1": 0.9682337992376111,
+  "confusion_matrix": [
+    [
+      118,
+      17
+    ],
+    [
+      8,
+      381
+    ]
+  ],
+  "split": "val",
+  "config": "configs/best.yaml",
+  "ckpt": "outputs/best.pth",
+  "roc_auc": 0.9889555365133771,
+  "n_samples": 524
+}
