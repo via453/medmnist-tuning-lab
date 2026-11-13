@@ -9,6 +9,7 @@
 """
 import argparse
 import csv
+import json
 import os
 import sys
 from datetime import datetime
@@ -150,6 +151,10 @@ def main(argv=None):
     print("written:", out_path)
     if not args.no_ckpt:
         print("checkpoint:", ckpt_path)
+        hist_path = os.path.splitext(ckpt_path)[0] + "_history.json"
+        with open(hist_path, "w", encoding="utf-8") as f:
+            json.dump(result["history"], f, ensure_ascii=False, indent=2)
+        print("history:", hist_path)
     return 0
 
 

@@ -883,12 +883,23 @@ python -c "from medmnist import PneumoniaMNIST; d=PneumoniaMNIST(split='train', 
 python -m src.run --config configs/base.yaml --epochs 1 --limit-train 256 --limit-val 128 --no-ckpt --out .workbuddy/smoke_runs.csv
 python -m src.run --config configs/base.yaml
 
-:: 批量搜索 / 出图
+:: S1 单因子扫描 / 出图
 python -m src.sweep --config configs/sweep.yaml
 python -m src.plots --results results/runs.csv
+python -m src.analyze --results results/runs.csv --out docs/S1_ANALYSIS.md
 
-:: 填好 configs/best.yaml 后，test 只评一次
+:: S2 小网格（可选）/ S3 三 seed 复跑（必做，判断提升是否显著）
+python -m src.repeat --mode grid --grid "lr=0.001,0.003;conv_width=32,64"
+python -m src.repeat --mode seeds --results results/runs.csv
+
+:: 确认显著后：从 runs.csv 取配置写 best.yaml（--write 才写，仍需本人核对）
+python -m src.select_best --results results/runs.csv --write
+python -m src.run --config configs/best.yaml
 python -m src.run --config configs/best.yaml --split test
+
+:: 补齐图件（report.py 用 val 出图，避免反复碰 test）
+python -m src.report --config configs/best.yaml --ckpt outputs/best.pth --split val --history outputs/best_history.json
+python -m src.plots --results results/runs.csv --history outputs/best_history.json
 
 :: 归档
 git add . &amp;&amp; git commit -m "exp: add ablation and final results"

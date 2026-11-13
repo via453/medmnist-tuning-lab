@@ -21,10 +21,10 @@
 | `中期大作业选题建议.html` | 选题建议报告 v2：5 个候选选题（2 复刻 + 3 自建）、横向对比、首推 B-1 及理由；内含可复用的项目流程图 SVG |
 | `MedMNIST调参实验室_完整教程.html` | **主教程**：按立项 → 数据理解 → 实验配置 → 调参对比 → 结果评估 → 过程记录 → 最终归档组织，含可填写章节映射表、三类协作边界与最小工作清单 |
 | `MedMNIST调参实验室_详细教程.html` | 另一版详细教程：技术边界、数据子集划分、超参清单、异常判定、已学章节覆盖对照与协作边界 |
-| `src/` | **代码骨架**：`data.py` / `model.py` / `train.py` / `evaluate.py` / `run.py` / `sweep.py` / `plots.py` |
+| `src/` | **代码骨架**：`data` / `model` / `train` / `evaluate` / `run` / `sweep` / `plots` / `repeat`（S2·S3）/ `report`（ROC·混淆矩阵·预测样例）/ `analyze`（数据摘要）/ `select_best`（选优）/ `utils` |
 | `configs/` | `base.yaml`（基线）、`sweep.yaml`（单因子扫描）、`best.yaml`（待本人跑完调参后填写） |
 | `docs/pipeline.svg` | 项目流程图 / 框图，可直接用于 README 与 PPT |
-| `docs/*.md` | 实验日志、踩坑清单、实验报告、学习复盘模板 |
+| `docs/*.md` | 实验日志、踩坑清单、实验报告、学习复盘模板；`S1_ANALYSIS.md` 由 `src/analyze.py` 自动整理（参考用，非结论） |
 | `requirements.txt` | 钉死 numpy 1.x ABI 兼容组合，防止依赖冲突复发 |
 | `notebooks/demo.ipynb` | 单图推理演示（需先有本地训练出的权重） |
 
@@ -66,7 +66,8 @@ python -m src.run --config configs/base.yaml
 python -m src.sweep --config configs/sweep.yaml
 python -m src.plots --results results/runs.csv
 
-# 填好 configs/best.yaml 后，test 只评一次
+# 填好 configs/best.yaml 后：先训练出 outputs/best.pth，再 test 只评一次
+python -m src.run --config configs/best.yaml
 python -m src.run --config configs/best.yaml --split test
 ```
 
@@ -81,6 +82,40 @@ python -m src.run --config configs/best.yaml --split test
 | `pip check` 通过但上面的命令仍报错 | `pip check` 只检查**环境里已装包**的依赖一致性，与当前目录无关 | 它不能用来验证 cwd 是否正确 |
 
 若从 GitHub clone 到别的目录，把 `cd` 换成 clone 后的实际路径；之后所有命令都保持在该目录下执行。用 `Get-Location`（PowerShell）或 `pwd`（Git Bash）可随时确认当前目录。
+
+## 下一阶段：从 S1 到交付
+
+> S1 单因子扫描只跑 **1 个 seed**。最优组相对 base 的差值若小于种子波动，不能写成「调参提升了精度」——按教程第 5 节改写成「超参敏感性分析」。下面是完整推进顺序。
+
+```powershell
+# 1. 整理 S1 数据（机器摘要，供填写 docs/REPORT.md 参考，非本人结论）
+python -m src.analyze --results results/runs.csv --out docs/S1_ANALYSIS.md
+python -m src.select_best --results results/runs.csv
+
+# 2. S2 小网格（可选，看 lr × conv_width 的交互作用，4 组）
+python -m src.repeat --mode grid --grid "lr=0.001,0.003;conv_width=32,64"
+
+# 3. S3 三 seed 复跑（必做：base / 最优 / 次优 各 3 个 seed，9 组）
+python -m src.repeat --mode seeds --results results/runs.csv
+#    脚本末尾会打印均值 ± 标准差，据此判断提升是否显著
+
+# 4. 若 S3 显示最优组稳定优于 base，从 runs.csv 取完整超参写出 best.yaml
+#    （repeats.csv 只用于判断显著性，不含完整超参列，不要拿它选配置）
+python -m src.select_best --results results/runs.csv --write   # --write 才写，仍需本人核对
+python -m src.run --config configs/best.yaml                 # 训练出 outputs/best.pth + history
+python -m src.run --config configs/best.yaml --split test   # test 只评一次，写 results/test_final.csv
+
+# 5. 补齐图件（ROC / 混淆矩阵 / 预测样例 / loss 曲线）
+python -m src.report --config configs/best.yaml --ckpt outputs/best.pth --split val --history outputs/best_history.json
+python -m src.plots --results results/runs.csv --history outputs/best_history.json
+
+# 6. 归档：填 docs/REPORT.md、LOG.md、PITFALLS.md、REVIEW.md 与章节映射表
+git add results figures docs README.md
+git commit -m "exp: S1-S3 results, figures and report"
+git push origin main
+```
+
+`src/report.py` 用 `--split val` 出图，避免反复碰 test；`test_final.csv` 始终由 `src.run --split test` 独占写入，只应有一行。
 
 ## 中期验收三件套对照
 

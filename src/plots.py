@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from .report import plot_loss_curves
 from .utils import ensure_dir
 
 
@@ -93,6 +94,7 @@ def main(argv=None):
     p = argparse.ArgumentParser(description="Generate figures from results CSV")
     p.add_argument("--results", default="results/runs.csv")
     p.add_argument("--out-dir", default="figures")
+    p.add_argument("--history", help="可选：训练历史 JSON，用于画 loss 曲线")
     args = p.parse_args(argv)
 
     df = read_runs(args.results)
@@ -100,6 +102,10 @@ def main(argv=None):
         return 1
     ensure_dir(args.out_dir)
     made = plot_sensitivity(df, args.out_dir) + plot_before_after(df, args.out_dir)
+    loss_png = plot_loss_curves(args.history, args.out_dir)
+    if loss_png:
+        made += 1
+        print("written:", loss_png)
     if not made:
         print("提示：CSV 里缺少 changed_key 分组列，暂无法出图；"
               "请用 src/sweep.py 产出带 changed_key 的扫描结果。")
