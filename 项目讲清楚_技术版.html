@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>技术版：这个项目我做了什么 · MedMNIST 调参实验室</title>
+<style>
+  :root{
+    --ink:#1a2230; --ink2:#4a5568; --ink3:#8b97a8;
+    --line:#e2e7ee; --bg:#f7f9fc; --white:#fff;
+    --blue:#1e4fa8; --blue2:#3d7bd9; --bluebg:#eaf2ff;
+    --red:#c0392b; --redbg:#fdf0ee;
+    --green:#1e8449; --greenbg:#eaf7ef;
+    --amber:#a86400; --amberbg:#fff8e6;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Source Han Sans SC","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+       line-height:1.8;font-size:16px}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px 80px}
+
+  /* 顶部 */
+  header.hero{background:var(--white);border-bottom:1px solid var(--line);padding:48px 0 34px;margin-bottom:26px}
+  header.hero .wrap{padding-bottom:0}
+  .kicker{font-size:13px;letter-spacing:2px;color:var(--blue);font-weight:600}
+  h1{font-size:34px;line-height:1.35;margin:12px 0 10px;letter-spacing:-.5px}
+  .lead{font-size:17.5px;color:var(--ink2);margin:0;max-width:760px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .chip{border:1px solid var(--line);background:#fbfcfe;border-radius:999px;padding:4px 12px;font-size:13px;color:var(--ink2)}
+  .chip b{color:var(--blue);font-weight:700}
+
+  /* 导航 */
+  nav.toc{position:sticky;top:0;z-index:9;background:rgba(247,249,252,.94);backdrop-filter:blur(6px);
+          border-bottom:1px solid var(--line);margin-bottom:26px}
+  nav.toc .inner{max-width:980px;margin:0 auto;padding:10px 22px;display:flex;gap:18px;overflow-x:auto}
+  nav.toc a{color:var(--ink2);text-decoration:none;font-size:13.5px;white-space:nowrap}
+  nav.toc a:hover{color:var(--blue)}
+
+  section{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:30px 34px;margin-bottom:22px}
+  h2{font-size:23px;margin:0 0 6px;letter-spacing:-.2px}
+  h2 .num{color:var(--blue);font-weight:700;margin-right:9px;font-variant-numeric:tabular-nums}
+  .sub{color:var(--ink3);font-size:14px;margin:0 0 22px}
+  h3{font-size:17.5px;margin:26px 0 8px}
+  p{margin:0 0 13px;color:var(--ink2)}
+  p strong,li strong{color:var(--ink)}
+  ul,ol{margin:0 0 14px;padding-left:22px;color:var(--ink2)}
+  li{margin:6px 0}
+  code{background:#f1f4f9;border:1px solid #e3e9f1;border-radius:4px;padding:1px 5px;
+       font-size:13.5px;color:#23407a;font-family:Consolas,Menlo,monospace}
+  a{color:var(--blue)}
+
+  .callout{background:var(--bluebg);border-left:3px solid var(--blue);padding:13px 17px;border-radius:0 8px 8px 0;margin:16px 0}
+  .callout p:last-child{margin:0}
+  .warn{background:var(--redbg);border-left:3px solid var(--red);padding:13px 17px;border-radius:0 8px 8px 0;margin:16px 0}
+  .warn p:last-child{margin:0}
+  .good{background:var(--greenbg);border-left:3px solid var(--green);padding:13px 17px;border-radius:0 8px 8px 0;margin:16px 0}
+  .good p:last-child{margin:0}
+
+  /* 步骤 */
+  .steps{counter-reset:st;margin-top:6px}
+  .step{position:relative;padding:0 0 22px 46px;border-left:1px solid var(--line);margin-left:12px}
+  .step:last-child{border-left-color:transparent;padding-bottom:0}
+  .step::before{counter-increment:st;content:counter(st);position:absolute;left:-13px;top:0;
+                width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;
+                font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .step h3{margin:0 0 4px;font-size:17px}
+  .step p{margin:0 0 6px;font-size:15.5px}
+  .step .out{font-size:13.5px;color:var(--ink3)}
+
+  /* 卡片 */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0}
+  .card{border:1px solid var(--line);border-radius:11px;padding:18px 20px;background:#fff}
+  .card h4{margin:0 0 6px;font-size:16px;color:var(--ink)}
+  .card .tag{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:5px;background:var(--bluebg);color:var(--blue);margin-bottom:8px;font-weight:600}
+  .card .tag.g{background:var(--greenbg);color:var(--green)}
+  .card .tag.r{background:var(--redbg);color:var(--red)}
+  .card .tag.a{background:var(--amberbg);color:var(--amber)}
+  .card p{font-size:14.8px;margin:0 0 8px}
+  .card .num{font-size:26px;font-weight:700;color:var(--blue);line-height:1.2;font-variant-numeric:tabular-nums}
+  .card .num.red{color:var(--red)}
+  .card .cap{font-size:13px;color:var(--ink3)}
+
+  /* 表格 */
+  table{width:100%;border-collapse:collapse;font-size:14.6px;margin:14px 0}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:#f4f7fc;color:#23407a;font-weight:700;font-size:13.8px}
+  tr:last-child td{border-bottom:none}
+  td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tbl-note{font-size:12.8px;color:var(--ink3);margin-top:-4px}
+
+  /* 公式行 */
+  .formula{background:#fbfcfe;border:1px dashed var(--line);border-radius:8px;padding:12px 16px;
+           font-size:14.5px;color:var(--ink2);margin:12px 0}
+  .formula b{color:var(--blue)}
+
+  figure{margin:18px 0 8px}
+  figure img{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff}
+  figcaption{font-size:13px;color:var(--ink3);margin-top:7px}
+
+  .quote{border-left:3px solid var(--blue2);padding-left:16px;color:var(--ink2);font-size:15.5px;margin:16px 0}
+  footer{color:var(--ink3);font-size:13px;text-align:center;padding:30px 0 10px;line-height:1.9}
+
+  @media (max-width:640px){
+    section{padding:22px 18px}
+    h1{font-size:26px}
+    nav.toc .inner{gap:14px}
+  }
+  @media print{
+    nav.toc{display:none}
+    body{background:#fff}
+    section{break-inside:avoid;border-color:#ddd}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">2026 深度学习本校培训 · 中期大作业 · 技术版</div>
+    <h1>我用一张 28×28 的胸片，把「调参到底有没有用」这件事问清楚了</h1>
+    <p class="lead">这不是一份教程，是一份复盘：我跑了什么、每个模型在干什么、数字是怎么来的，以及这些实验和我笔记里的哪几章对上了。</p>
+    <div class="chips">
+      <span class="chip"><b>5,856</b> 张胸片</span>
+      <span class="chip"><b>79</b> 次训练</span>
+      <span class="chip"><b>3</b> 种结构</span>
+      <span class="chip"><b>11</b> 个结果 CSV</span>
+      <span class="chip"><b>10</b> 张图</span>
+      <span class="chip">纯 CPU · 无 GPU</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="inner">
+    <a href="#s1">① 一句话讲清</a>
+    <a href="#s2">② 我做了什么</a>
+    <a href="#s3">③ 三个模型</a>
+    <a href="#s4">④ 训练零件</a>
+    <a href="#s5">⑤ 六组额外实验</a>
+    <a href="#s6">⑥ 结论</a>
+    <a href="#s7">⑦ 我学到什么</a>
+    <a href="#s8">⑧ 和笔记的联动</a>
+    <a href="#s9">⑨ 产出了什么</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+  <h2><span class="num">01</span>一句话讲清这个项目</h2>
+  <p class="sub">先给结论，后面再拆。</p>
+
+  <p><strong>我训练了一个能看胸片判断「有没有肺炎」的小模型，然后用 46 组对照实验回答三个问题：调参能不能稳定提升？提升是旋钮给的还是结构给的？一个看起来 98.9 分的模型有多脆？</strong></p>
+
+  <p>把它拆成三句人话：</p>
+  <ol>
+    <li><strong>模型很小。</strong>输入是 28×28 的灰度图，最小的模型只有 1.9 万个参数——比一张手机照片还小几百倍。</li>
+    <li><strong>实验很较真。</strong>同一组配置换 3 个随机种子重跑，看提升是不是比「运气波动」大；测试集只在最后评一次，之后再也不碰。</li>
+    <li><strong>结论有一半是反的。</strong>我以为「ViT 更强」「剪枝更省」「蒸馏能提点」，跑完发现都不完全成立——这部分反而最值钱。</li>
+  </ol>
+
+  <div class="formula">
+    数据集：<b>PneumoniaMNIST</b>（MedMNIST 家族）　·　训练 4,708 / 验证 524 / 测试 624　·　2 类（正常 / 肺炎）　·　CC BY 4.0，仅用于研究，不用于临床
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+  <h2><span class="num">02</span>我做了什么：四步走完一个完整项目</h2>
+  <p class="sub">从「有个想法」到「能当场演示」，中间是这四段。</p>
+
+  <div class="steps">
+    <div class="step">
+      <h3>立项：先把口径钉死，再动手</h3>
+      <p>选数据集、定主指标（<strong>AUC</strong>，不是准确率）、定纪律（验证集调参、测试集只评一次、3 个种子）。这一步看着最不「技术」，但它决定了后面所有数字能不能信。</p>
+      <p class="out">产出：<code>configs/base.yaml</code>、流程图 <code>docs/pipeline.svg</code></p>
+    </div>
+
+    <div class="step">
+      <h3>搭骨架：让一条命令能跑完全程</h3>
+      <p>写了 20 个 Python 模块：数据加载、模型、训练循环、评估、扫描、复跑、出图、归档。任何一个实验都是「改一个 yaml + 跑一条命令」，结果自动追加到 CSV，每行带代码版本和时间戳。</p>
+      <p class="out">产出：<code>src/</code> 20 个模块、<code>results/runs.csv</code></p>
+    </div>
+
+    <div class="step">
+      <h3>调参：33 组单因子 + 4 组网格 + 9 组复跑</h3>
+      <p>先一次只改一个超参、扫 33 组，看谁敏感；再用 4 组小网格看两个超参的交互；最后把 base 和最优配置各跑 3 个种子，判断提升是不是真的。</p>
+      <p class="out">产出：<code>runs.csv</code>（33 行）、<code>grid.csv</code>（4 行）、<code>repeats.csv</code>（9 行）</p>
+    </div>
+
+    <div class="step">
+      <h3>评测与延伸：一次 test，六组额外实验</h3>
+      <p>用最终配置在测试集上评一次（0.9546），然后不再碰它。接着做了六组延伸实验：结构对照、FGSM 攻击、对抗训练、Grad-CAM、剪枝与蒸馏、先验拆解，外加一次「容量对齐」的自我复核。</p>
+      <p class="out">产出：<code>figures/</code> 10 张图、<code>docs/EXTENSIONS.md</code>、15 页答辩 PPT</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+  <h2><span class="num">03</span>三个模型：它们各自在「怎么看图」</h2>
+  <p class="sub">这是整个项目里我最想讲清楚的一段——三种结构差的不是「谁更高级」，而是「信息在什么尺度上被混在一起」。</p>
+
+  <figure>
+    <svg viewBox="0 0 1160 300" width="100%" role="img" aria-label="三种结构如何混合图像信息">
+      <!-- 面板 1：MLP -->
+      <g>
+        <rect x="0" y="0" width="360" height="290" fill="#fbfcfe" stroke="#e2e7ee" rx="10"/>
+        <text x="20" y="30" font-size="15" font-weight="700" fill="#1a2230">MLP：摊平，一次全连</text>
+        <!-- 网格 -->
+        <rect x="24" y="52" width="120" height="120" fill="#fff" stroke="#1a2230"/>
+        <line x1="24" y1="82" x2="144" y2="82" stroke="#eef1f6"/>
+        <line x1="24" y1="112" x2="144" y2="112" stroke="#eef1f6"/>
+        <line x1="24" y1="142" x2="144" y2="142" stroke="#eef1f6"/>
+        <line x1="54" y1="52" x2="54" y2="172" stroke="#eef1f6"/>
+        <line x1="84" y1="52" x2="84" y2="172" stroke="#eef1f6"/>
+        <line x1="114" y1="52" x2="114" y2="172" stroke="#eef1f6"/>
+        <!-- 展平箭头 -->
+        <path d="M152 112 L214 112" stroke="#3d7bd9" stroke-width="1.6" fill="none"/>
+        <path d="M214 112 l-7 -4 v8 z" fill="#3d7bd9"/>
+        <text x="160" y="104" font-size="11" fill="#8b97a8">展平</text>
+        <!-- 节点 -->
+        <circle cx="238" cy="86" r="7" fill="#eaf2ff" stroke="#1e4fa8"/>
+        <circle cx="238" cy="112" r="7" fill="#eaf2ff" stroke="#1e4fa8"/>
+        <circle cx="238" cy="138" r="7" fill="#eaf2ff" stroke="#1e4fa8"/>
+        <path d="M214 112 L230 86 M214 112 L230 112 M214 112 L230 138" stroke="#c9d8f2"/>
+        <text x="256" y="116" font-size="12" fill="#4a5568">128 个神经元</text>
+        <text x="24" y="204" font-size="12.5" fill="#4a5568">每个像素都直接连到每个神经元</text>
+        <text x="24" y="224" font-size="12.5" fill="#4a5568">→ 第一层就「看见整幅图」</text>
+        <text x="24" y="258" font-size="13" font-weight="700" fill="#1e4fa8">100,738 参数 · AUC 0.9928</text>
+      </g>
+
+      <!-- 面板 2：CNN -->
+      <g transform="translate(400,0)">
+        <rect x="0" y="0" width="360" height="290" fill="#fbfcfe" stroke="#e2e7ee" rx="10"/>
+        <text x="20" y="30" font-size="15" font-weight="700" fill="#1a2230">SmallCNN：3×3 逐块扫</text>
+        <rect x="24" y="52" width="120" height="120" fill="#fff" stroke="#1a2230"/>
+        <rect x="54" y="82" width="30" height="30" fill="#eaf2ff" stroke="#c0392b" stroke-width="1.6"/>
+        <path d="M84 97 L118 97" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="124" y="101" font-size="11" fill="#c0392b">只看 3×3</text>
+        <path d="M152 112 L214 112" stroke="#3d7bd9" stroke-width="1.6" fill="none"/>
+        <path d="M214 112 l-7 -4 v8 z" fill="#3d7bd9"/>
+        <!-- 特征图 -->
+        <rect x="224" y="72" width="52" height="52" fill="#eaf2ff" stroke="#1e4fa8"/>
+        <rect x="234" y="82" width="52" height="52" fill="#dce8fb" stroke="#1e4fa8"/>
+        <text x="224" y="146" font-size="11" fill="#4a5568">32 → 64 张特征图</text>
+        <text x="24" y="204" font-size="12.5" fill="#4a5568">两层 3×3 叠起来，视野只有 9×9</text>
+        <text x="24" y="224" font-size="12.5" fill="#4a5568">→ 看不到整片肺野，只看局部纹理</text>
+        <text x="24" y="258" font-size="13" font-weight="700" fill="#1e4fa8">74,946 参数 · AUC 0.9886</text>
+      </g>
+
+      <!-- 面板 3：ViT -->
+      <g transform="translate(800,0)">
+        <rect x="0" y="0" width="360" height="290" fill="#fbfcfe" stroke="#e2e7ee" rx="10"/>
+        <text x="20" y="30" font-size="15" font-weight="700" fill="#1a2230">TinyViT：切块，互相问</text>
+        <rect x="24" y="52" width="120" height="120" fill="#fff" stroke="#1a2230"/>
+        <g stroke="#e2e7ee">
+          <line x1="54" y1="52" x2="54" y2="172"/><line x1="84" y1="52" x2="84" y2="172"/>
+          <line x1="114" y1="52" x2="114" y2="172"/>
+          <line x1="24" y1="82" x2="144" y2="82"/><line x1="24" y1="112" x2="144" y2="112"/>
+          <line x1="24" y1="142" x2="144" y2="142"/>
+        </g>
+        <rect x="84" y="82" width="30" height="30" fill="#eaf2ff" stroke="#1e4fa8" stroke-width="1.6"/>
+        <g stroke="#3d7bd9" stroke-width="0.8" opacity="0.55">
+          <line x1="99" y1="97" x2="39" y2="67"/><line x1="99" y1="97" x2="99" y2="67"/>
+          <line x1="99" y1="97" x2="129" y2="67"/><line x1="99" y1="97" x2="39" y2="157"/>
+          <line x1="99" y1="97" x2="129" y2="157"/><line x1="99" y1="97" x2="39" y2="127"/>
+        </g>
+        <text x="24" y="204" font-size="12.5" fill="#4a5568">28×28 切成 7×7 个 patch，每个 patch 当「一个词」</text>
+        <text x="24" y="224" font-size="12.5" fill="#4a5568">→ 第一层就能和任意 patch 直接对话</text>
+        <text x="24" y="258" font-size="13" font-weight="700" fill="#1e4fa8">71,554 参数 · AUC 0.9935</text>
+      </g>
+    </svg>
+    <figcaption>三张图对应同一件事：信息在什么范围内被「混」到一起。这也解释了后面那个反直觉的结果——最土的 MLP 反而很能打。</figcaption>
+  </figure>
+
+  <h3>3.1 MLP：什么都不懂，所以什么都能看</h3>
+  <p><strong>原理（人话）：</strong>把 28×28 的图拉成一根 784 长的向量，乘一个大矩阵、加偏置、过激活函数，就得到 2 个分数。它不知道「相邻像素更相关」，也不知道「图像可以平移」。</p>
+  <p><strong>在项目里的作用：</strong>当「结构对照的下界」。如果一个毫无图像先验的模型都能到 0.99，说明这个任务的信息量其实很低维。</p>
+  <p><strong>结果：</strong>100,738 个参数，验证 AUC <strong>0.9928</strong>，比精心调过的 CNN 还高。</p>
+  <div class="callout"><p>为什么？因为「整片肺野的弥漫性浸润」本来就是个全局统计量。把全图摊平一次加权，恰好就是在算全局量。这是这个项目里第一个反直觉发现。</p></div>
+
+  <h3>3.2 SmallCNN：拿放大镜逐块看</h3>
+  <p><strong>原理（人话）：</strong>用 3×3 的小窗口在图上滑动，每个位置算一个加权和（卷积），得到一张「特征图」；再抽稀（池化）、归一化（BN）、激活，堆两层。它的核心假设是<strong>局部的东西长得像</strong>——同一个纹理出现在左上和右下，应该被同一组权重识别。</p>
+  <p><strong>在项目里的作用：</strong>主实验的载体。33 组调参全在它身上做，因为笔记里的「基础预测模型」就是它。</p>
+  <p><strong>结果：</strong>宽度 32 时 19,042 参数、AUC 0.9845；宽度 64 时 74,946 参数、AUC 0.9886（<strong>+0.0041</strong>，约 19 倍种子波动）。</p>
+  <div class="warn"><p>它的短板很有意思：两层 3×3 卷积只叠出 <strong>9×9</strong> 的感受野，连整幅图的 1/9 都不到。想靠「加宽」补，加到最后还是不如能看全图的结构——这是第 5 节「容量对齐」要证的。</p></div>
+
+  <h3>3.3 TinyViT：把图切成拼图，让每块互相打电话</h3>
+  <p><strong>原理（人话）：</strong>把 28×28 切成 7×7 个 4×4 的小块（patch），每块压成一个向量，再加一个专门用来「汇总」的 cls token；然后做自注意力——<strong>每一块都去问其他所有块「你和我有关系吗」</strong>，按相关程度加权求和。堆两层，最后用 cls token 分类。</p>
+  <p><strong>在项目里的作用：</strong>回答笔记里那句「注意力到底行不行」。我把它压到和 CNN 几乎一样的参数量（71,554 vs 74,946），这样比较才公平。</p>
+  <p><strong>结果：</strong>验证 AUC <strong>0.9935</strong>，比 CNN 高 0.0049；代价是训练慢 2 倍（2.4 min vs 1.2 min），因为注意力是「两两配对」的，复杂度随 token 数平方增长。</p>
+
+  <div class="good">
+    <p><strong>但先别急着下结论。</strong>这三组参数量分别是 10 万、7.5 万、7.1 万，并不齐。「ViT 赢」可能只是它恰好落在容量甜点上。所以第 5 节我把三者压到同一参数量又比了一次——结论改了一半。</p>
+  </div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+  <h2><span class="num">04</span>训练里的那些「零件」，各自管什么</h2>
+  <p class="sub">模型只是骨架，真正让它学起来的是这些小零件。每个都用一个比喻讲清，再给它在项目里的实测表现。</p>
+
+  <table>
+    <tr><th style="width:17%">零件</th><th style="width:30%">通俗解释</th><th style="width:27%">在项目里干什么</th><th style="width:26%">实测表现</th></tr>
+    <tr>
+      <td><strong>交叉熵损失</strong></td>
+      <td>猜错了扣多少分。模型越自信地猜错，扣得越狠。</td>
+      <td>唯一的优化目标；训练全程都在最小化它。</td>
+      <td>训练 loss 从 0.80 一路降到 0.1 以下，然后开始平台。</td>
+    </tr>
+    <tr>
+      <td><strong>Adam 优化器</strong></td>
+      <td>给每个参数配一个「私人助教」，各自决定步子迈多大。</td>
+      <td>主配置用它；和 SGD 做对照。</td>
+      <td>20 轮预算下 SGD 只有 0.9642，比 Adam 低约 2 个点。</td>
+    </tr>
+    <tr>
+      <td><strong>学习率</strong></td>
+      <td>一次走多远。太小走不动，太大跨过谷底。</td>
+      <td>敏感性扫描的第一名。</td>
+      <td>从 1e-4 到 1e-2 的极差 <strong>0.0220</strong>，是全项目最敏感的旋钮。</td>
+    </tr>
+    <tr>
+      <td><strong>BatchNorm</strong></td>
+      <td>每层后面装一个「稳压器」，把数值拉回正常范围。</td>
+      <td>默认开启，另跑一组关掉做对照。</td>
+      <td>去掉后掉 <strong>1.9 个百分点</strong>——属于「必须有」，不是「可以调」。</td>
+    </tr>
+    <tr>
+      <td><strong>Dropout / 权重衰减</strong></td>
+      <td>训练时随机「断电」一部分神经元，逼模型别只靠少数几条路。</td>
+      <td>各扫了几档，属于「不敏感区」。</td>
+      <td>极差都不超过 0.0062，调它们不如调学习率。</td>
+    </tr>
+    <tr>
+      <td><strong>早停 + 选最优轮</strong></td>
+      <td>考试取最好那次成绩，而不是最后一次。</td>
+      <td>验证 AUC 不再涨就停；权重按最高分那一轮存。</td>
+      <td>第 20 轮 0.9837 已低于第 19 轮 0.9890，差 0.0053。</td>
+    </tr>
+    <tr>
+      <td><strong>随机种子</strong></td>
+      <td>洗牌前把顺序定死，别人才能复现你这一局。</td>
+      <td>Python / NumPy / PyTorch 三处都设。</td>
+      <td>13 次等价 base 复现到小数点后六位（0.984404）。</td>
+    </tr>
+    <tr>
+      <td><strong>数据增强</strong></td>
+      <td>把图翻一翻、转一转，人为造点新样本。</td>
+      <td>翻转到保留，旋转做对照。</td>
+      <td>翻转无害；<strong>旋转反而更差</strong>（0.9821），因为把肺野转出画布了。</td>
+    </tr>
+  </table>
+  <p class="tbl-note">「极差」= 这一组里最好与最差的差值，单位是 AUC。只有极差明显大于种子波动，才值得继续调。</p>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+  <h2><span class="num">05</span>六组额外实验：把「我以为」变成「我测过」</h2>
+  <p class="sub">主实验只回答了「调参有没有用」。剩下六个问题，是我在笔记里看到、但没跑过的。</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="tag">实验一</span>
+      <h4>容量对齐：把三个模型的脑容量调成一样</h4>
+      <p><strong>做法：</strong>给定目标参数量，反解每个结构的「宽度旋钮」，把 MLP、CNN、ViT 压到 1.9 万和 7.2 万两档，各跑 3 个种子。</p>
+      <p><strong>结果：</strong>1.9 万档 MLP 0.9922 / CNN 0.9845 / ViT 0.9922；7.2 万档 0.9927 / 0.9879 / 0.9935。</p>
+      <p><strong>结论：</strong>CNN 落后是真的、加参数救不回来；但 <strong>ViT 并没有赢 MLP</strong>，差 0.00008～0.00085，落在种子波动里。</p>
+    </div>
+
+    <div class="card">
+      <span class="tag r">实验二</span>
+      <h4>FGSM 攻击：给图加 1.5% 的噪声</h4>
+      <p><strong>做法：</strong>顺着「让模型更错」的方向，给每个像素加一小步，ε 从 0 扫到 0.3。</p>
+      <p><strong>结果：</strong>ε=0.03 时 AUC 从 0.9890 掉到 <strong>0.4501</strong>——比瞎猜还差；ε≥0.05 直接「全判正常」。</p>
+      <p><strong>结论：</strong>98.9 分只在「图没被动过」的前提下成立。</p>
+    </div>
+
+    <div class="card">
+      <span class="tag g">实验三</span>
+      <h4>对抗训练：把这种刁钻题掺进练习册</h4>
+      <p><strong>做法：</strong>训练时每个 batch 抽一半样本先做 FGSM 扰动，再和干净样本一起学。</p>
+      <p><strong>结果：</strong>ε=0.03 处 AUC <strong>0.4678 → 0.8711</strong>，崩溃被填回 79%；代价是干净 AUC 掉 0.0081。</p>
+      <p><strong>结论：</strong>不是免费午餐，而且只护住「同强度」的扰动，ε≥0.2 还是崩。</p>
+    </div>
+
+    <div class="card">
+      <span class="tag">实验四</span>
+      <h4>Grad-CAM：看模型到底在瞧哪儿</h4>
+      <p><strong>做法：</strong>拿最后一层卷积的梯度当权重，给特征图加权，再上采样回 28×28 看热区。</p>
+      <p><strong>结果：</strong>边框区域响应占比 0.382，而边框面积占 0.490 → <strong>富集 0.78 倍</strong>。</p>
+      <p><strong>结论：</strong>没有靠黑边作弊，注意力落在肺野；但「小于 1」也说明它确实偏中央。</p>
+    </div>
+
+    <div class="card">
+      <span class="tag a">实验五</span>
+      <h4>剪枝与蒸馏：能不能把模型做小</h4>
+      <p><strong>做法：</strong>按权重绝对值剪掉 50% / 80% / 90% 再微调 3 轮；另让大模型当老师、教一个小模型（温度 T=1/4/8）。</p>
+      <p><strong>结果：</strong>剪 50% 只掉 0.005，剪 80% 掉到 0.9720；而从零训一个更小的 w16 反而有 0.9791。蒸馏三个温度全部没赢。</p>
+      <p><strong>结论：</strong>「剪大的」不如「直接训小的」；师生只差 0.01 时，软标签里没东西可教。</p>
+    </div>
+
+    <div class="card">
+      <span class="tag">实验六</span>
+      <h4>先验拆解：验证掉分是数据的问题还是模型的问题</h4>
+      <p><strong>做法：</strong>把验证集的阳性比例强行调到测试集的 62.5%，重采样 200 次，看准确率掉多少。</p>
+      <p><strong>结果：</strong>0.9523 → 0.9399（只掉 0.0124）→ 真实测试 0.8349。</p>
+      <p><strong>结论：</strong>先验只解释 <strong>11%</strong> 的落差，剩下 <strong>89%</strong> 是真实的分布偏移。</p>
+    </div>
+  </div>
+
+  <figure>
+    <img src="figures/capacity_curve.png" alt="容量对齐后的参数量-精度曲线">
+    <figcaption>容量对齐：横轴是参数量（对数），三条线是三种结构。CNN 始终在下面；ViT 与 MLP 几乎重合——这就是「ViT 最优」被推翻的证据。</figcaption>
+  </figure>
+
+  <figure>
+    <img src="figures/fgsm_adv_compare.png" alt="FGSM 攻击曲线：干净训练与对抗训练对比">
+    <figcaption>左图 AUC、右图 ACC。灰虚线是训练时用的 ε=0.03：干净训练的曲线在那里断崖，对抗训练把它托住了；但 ε 再大，两条线一起归零。</figcaption>
+  </figure>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+  <h2><span class="num">06</span>六条结论，都可以被复述</h2>
+  <p class="sub">如果只记六句话，记这六句。</p>
+
+  <ol>
+    <li><strong>调参确实有用，但幅度有限。</strong>同一个结构里把宽度从 32 加到 64，AUC 稳定涨 0.0041，约等于 19 倍的种子波动——不是运气，但也不是质变。</li>
+    <li><strong>真正卡住上限的是结构，不是旋钮。</strong>参数从 1.9 万加到 7.2 万只换来 0.0005；而换成能看全图的结构，直接多 0.005～0.008。</li>
+    <li><strong>「全局混合」比「局部卷积」更适合这个任务。</strong>因为判别证据是整片肺野的弥漫性浸润；注意力不是必需，MLP 也能做到——但 CNN 靠 9×9 的视野做不到。</li>
+    <li><strong>精度和鲁棒性是两回事。</strong>0.9890 的模型，遇到 1.5% 的像素扰动就掉到 0.45；对抗训练能把这一跤接住大半，代价是 0.008 的干净精度。</li>
+    <li><strong>验证集到测试集的落差，主要是分布问题。</strong>先验（阳性比例）只解释 11%，剩下 89% 是数据来源不同；所以「按测试集先验调阈值」最多挽回 1 个点。</li>
+    <li><strong>能被自己推翻的结论才算结论。</strong>我一开始写「ViT 最优」，容量对齐后发现只是参数量没对齐——这条修正比多刷 0.002 的分数值钱。</li>
+  </ol>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+  <h2><span class="num">07</span>我学到了什么</h2>
+  <p class="sub">分三层：手上的、脑子里的、嘴上的。</p>
+
+  <h3>技术层</h3>
+  <ul>
+    <li><strong>会从一个空目录搭出可复现的训练链路。</strong>配置化、日志留痕、三处种子、权重按验证集选轮——这些以前只是「听说过」。</li>
+    <li><strong>会读自己的实验结果。</strong>知道要拿差值去比波动，而不是看到 0.0046 就写「提升了」。</li>
+    <li><strong>会写几个小工具做对照。</strong>反解参数量、算 Grad-CAM、造对抗样本、做自助重采样，都是几十行的东西，但能把一个说法从「我觉得」变成「我测了」。</li>
+  </ul>
+
+  <h3>方法论层</h3>
+  <ul>
+    <li><strong>比较之前先对齐。</strong>比结构要比参数量，比超参要比种子，比数据集要比先验。不对齐的比较，结论都是假的。</li>
+    <li><strong>监控指标要等于最终目标。</strong>用干净准确率去早停一个鲁棒模型，等于一边加速一边踩刹车——我的对抗训练就被这么截断在 12 轮。</li>
+    <li><strong>失败组也要留痕。</strong>7 个崩掉的配置全在 CSV 里，它们比成功的 33 组更能说明边界在哪。</li>
+  </ul>
+
+  <h3>表达层</h3>
+  <ul>
+    <li>学会给每个数字配一句判断：0.45 不是「下降了」，是「排序能力被破坏」。</li>
+    <li>学会主动说局限：只做分类没做分割、单数据集、纯 CPU、20 轮预算。</li>
+    <li>学会把「我不知道」说得不心虚——不知道就说没测，比现编一个数字安全。</li>
+  </ul>
+</section>
+
+<!-- ============ 8 ============ -->
+<section id="s8">
+  <h2><span class="num">08</span>和笔记的联动：哪几章真的被用上了</h2>
+  <p class="sub">笔记共 16 个模块（C1–C16），这个项目实际落地了 11 个，3 个给出了边界条件，5 个明确没做并说明理由。</p>
+
+  <table>
+    <tr><th style="width:8%">章节</th><th style="width:22%">笔记讲什么</th><th style="width:38%">项目里怎么用</th><th style="width:32%">结果 / 是否改写</th></tr>
+    <tr>
+      <td><strong>C1</strong></td><td>机器学习到底在干什么</td>
+      <td>双损失诊断、早停取最佳轮、测试集只评一次</td>
+      <td>验证 loss 第 18 轮后回升 → 取第 19 轮；测试记录只有 1 行</td>
+    </tr>
+    <tr>
+      <td><strong>C2</strong></td><td>训练不动怎么办</td>
+      <td>学习率、优化器、BN、学习率排程四个主旋钮</td>
+      <td>极差 0.0220 / 0.0204 / 0.0186；无 BN 掉 1.9 点</td>
+    </tr>
+    <tr>
+      <td><strong>C3</strong></td><td>卷积为什么省参数</td>
+      <td>宽度与池化两组实验；手算参数量对账</td>
+      <td><strong>部分改写</strong>：手算 19,042 对上了，但「不池化更好」被实测否定（0.9782）</td>
+    </tr>
+    <tr>
+      <td><strong>C4</strong></td><td>自注意力：每个词问所有词</td>
+      <td>自建 TinyViT，第一层就是 patch 之间互相问</td>
+      <td>ViT 0.9935 高于 CNN 0.9886；但和 MLP 打平</td>
+    </tr>
+    <tr>
+      <td><strong>C5</strong></td><td>Transformer：把注意力堆成机器</td>
+      <td>patch embed + cls token + 2 层 pre-norm + FFN</td>
+      <td>落地；平方复杂度体现在训练时间是 CNN 的 2 倍</td>
+    </tr>
+    <tr>
+      <td><strong>C9</strong></td><td>对抗攻击</td>
+      <td>FGSM 的 ε 曲线（笔记「五件动手的事」第 3 件）</td>
+      <td>ε=0.03 掉到 0.45；又补了对抗训练把它拉回 0.87</td>
+    </tr>
+    <tr>
+      <td><strong>C10</strong></td><td>可解释性</td>
+      <td>用 hook 手写 Grad-CAM，量化「边框富集度」</td>
+      <td>0.78 倍，注意力偏肺野；顺手踩了一个「尺度没对齐」的坑</td>
+    </tr>
+    <tr>
+      <td><strong>C11</strong></td><td>领域自适应</td>
+      <td>先验对齐 + 200 次自助重采样</td>
+      <td>先验只解释 11%，89% 是分布偏移</td>
+    </tr>
+    <tr>
+      <td><strong>C14</strong></td><td>网络压缩</td>
+      <td>剪枝 50/80/90% + 蒸馏 T=1/4/8</td>
+      <td>两个负结果：剪大的不如训小的；蒸馏没赢</td>
+    </tr>
+    <tr>
+      <td><strong>C16</strong></td><td>结语：把十五个模块串成一张图</td>
+      <td>用流程图把「数据 → 模型 → 训练 → 评估 → 归档」串起来</td>
+      <td>流程图就是这张图的工程版</td>
+    </tr>
+    <tr>
+      <td>C6 / C7 / C8</td><td>生成 / 自监督 / 自编码器</td>
+      <td>没做：4.7k 张图，生成样本和预训练都占不到便宜</td>
+      <td>写进「局限」，不硬凑</td>
+    </tr>
+    <tr>
+      <td>C12 / C13 / C15</td><td>强化学习 / 终身学习 / 元学习</td>
+      <td>没做：分类任务没有序列决策、没有 few-shot 设定；C13 留了迁移实验的设计</td>
+      <td>答辩时直接说「没做，理由是……」</td>
+    </tr>
+  </table>
+
+  <h3>三处「笔记说 A，实测是 B」</h3>
+  <div class="cards">
+    <div class="card">
+      <span class="tag r">订正 1</span>
+      <h4>「不池化更好」→ 不成立</h4>
+      <p>笔记订正版说医学影像的微小结节会被池化丢掉。我直接把池化全去掉，结果从 0.9845 掉到 0.9782。</p>
+      <p>正确的说法应该是「<strong>别堆池化</strong>」，而不是「不用池化」——留一次 2×2 反而起了轻量正则的作用。</p>
+    </div>
+    <div class="card">
+      <span class="tag r">订正 2</span>
+      <h4>「增强越多越好」→ 反而更差</h4>
+      <p>翻转 + 旋转 10° 让 AUC 从 0.9851 掉到 0.9821。原因是旋转把肺野推到画布外，还引入了黑边填充——这是分布外变换。</p>
+      <p>最后只留水平翻转：<strong>增强必须保持标签语义和数据分布</strong>。</p>
+    </div>
+    <div class="card">
+      <span class="tag r">订正 3</span>
+      <h4>「ViT 更先进所以更准」→ 一半对</h4>
+      <p>ViT 确实比 CNN 高 0.0049，但容量对齐后它和 MLP 打平（差 0.00008）。</p>
+      <p>准确的表述是「<strong>全局混合 &gt; 局部卷积，注意力的额外贡献不显著</strong>」。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section id="s9">
+  <h2><span class="num">09</span>产出了什么</h2>
+  <p class="sub">一句话：一套能重跑的代码、一张能查的结果表、一组能讲的图，和几份能交的文档。</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="tag">代码</span>
+      <div class="num">20</div>
+      <p class="cap">个 Python 模块：数据、模型、训练、评估、扫描、复跑、出图、分析、归档，外加 6 个延伸实验脚本</p>
+    </div>
+    <div class="card">
+      <span class="tag">结果</span>
+      <div class="num">11</div>
+      <p class="cap">个 CSV：单因子扫描、网格、三个种子、结构、容量对齐、攻击、对抗训练、剪枝蒸馏、最终测试</p>
+    </div>
+    <div class="card">
+      <span class="tag">图件</span>
+      <div class="num">10</div>
+      <p class="cap">张图：敏感性、前后对比、ROC、混淆矩阵、预测样例、loss 曲线、Grad-CAM、FGSM、对抗训练、容量曲线</p>
+    </div>
+    <div class="card">
+      <span class="tag g">文档</span>
+      <div class="num">10</div>
+      <p class="cap">份 Markdown：实验报告、实验日志、踩坑清单（16 条）、学习复盘、延伸实验、答辩问答、预演稿等</p>
+    </div>
+    <div class="card">
+      <span class="tag g">汇报</span>
+      <div class="num">15</div>
+      <p class="cap">页 PPT：从三件套对照讲到两组延伸实验，含现场演示脚本</p>
+    </div>
+    <div class="card">
+      <span class="tag a">可复现</span>
+      <div class="num">1</div>
+      <p class="cap">条命令：<code>python -m src.run --config configs/best.yaml</code>，10 秒到 3 分钟就能重跑出同样的数字</p>
+    </div>
+  </div>
+
+  <h3>仓库里有什么</h3>
+  <table>
+    <tr><th style="width:20%">目录</th><th>内容</th></tr>
+    <tr><td><code>src/</code></td><td>20 个模块，全部可单独运行；<code>python -m src.xxx</code> 即可</td></tr>
+    <tr><td><code>configs/</code></td><td>5 份配置：基线、扫描空间、最优、ViT、对抗训练</td></tr>
+    <tr><td><code>results/</code></td><td>11 个 CSV，每行带 <code>git_commit</code> 与时间戳，失败组也保留</td></tr>
+    <tr><td><code>figures/</code></td><td>10 张图，全部由 CSV 现场生成，没有手工截图</td></tr>
+    <tr><td><code>docs/</code></td><td>报告、日志、踩坑、复盘、延伸实验、答辩问答、预演稿、流程图</td></tr>
+    <tr><td><code>notebooks/</code></td><td>单图推理演示</td></tr>
+  </table>
+
+  <div class="callout">
+    <p><strong>两条纪律写在最前面：</strong>所有调参只看 524 张验证集；624 张测试集只在最后评一次（AUC 0.9546 / ACC 0.8349），之后无论多想知道「另一个配置会不会更好」，都不再碰它。</p>
+  </div>
+
+  <h3>如果继续往下做</h3>
+  <ul>
+    <li><strong>PGD 对抗训练</strong>：把单步攻击换成 7 步迭代，验证「只护住同强度扰动」是不是单步方法的局限。</li>
+    <li><strong>ViT 结构细化</strong>：patch 2 vs 4、depth 1/2/4，把「注意力」和「切块方式」的功劳分开。</li>
+    <li><strong>迁移到第二个数据集</strong>：同一套代码换 BreastMNIST，看流程能不能原样跑通。</li>
+  </ul>
+</section>
+
+<footer>
+  数据口径：验证集调参、测试集只评一次、三个种子取均值 ± 标准差（ddof=1）。<br>
+  所有数字来自 <code>results/*.csv</code> 与 <code>figures/</code>，可用仓库 README 中的命令重跑。<br>
+  MedMNIST 采用 CC 许可，仅用于教育与研究，不用于临床。
+</footer>
+
+</div>
+</body>
+</html>
