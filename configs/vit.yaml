@@ -1,0 +1,46 @@
+# 结构对照配置：TinyViT + PneumoniaMNIST（纯 CPU）
+# 对应笔记 C4 自注意力 / C5 Transformer；patch 4 -> 7x7=49 token，dim 64，2 层 4 头，71,554 参数
+# 复现：python -m src.run --config configs/vit.yaml --seed 0 --run-id vit_s0 --no-ckpt
+
+dataset: pneumoniamnist
+size: 28
+data_root: null          # null = 使用 medmnist 默认目录（~/.medmnist）
+seed: 0
+
+# 模型
+model: vit               # mlp | smallcnn | vit
+patch: 4                 # patch 边长：28/4=7 -> 49 个 token
+dim: 64
+depth: 2
+heads: 4
+conv_width: 32
+use_bn: true
+activation: relu         # relu | gelu
+pooling: light           # light（仅一次 2x2 池化）| none  —— C3 笔记：28x28 小图别堆池化
+dropout: 0.2
+n_classes: 2
+n_channels: 1
+
+# 优化
+optimizer: adam          # adam | adamw | sgd
+lr: 0.001
+momentum: 0.9
+weight_decay: 0.0001
+batch_size: 64
+epochs: 20
+scheduler: none          # none | step | cosine
+warmup_epochs: 0
+label_smoothing: 0.0
+
+# 数据
+augment: flip            # none | flip | flip_rot
+class_weight: none       # none | balanced
+early_stop_patience: 5
+
+# 运行
+device: cpu
+num_workers: 0           # Windows 上保持 0，避免多进程 spawn 问题
+limit_train: null        # 冒烟测试用：只取前 N 个训练样本
+limit_val: null
+out_dir: results
+ckpt_dir: outputs

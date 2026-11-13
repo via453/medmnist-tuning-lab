@@ -2,7 +2,7 @@
 
 中期大作业验收资料库：**选题论证 + 项目全生命周期教程 + 协作边界 + 可运行代码骨架**。
 
-> **当前状态（2026-11-13，交付文档完成）**：S1 单因子 33 组、S2 小网格 4 组、S3 三 seed 9 组、MLP 结构对照 3 组、最终 test 一次评测与 6 张图件全部完成并归档；`docs/REPORT.md`（实验报告）、`LOG.md`（8 条日志）、`PITFALLS.md`（10 条真坑）、`REVIEW.md`（三段式复盘 + 章节映射表）已写完。仓库含脚本、配置、结果 CSV 与图件；**不含训练权重**（`outputs/` 已忽略）与**原始数据集**（`data/` 已忽略）。
+> **当前状态（2026-11-13 晚，主实验 + 延伸实验完成）**：S1 单因子 33 组、S2 小网格 4 组、S3 三 seed 9 组、结构对照 6 组（MLP×3 + TinyViT×3）、最终 test 一次评测与 8 张图件全部完成；延伸实验（FGSM / Grad-CAM / 剪枝蒸馏 / 先验拆解）5 组已完成并写入 `docs/EXTENSIONS.md`。`docs/REPORT.md`、`LOG.md`、`PITFALLS.md`、`REVIEW.md` 已写完。仓库含脚本、配置、结果 CSV 与图件；**不含训练权重**（`outputs/` 已忽略）与**原始数据集**（`data/` 已忽略）。
 
 ## 项目一句话目标
 
@@ -21,9 +21,10 @@
 | `中期大作业选题建议.html` | 选题建议报告 v2：5 个候选选题（2 复刻 + 3 自建）、横向对比、首推 B-1 及理由；内含可复用的项目流程图 SVG |
 | `MedMNIST调参实验室_完整教程.html` | **主教程**：按立项 → 数据理解 → 实验配置 → 调参对比 → 结果评估 → 过程记录 → 最终归档组织，含可填写章节映射表、三类协作边界与最小工作清单 |
 | `MedMNIST调参实验室_详细教程.html` | 另一版详细教程：技术边界、数据子集划分、超参清单、异常判定、已学章节覆盖对照与协作边界 |
-| `src/` | **代码骨架**：`data` / `model` / `train` / `evaluate` / `run` / `sweep` / `plots` / `repeat`（S2·S3）/ `report`（ROC·混淆矩阵·预测样例）/ `analyze`（数据摘要）/ `select_best`（选优）/ `utils` |
-| `configs/` | `base.yaml`（基线）、`sweep.yaml`（单因子扫描）、`best.yaml`（待本人跑完调参后填写） |
+| `src/` | **代码**：`data` / `model` / `train` / `evaluate` / `run` / `sweep` / `plots` / `repeat`（S2·S3）/ `report`（ROC·混淆矩阵·预测样例）/ `analyze`（数据摘要）/ `select_best`（选优）/ `utils`；延伸实验：`fgsm`（对抗攻击）/ `gradcam`（可解释性）/ `compress`（剪枝·蒸馏）/ `prior_shift`（先验拆解） |
+| `configs/` | `base.yaml`（基线）、`sweep.yaml`（单因子扫描）、`best.yaml`（最终配置：conv_width=64）、`vit.yaml`（TinyViT 结构对照） |
 | `docs/pipeline.svg` | 项目流程图 / 框图，可直接用于 README 与 PPT |
+| `docs/EXTENSIONS.md` | **延伸实验**：结构谱系（ViT / MLP / CNN 同参数量对照）、FGSM 鲁棒性、Grad-CAM、剪枝与蒸馏、val→test 落差拆解 |
 | `docs/*.md` | `REPORT.md`（实验报告：结构对照 + 超参对比 + 显著性 + test + 局限）、`LOG.md`（实验日志）、`PITFALLS.md`（踩坑清单）、`REVIEW.md`（学习复盘 + 章节映射表）为署名文档；`S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿 |
 | `requirements.txt` | 钉死 numpy 1.x ABI 兼容组合，防止依赖冲突复发 |
 | `notebooks/demo.ipynb` | 单图推理演示（需先有本地训练出的权重） |
@@ -37,14 +38,32 @@ medmnist-tuning-lab/
 ├── README.md / index.html / LICENSE（待确认）
 ├── requirements.txt / .gitignore
 ├── configs/     base.yaml · sweep.yaml · best.yaml
-├── src/         data · model · train · evaluate · run · sweep · plots · utils
-├── docs/        pipeline.svg · LOG.md · PITFALLS.md · REPORT.md · REVIEW.md
-├── results/     由本人跑出的 runs.csv / ablation.csv / test_final.csv（当前为空）
-├── figures/     由 src/plots.py 生成的图件（当前为空）
+├── src/         data · model · train · evaluate · run · sweep · plots · repeat
+│                report · analyze · select_best · utils
+│                fgsm · gradcam · compress · prior_shift   ← 延伸实验
+├── docs/        pipeline.svg · REPORT.md · LOG.md · PITFALLS.md · REVIEW.md
+│                EXTENSIONS.md · S1_ANALYSIS.md · FINAL_ANALYSIS.md
+│                PPT_OUTLINE.md · DEFENSE_QA.md
+├── results/     runs.csv · grid.csv · repeats.csv · structure.csv
+│                compress.csv · fgsm.csv · test_final.csv
+├── figures/     6 张主实验图 + fgsm_curve.png + gradcam.png
 ├── notebooks/   demo.ipynb
 ├── data/        .npz 自动下载，已忽略
 └── outputs/     训练权重，已忽略
 ```
+
+## 延伸实验一览（详见 `docs/EXTENSIONS.md`）
+
+| 实验 | 结论（val 口径） |
+| --- | --- |
+| 结构谱系（C4/C5） | TinyViT 0.9935（71,554）> MLP 0.9928（100,738）> SmallCNN 0.9886（74,946）→ 结构收益 +0.009 > 调参收益 +0.004 |
+| FGSM（C9） | ε=0.03 时 AUC 0.9890 → 0.4501；ε≥0.05 退化成「全判正常」 |
+| Grad-CAM（C10） | 边框富集 0.78×，注意力偏肺野，未见边缘伪影作弊 |
+| 剪枝（C14） | 剪 50% 只掉 0.005；但剪 80%（14,912）不如直接训 w16（4,914，0.9791） |
+| 蒸馏（C14） | T=1/4/8 全部没赢从头训练（师生差距仅 0.010，软标签无额外信息） |
+| 先验拆解（C11） | val→test 落差中先验只解释 11%，89% 是真实分布偏移 |
+
+> 以上全部只评 val；`results/test_final.csv` 仍是唯一一次 test 记录，未被二次使用。
 
 ## 快速开始（在 `d2l-zh` 环境）
 
@@ -139,6 +158,9 @@ git push origin main
 | 7 | `docs/REVIEW.md` 三段式学习复盘 + 章节映射表 | 已完成（C1–C16 + D/E/F 全量映射） |
 | 8 | 按 `docs/PPT_OUTLINE.md` 做 PPT，按 `docs/DEFENSE_QA.md` 预演答辩 | **待本人完成** |
 | 9 | 现场演示（终端实跑 / `demo.ipynb` 单图推理） | **待本人完成** |
+| 10 | 延伸实验跑通并归档（结构谱系 / FGSM / Grad-CAM / 剪枝蒸馏 / 先验拆解） | 已完成 |
+
+> **答辩加分点**：`docs/EXTENSIONS.md` 里有三条负结果（剪枝不如训小的、蒸馏无增益、先验只解释 11%）和一条反直觉结论（ViT 赢 CNN）。负结果配上前提条件比再刷 0.002 AUC 更能说明你真的跑懂了。
 
 > **不能返工的两件事**：`test` 只评过一次，不要为了 S2 里更优的组合回头改 `best.yaml` 再评第二次；也不要拿 test 调阈值。两者都写进「遗留改进方向」并在答辩主动说明（见 `docs/DEFENSE_QA.md` Q4/Q5）。
 

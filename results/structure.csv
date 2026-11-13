@@ -2,3 +2,6 @@
 mlp_s0,2026-11-13 15:08:17,0,440c127,ok,L1 结构对照：MLP 基线,model,mlp,pneumoniamnist,mlp,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,20,0.841,100738,0.993373,0.948473,,
 mlp_s1,2026-11-13 15:09:08,1,440c127,ok,L1 结构对照：MLP 基线,model,mlp,pneumoniamnist,mlp,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,13,0.576,100738,0.991812,0.948473,,
 mlp_s2,2026-11-13 15:10:14,2,440c127,ok,L1 结构对照：MLP 基线,model,mlp,pneumoniamnist,mlp,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,18,0.816,100738,0.993202,0.942748,,
+vit_s0,2026-11-13 19:30:48,0,04a7ed4,ok,C4/C5 结构对照：TinyViT patch4 dim64 depth2,model,vit,pneumoniamnist,vit,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,20,2.45,71554,0.993907,0.937023,,
+vit_s1,2026-11-13 19:33:23,1,04a7ed4,ok,C4/C5 结构对照：TinyViT patch4 dim64 depth2,model,vit,pneumoniamnist,vit,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,20,2.455,71554,0.992821,0.96374,,
+vit_s2,2026-11-13 19:35:44,2,04a7ed4,ok,C4/C5 结构对照：TinyViT patch4 dim64 depth2,model,vit,pneumoniamnist,vit,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,18,2.218,71554,0.993792,0.96374,,

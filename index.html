@@ -53,7 +53,7 @@
     </div>
   </header>
 
-  <div class="status"><strong>当前阶段：文档与设计。</strong>仓库里现在只有 HTML 文档；<code>src/</code>、<code>configs/</code>、<code>results/</code>、结果图与单图推理 demo 仍待按教程在本机补齐。所有训练与调参须本人执行并署名。</div>
+  <div class="status"><strong>当前阶段：主实验 + 延伸实验完成。</strong>代码（<code>src/</code>）、配置（<code>configs/</code>）、结果表（<code>results/</code> 7 个 CSV）、图件（<code>figures/</code> 8 张）与四份署名文档均已就绪；延伸实验见 <a href="https://github.com/via453/medmnist-tuning-lab/blob/main/docs/EXTENSIONS.md">docs/EXTENSIONS.md</a>。仓库不含训练权重与原始数据集。</div>
 
   <div class="grid">
     <a class="card" href="中期大作业选题建议.html">
@@ -74,15 +74,21 @@
       <p>技术边界与固定口径、数据子集划分、超参清单与搜索范围、异常判定依据、已学章节覆盖对照表。</p>
       <span class="go">打开详细版 →</span>
     </a>
+    <a class="card" href="https://github.com/via453/medmnist-tuning-lab/blob/main/docs/EXTENSIONS.md">
+      <span class="tag">实验结果</span>
+      <h2>延伸实验（Markdown）</h2>
+      <p>结构谱系 ViT / MLP / CNN 同参数量对照、FGSM 鲁棒性、Grad-CAM 可解释性、剪枝与蒸馏、val→test 落差拆解。含三条负结果。</p>
+      <span class="go">在 GitHub 打开 →</span>
+    </a>
   </div>
 
   <section>
     <h2>中期验收三件套对照</h2>
     <table>
       <tr><th>验收项</th><th>本仓库当前提供</th><th>待补</th></tr>
-      <tr><td>项目流程图 / 框图</td><td>选题建议报告内已含 SVG 五泳道流程图</td><td>与最终代码结构同步核对</td></tr>
-      <tr><td>可访问的 GitHub 链接</td><td>本公开仓库</td><td>—</td></tr>
-      <tr><td>项目流程与代码运行效果</td><td>完整教程给出命令、目录结构与检查清单</td><td>代码骨架、结果表、图件、单图推理 demo</td></tr>
+      <tr><td>项目流程图 / 框图</td><td><code>docs/pipeline.svg</code> + 选题建议报告内五泳道 SVG</td><td>已与代码结构核对</td></tr>
+      <tr><td>可访问的 GitHub 链接</td><td>本公开仓库（Pages 已开启）</td><td>—</td></tr>
+      <tr><td>项目流程与代码运行效果</td><td>可运行 <code>src/</code>；7 个结果 CSV；8 张图件；<code>notebooks/demo.ipynb</code></td><td>现场演示由本人执行</td></tr>
     </table>
   </section>
 

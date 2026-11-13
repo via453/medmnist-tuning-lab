@@ -1,4 +1,8 @@
-"""基础预测模型：MLP 与 SmallCNN。骨架来自李沐 D10 / D23，参数量可手算核对。"""
+"""基础预测模型：MLP / SmallCNN / TinyViT。
+
+MLP 与 SmallCNN 的骨架来自李沐 D10 / D23；TinyViT 对应笔记 C4 自注意力与 C5 Transformer。
+三者参数量刻意放在同一量级，便于做「结构 vs 容量」的对照。
+"""
 import torch
 import torch.nn as nn
 
@@ -56,7 +60,39 @@ class SmallCNN(nn.Module):
         return self.net(x)
 
 
-MODEL_REGISTRY = {"mlp": MLP, "smallcnn": SmallCNN}
+class TinyViT(nn.Module):
+    """微缩 ViT（C4 自注意力 + C5 Transformer 的工程版）。
+
+    28x28 按 patch=4 切成 7x7=49 个 token，加 1 个 cls token；
+    2 层 pre-norm TransformerEncoder（4 头、FFN 2 倍宽），末尾取 cls token 分类。
+    参数量刻意压到与 conv_width=64 的 SmallCNN 同一量级，
+    用来回答「笔记里的注意力放到 28x28 小图上到底行不行」。
+    """
+
+    def __init__(self, n_channels=1, n_classes=2, img=28, patch=4, dim=64,
+                 depth=2, heads=4, dropout=0.1, **kwargs):
+        super().__init__()
+        n = (img // patch) ** 2
+        self.patch_embed = nn.Conv2d(n_channels, dim, patch, patch)
+        self.cls = nn.Parameter(torch.zeros(1, 1, dim))
+        self.pos = nn.Parameter(torch.zeros(1, n + 1, dim))
+        nn.init.trunc_normal_(self.pos, std=0.02)
+        nn.init.trunc_normal_(self.cls, std=0.02)
+        layer = nn.TransformerEncoderLayer(
+            d_model=dim, nhead=heads, dim_feedforward=dim * 2,
+            dropout=dropout, activation="gelu", batch_first=True, norm_first=True)
+        self.encoder = nn.TransformerEncoder(layer, num_layers=depth)
+        self.norm = nn.LayerNorm(dim)
+        self.head = nn.Linear(dim, n_classes)
+
+    def forward(self, x):
+        x = self.patch_embed(x).flatten(2).transpose(1, 2)          # B, n, dim
+        x = torch.cat([self.cls.expand(x.size(0), -1, -1), x], 1) + self.pos
+        x = self.encoder(x)
+        return self.head(self.norm(x[:, 0]))
+
+
+MODEL_REGISTRY = {"mlp": MLP, "smallcnn": SmallCNN, "vit": TinyViT}
 
 
 def build_model(cfg):
@@ -73,4 +109,9 @@ def build_model(cfg):
         pooling=cfg.get("pooling", "light"),
         dropout=cfg.get("dropout", 0.2),
         width=128,
+        img=int(cfg.get("size", 28) or 28),
+        patch=int(cfg.get("patch", 4)),
+        dim=int(cfg.get("dim", 64)),
+        depth=int(cfg.get("depth", 2)),
+        heads=int(cfg.get("heads", 4)),
     )
