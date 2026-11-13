@@ -1,0 +1,78 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>验收要求与交付对位</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>02 · Deliverables</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            三条验收要求，对应三份<span style={{ color: '#1E4FA8', fontWeight: 'bold' }}>当场可以指认</span>的证据，不靠口头说明。
+        </Text>
+
+        <Box style={{ marginTop: 22, display: 'flex', flexDirection: 'column' }}>
+            <Table
+                style={{ width: 1160, height: 296 }}
+                defaultTextStyle={{ fontSize: 18, textAlign: 'left', color: '#1A2230' }}
+                defaultCellStyle={{
+                    paddingLeft: 14,
+                    paddingRight: 14,
+                    border: {
+                        bottom: { width: 1, color: '#D6DCE5' },
+                        top: { width: 1, color: '#D6DCE5' },
+                    },
+                }}
+                cells={[
+                    [
+                        { text: '验收项', textStyle: { bold: true, color: '#1E4FA8' } },
+                        { text: '本仓库当前提供', textStyle: { bold: true, color: '#1E4FA8' } },
+                        { text: '现场指认', textStyle: { bold: true, color: '#1E4FA8' } },
+                    ],
+                    [
+                        '项目流程图 / 框图',
+                        'docs/pipeline.svg 独立成图；数据 → 模型 → 训练 → 调参 → 评测 → 归档六段',
+                        { text: '第 4 页', textStyle: { bold: true, color: '#1E4FA8' } },
+                    ],
+                    [
+                        '可访问的 GitHub 项目链接',
+                        'Public 仓库，GitHub Pages 已开启，README 含一键复现命令',
+                        { text: '第 1 / 15 页', textStyle: { bold: true, color: '#1E4FA8' } },
+                    ],
+                    [
+                        '项目流程与代码运行效果',
+                        'src/ 十二个模块可运行；results/ 11 个 CSV；figures/ 10 张图 + metrics.json',
+                        { text: '第 11 页实跑', textStyle: { bold: true, color: '#1E4FA8' } },
+                    ],
+                ]}
+            />
+        </Box>
+
+        <Box style={{ marginTop: 24, display: 'flex', flexDirection: 'row', gap: 32 }}>
+            <Box style={{ display: 'flex', flexDirection: 'column', width: 548 }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>由本人完成的部分</Text>
+                <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    四份署名文档已定稿；本 PPT 与答辩预演刚完成。现场演示按第 11 页脚本执行。
+                </Text>
+            </Box>
+            <Box style={{ width: 1, background: '#D6DCE5' }} />
+            <Box style={{ display: 'flex', flexDirection: 'column', width: 548 }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>唯一不能返工的部分</Text>
+                <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    test 已在 13:46 评过一次。之后所有实验只走 val——包括本轮新增的两组延伸实验。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                三件套全部可验证；<span style={{ color: '#D9534F', fontWeight: 'bold' }}>test 只评一次</span>这条纪律，决定了后面每一个结论的口径。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>02 / 15</Text>
+    </Box>
+</Slide>

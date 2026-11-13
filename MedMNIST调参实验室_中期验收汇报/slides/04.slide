@@ -1,0 +1,78 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>项目流程：一条主干，一条只向内的回路</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>04 · Pipeline</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            六段主干全部落在 <span style={{ color: '#1E4FA8', fontWeight: 'bold' }}>src/</span> 里，每个脚本对应一段；虚线的调参回路只使用 val。
+        </Text>
+
+        <Box style={{ marginTop: 26, display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'space-between' }}>
+            <Box style={{ width: 200, border: '1px solid #D6DCE5', padding: 16, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, color: '#3D7BD9', fontWeight: 'bold' }}>01</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230', marginTop: 10 }}>数据加载</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    data.py<br />官方 train/val/test<br />不重切、不交叉
+                </Text>
+            </Box>
+            <Text style={{ fontSize: 26, color: '#1E4FA8', width: 24, textAlign: 'center', lineHeight: 1.5 }}>→</Text>
+            <Box style={{ width: 200, border: '1px solid #D6DCE5', padding: 16, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, color: '#3D7BD9', fontWeight: 'bold' }}>02</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230', marginTop: 10 }}>预处理</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    ToTensor<br />Normalize 到 [-1,1]<br />flip 只给训练集
+                </Text>
+            </Box>
+            <Text style={{ fontSize: 26, color: '#1E4FA8', width: 24, textAlign: 'center', lineHeight: 1.5 }}>→</Text>
+            <Box style={{ width: 200, border: '1px solid #D6DCE5', padding: 16, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, color: '#3D7BD9', fontWeight: 'bold' }}>03</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230', marginTop: 10 }}>模型</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    model.py<br />MLP / SmallCNN<br />/ TinyViT 同一注册表
+                </Text>
+            </Box>
+            <Text style={{ fontSize: 26, color: '#1E4FA8', width: 24, textAlign: 'center', lineHeight: 1.5 }}>→</Text>
+            <Box style={{ width: 200, border: '1px solid #D6DCE5', padding: 16, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, color: '#3D7BD9', fontWeight: 'bold' }}>04</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230', marginTop: 10 }}>训练 + val</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    Adam + 早停<br />按 val AUC 存最优轮<br />每行带 git sha
+                </Text>
+            </Box>
+            <Text style={{ fontSize: 26, color: '#1E4FA8', width: 24, textAlign: 'center', lineHeight: 1.5 }}>→</Text>
+            <Box style={{ width: 200, border: '1px solid #D6DCE5', padding: 16, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 16, color: '#D9534F', fontWeight: 'bold' }}>05</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230', marginTop: 10 }}>test 一次</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    624 张只进一次<br />写 test_final.csv<br />之后只归档不再调
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ marginTop: 26, display: 'flex', flexDirection: 'column' }}>
+            <svg width={1160} height={8} viewBox='0 0 1160 8'>
+                <line x1='0' y1='4' x2='1160' y2='4' stroke='#3D7BD9' strokeWidth='2' strokeDasharray='8 8' />
+            </svg>
+            <Box style={{ height: 56, background: '#E8EFF8', display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: 18, paddingRight: 18, marginTop: 8 }}>
+                <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                    ↺ 调参回路（虚线）：S1 单因子 33 组 → S2 网格 4 组 → S3 三 seed 9 组，<span style={{ color: '#1E4FA8', fontWeight: 'bold' }}>三轮都只读 val</span>，从不回看 test。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, borderTop: '1px solid #1E4FA8', display: 'flex', alignItems: 'center' }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                流程可复现的关键不在图好看，而在<span style={{ fontWeight: 'bold' }}>每一行结果都能追到代码版本</span>：11 个 CSV 每行都带 git_commit 与时间戳。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>04 / 15</Text>
+    </Box>
+</Slide>

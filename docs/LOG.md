@@ -118,3 +118,12 @@
 
 - std 一律用**样本标准差**（ddof=1，n=3）；`docs/FINAL_ANALYSIS.md` 中用的是总体标准差（ddof=0），故同一组数值略小（base 0.000175 vs 0.000215），两者结论一致。
 - 「提升是否显著」的判据不是 p 值，而是：差值 / seed 标准差 ≥ 数倍 **且** 逐 seed 配对差值全部同向。样本量只有 3，做 t 检验意义有限。
+
+### 2026-11-13 21:06 – 21:30 · 交付物：答辩 PPT（15 页）与预演稿
+
+- 内容：按 `docs/PPT_OUTLINE.md` 的页面顺序做成 15 页——封面 / 三件套对照 / 任务与数据 / 流程图 / 模型与感受野 / 实验设计 / 敏感性 / S3 显著性 / 最终配置 / test 与落差 / 现场演示 / 容量对齐 / 对抗训练 / 结论与局限 / 仓库与复现。后两页为本轮新实验，原大纲的 12–13 页顺延。
+- 版式：学术宝蓝 `#1E4FA8` + 白底，全篇同一顶条与页脚；结论句统一压在页底浅蓝条；关键差值只用红色，每页 ≤2 处。
+- 现场演示（第 11 页）：`python -m src.report --config configs/best.yaml --ckpt outputs/best.pth --split val --out-dir outputs/demo_val --history outputs/best_history.json`，实测 **10 秒**，打印 `val: auc=0.9890 acc=0.9523 f1=0.9682 cm=[[118,17],[8,381]]`；输出进 `outputs/demo_val/`，不覆盖归档图件，也不触碰 test。
+- 事故与修复：为写预演稿而试跑「备用演示命令」时，`src.run --config configs/best.yaml --epochs 1 --limit-train 256` 按默认路径把 `outputs/best.pth` 覆盖成 1 epoch 模型。已重训恢复，val AUC 逐位复现 0.988956 / 0.95229；`results/runs.csv` 追加的一行已标注用途（13:46 行与 21:20 行指标完全一致，正好作为可复现性证据）。教训写入 `docs/PITFALLS.md` 第 16 条与第七条硬规则。
+- 预演稿：`docs/REHEARSAL.md`，含 15 页计时表（每页「讲完应到」到 14:55 收尾）、演示前 3 分钟检查、不可在投影上敲的命令、12 道问答演练、上台检查表，以及开场/收尾逐字稿。
+- 产物：`MedMNIST调参实验室_中期验收汇报/`（pptx + slides/ + assets/ + DESIGN.md）、`docs/REHEARSAL.md`。

@@ -1,0 +1,30 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', padding: '64px 60px 48px 60px', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Text style={{ fontSize: 16, color: '#1E4FA8', letterSpacing: 2 }}>2026 深度学习本校培训 · 中期大作业验收</Text>
+
+    <Box style={{ height: 2, width: 1160, background: '#1E4FA8', marginTop: 18 }} />
+
+    <Text style={{ fontSize: 62, fontWeight: 'bold', color: '#1A2230', lineHeight: 1.2, marginTop: 34 }}>
+        MedMNIST 医学影像分类调参实验室
+    </Text>
+
+    <Text style={{ fontSize: 28, color: '#3D7BD9', marginTop: 10, fontFamily: 'Georgia,serif' }}>
+        A Tuning Lab on PneumoniaMNIST: Structure, Hyper-parameters, and Robustness
+    </Text>
+
+    <Text style={{ fontSize: 22, color: '#4A5568', marginTop: 30, lineHeight: 1.5 }}>
+        一份可复现的对照实验：调参能否提升、结构是否更重要、以及两次被自己推翻的结论
+    </Text>
+
+    <Box style={{ flex: 1 }} />
+
+    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <Box style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <Text style={{ fontSize: 18, color: '#1A2230' }}>汇报人：Zelvia　·　GitHub @via453</Text>
+            <Text style={{ fontSize: 14, color: '#8B97A8' }}>纯 CPU 复现　·　torch 2.5.1　·　val 调参 / test 只评一次</Text>
+        </Box>
+        <Box style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end' }}>
+            <Text style={{ fontSize: 16, color: '#1E4FA8' }}>github.com/via453/medmnist-tuning-lab</Text>
+            <Text style={{ fontSize: 14, color: '#8B97A8' }}>2026-11-13</Text>
+        </Box>
+    </Box>
+</Slide>

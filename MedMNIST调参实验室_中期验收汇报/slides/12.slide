@@ -1,0 +1,79 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>延伸一：参数量对齐后，旧结论被推翻一半</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>12 · Capacity</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            上一轮说「ViT 最优」，但四组参数量从 1.9 万到 10 万并不齐。这次反解每个结构的容量旋钮，压到同一参数量再比。
+        </Text>
+
+        <Box style={{ marginTop: 18, display: 'flex', flexDirection: 'row', gap: 34 }}>
+            <Box style={{ width: 638, display: 'flex', flexDirection: 'column' }}>
+                <Table
+                    style={{ width: 638, height: 210 }}
+                    defaultTextStyle={{ fontSize: 18, textAlign: 'left', color: '#1A2230' }}
+                    defaultCellStyle={{
+                        paddingLeft: 12,
+                        paddingRight: 12,
+                        border: {
+                            bottom: { width: 1, color: '#D6DCE5' },
+                            top: { width: 1, color: '#D6DCE5' },
+                        },
+                    }}
+                    cells={[
+                        [
+                            { text: '容量档（3 seed）', textStyle: { bold: true, color: '#1E4FA8' } },
+                            { text: 'MLP', textStyle: { bold: true, color: '#1E4FA8' } },
+                            { text: 'SmallCNN', textStyle: { bold: true, color: '#1E4FA8' } },
+                            { text: 'TinyViT', textStyle: { bold: true, color: '#1E4FA8' } },
+                        ],
+                        ['~1.9 万（18,890 / 19,042 / 19,394）', '0.9922 ± 0.0009', '0.9845 ± 0.0002', '0.9922 ± 0.0015'],
+                        ['~7.2 万（71,619 / 72,641 / 71,554）', '0.9927 ± 0.0001', '0.9879 ± 0.0014', '0.9935 ± 0.0006'],
+                    ]}
+                />
+                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 6 }}>
+                    数据：results/capacity_summary.csv，每格 3 个 seed 的 val AUC 均值 ± std
+                </Text>
+
+                <Box style={{ marginTop: 18, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5 }}>
+                        · CNN 两档都低 <span style={{ fontWeight: 'bold' }}>0.005–0.008</span>，且 7.2 万档它参数最多、结果最差——<span style={{ color: '#D9534F', fontWeight: 'bold' }}>加参数救不回来</span>。
+                    </Text>
+                    <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5 }}>
+                        · ViT 与 MLP 的差只有 0.00008 / 0.00085，<span style={{ fontWeight: 'bold' }}>落在 seed 标准差之内</span>。
+                    </Text>
+                    <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5 }}>
+                        · 1.9 万参数的 MLP 与 7.2 万参数的 ViT 只差 0.0013——容量在 1.9 万就饱和了。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 488, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/capacity.png' style={{ width: 480, height: 288, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 4 }}>
+                    图：figures/capacity_curve.png，横轴参数量取 log
+                </Text>
+                <Box style={{ marginTop: 10, background: '#E8EFF8', padding: 14 }}>
+                    <Text style={{ fontSize: 18, color: '#1A2230', lineHeight: 1.5 }}>
+                        修正后的说法：<span style={{ fontWeight: 'bold' }}>「全局信息混合」优于「局部卷积」</span>，注意力的额外贡献不显著。
+                    </Text>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, borderTop: '1px solid #1E4FA8', display: 'flex', alignItems: 'center' }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                这是本项目最值钱的一条：<span style={{ fontWeight: 'bold' }}>用新实验推翻自己上一轮结论</span>，比再刷 0.002 的 AUC 更能说明问题。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>12 / 15</Text>
+    </Box>
+</Slide>

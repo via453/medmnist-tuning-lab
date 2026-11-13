@@ -1,0 +1,65 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>最终配置与训练曲线：取第 19 轮，不是第 20 轮</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>09 · Final Model</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            best.yaml 只有六行关键改动，全部来自 S3 验证过的结论；权重保存<span style={{ color: '#1E4FA8', fontWeight: 'bold' }}>按 val AUC 选轮</span>。
+        </Text>
+
+        <Box style={{ marginTop: 20, display: 'flex', flexDirection: 'row', gap: 40 }}>
+            <Box style={{ width: 520, display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 18, color: '#4A5568' }}>结构</Text>
+                    <Text style={{ fontSize: 18, color: '#1A2230', fontWeight: 'bold' }}>SmallCNN · conv_width 64</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 18, color: '#4A5568' }}>参数量</Text>
+                    <Text style={{ fontSize: 18, color: '#1A2230', fontWeight: 'bold' }}>74,946（base 19,042）</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 18, color: '#4A5568' }}>优化</Text>
+                    <Text style={{ fontSize: 18, color: '#1A2230', fontWeight: 'bold' }}>Adam 1e-3 · wd 1e-4</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 18, color: '#4A5568' }}>训练</Text>
+                    <Text style={{ fontSize: 18, color: '#1A2230', fontWeight: 'bold' }}>batch 64 · 20 epoch · 早停 5</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 18, color: '#4A5568' }}>增强</Text>
+                    <Text style={{ fontSize: 18, color: '#1A2230', fontWeight: 'bold' }}>仅水平翻转</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 18, color: '#4A5568' }}>选模</Text>
+                    <Text style={{ fontSize: 18, color: '#1A2230', fontWeight: 'bold' }}>val AUC 最高轮 → epoch 19</Text>
+                </Box>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.5, marginTop: 4 }}>
+                    旋转增强、class_weight、scheduler 都被实测证否，所以一个都没留下——<br />
+                    最终配置是「删」出来的，不是「加」出来的。
+                </Text>
+            </Box>
+
+            <Box style={{ width: 600, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/loss.png' style={{ width: 560, height: 380, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 4 }}>
+                    图：figures/loss_curves.png，训练 loss 与 val AUC 逐 epoch
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                第 20 轮 val AUC <span style={{ color: '#D9534F', fontWeight: 'bold' }}>0.9837</span> 已低于第 19 轮 0.9890；按「跑完取末轮」的习惯，报告会白白少 0.0053。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>09 / 15</Text>
+    </Box>
+</Slide>

@@ -25,7 +25,7 @@
 | `configs/` | `base.yaml`（基线）、`sweep.yaml`（单因子扫描）、`best.yaml`（最终配置：conv_width=64）、`vit.yaml`（TinyViT 结构对照）、`adv.yaml`（对抗训练 ε=0.03 / ratio=0.5） |
 | `docs/pipeline.svg` | 项目流程图 / 框图，可直接用于 README 与 PPT |
 | `docs/EXTENSIONS.md` | **延伸实验**：结构谱系（ViT / MLP / CNN 同参数量对照）、FGSM 鲁棒性、Grad-CAM、剪枝与蒸馏、val→test 落差拆解、对抗训练、容量对齐修正 |
-| `docs/*.md` | `REPORT.md`（实验报告：结构对照 + 超参对比 + 显著性 + test + 局限）、`LOG.md`（实验日志）、`PITFALLS.md`（踩坑清单）、`REVIEW.md`（学习复盘 + 章节映射表）为署名文档；`S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿 |
+| `docs/*.md` | `REPORT.md`（实验报告：结构对照 + 超参对比 + 显著性 + test + 局限）、`LOG.md`（实验日志）、`PITFALLS.md`（踩坑清单）、`REVIEW.md`（学习复盘 + 章节映射表）为署名文档；`S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿；`REHEARSAL.md` 为 15 分钟答辩预演稿（计时脚本 + Demo 操作 + 问答演练） |
 | `requirements.txt` | 钉死 numpy 1.x ABI 兼容组合，防止依赖冲突复发 |
 | `notebooks/demo.ipynb` | 单图推理演示（需先有本地训练出的权重） |
 
@@ -168,7 +168,7 @@ git push origin main
 | 3 | `results/` 十一个 CSV + `figures/` 九张图 + `metrics.json` 归档 | 已完成 |
 | 4 | `configs/best.yaml` 定稿、`test_final.csv` 只有一行 | 已完成 |
 | 5 | `docs/REPORT.md` 写结论与机制解释并署名 | 已完成（含 MLP 结构对照与 val/test 落差分析） |
-| 6 | `docs/LOG.md` 实验日志、`docs/PITFALLS.md` 至少 2 条真实踩坑 | 已完成（日志 8 条、踩坑 15 条） |
+| 6 | `docs/LOG.md` 实验日志、`docs/PITFALLS.md` 至少 2 条真实踩坑 | 已完成（日志 8 条、踩坑 16 条） |
 | 7 | `docs/REVIEW.md` 三段式学习复盘 + 章节映射表 | 已完成（C1–C16 + D/E/F 全量映射） |
 | 8 | 按 `docs/PPT_OUTLINE.md` 做 PPT，按 `docs/DEFENSE_QA.md` 预演答辩 | **待本人完成** |
 | 9 | 现场演示（终端实跑 / `demo.ipynb` 单图推理） | **待本人完成** |

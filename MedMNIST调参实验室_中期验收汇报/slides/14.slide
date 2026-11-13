@@ -1,0 +1,72 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>五条结论、两条局限、一条纪律</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>14 · Conclusion</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 40 }}>
+            <Box style={{ width: 700, display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>1</Text>
+                    <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
+                        同一结构内，调参带来稳定提升：<span style={{ fontWeight: 'bold' }}>+0.0041 ≈ 19 倍 std</span>，三个 seed 全部同向。
+                    </Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>2</Text>
+                    <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
+                        但瓶颈不是旋钮：容量对齐后 1.9 万参数就到 0.9922，宽度从 24 加到 91 只值 0.0005。
+                    </Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>3</Text>
+                    <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
+                        结构差异在「信息怎么混合」：CNN 两档都低 0.005–0.008，且加参数救不回来。
+                    </Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>4</Text>
+                    <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
+                        精度与鲁棒性是两个维度：ε=0.03 时 AUC 0.99 → 0.45；对抗训练换回 0.87，代价 0.008。
+                    </Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>5</Text>
+                    <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
+                        val→test 落差 <span style={{ fontWeight: 'bold' }}>89% 来自分布偏移</span>，先验只占 11%，也不是代码 bug。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 1, background: '#D6DCE5' }} />
+
+            <Box style={{ width: 379, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>局限（不藏）</Text>
+                <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    · 只做了分类，没做分割 / 检测；<br />
+                    · 单数据集、单机 CPU、20 epoch 预算，结论不外推到其他影像任务。
+                </Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230', marginTop: 20 }}>下一步（按性价比）</Text>
+                <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                    · PGD 对抗训练 + 固定 20 轮，验证保护范围；<br />
+                    · ViT patch / depth 细化，拆分「注意力 vs patch 划分」；<br />
+                    · 迭代剪枝，验证彩票假说。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                一条纪律：<span style={{ fontWeight: 'bold' }}>test 只评一次，看到结果后不回头改配置</span>——所以 S2 里更优的组合也没被采纳。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>14 / 15</Text>
+    </Box>
+</Slide>

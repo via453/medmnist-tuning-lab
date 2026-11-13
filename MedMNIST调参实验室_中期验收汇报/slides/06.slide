@@ -1,0 +1,93 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>实验设计：先扫描，再复跑，最后只评一次</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>06 · Design</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            四个阶段，每个阶段都在回答上一阶段没法回答的问题——<span style={{ color: '#1E4FA8', fontWeight: 'bold' }}>单次跑出来的差值，不能直接当结论</span>。
+        </Text>
+
+        <Box style={{ marginTop: 22 }}>
+            <Table
+                style={{ width: 1160, height: 330 }}
+                defaultTextStyle={{ fontSize: 18, textAlign: 'left', color: '#1A2230', lineHeight: 1.45 }}
+                defaultCellStyle={{
+                    paddingLeft: 14,
+                    paddingRight: 14,
+                    border: {
+                        bottom: { width: 1, color: '#D6DCE5' },
+                        top: { width: 1, color: '#D6DCE5' },
+                    },
+                }}
+                cells={[
+                    [
+                        { text: '阶段', textStyle: { bold: true, color: '#1E4FA8' } },
+                        { text: '规模', textStyle: { bold: true, color: '#1E4FA8' } },
+                        { text: '做什么', textStyle: { bold: true, color: '#1E4FA8' } },
+                        { text: '判定标准', textStyle: { bold: true, color: '#1E4FA8' } },
+                    ],
+                    [
+                        'S1 单因子扫描',
+                        '33 组',
+                        '11 个超参各改 1–3 档，每次只动一个',
+                        '只看极差排序，不当结论',
+                    ],
+                    [
+                        'S2 小网格',
+                        '4 组',
+                        'lr × conv_width 两两组合，看交互',
+                        '仅作交互参考，不用于选型',
+                    ],
+                    [
+                        'S3 三 seed 复跑',
+                        '9 组',
+                        'base、最优、次优各跑 seed 0/1/2',
+                        '差值 ≥ 数倍 std，且逐 seed 同向',
+                    ],
+                    [
+                        'test 一次性评测',
+                        '1 次',
+                        '最终配置在 624 张上评一次',
+                        '只报告，看到结果不回头改配置',
+                    ],
+                ]}
+            />
+        </Box>
+
+        <Box style={{ marginTop: 24, display: 'flex', flexDirection: 'row', gap: 32 }}>
+            <Box style={{ width: 362, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>失败组也留痕</Text>
+                <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 6 }}>
+                    7 个异常组（lr 过大/过小、SGD、无 BN 等）全部保留在 CSV 里。
+                </Text>
+            </Box>
+            <Box style={{ width: 362, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>权重取最优轮</Text>
+                <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 6 }}>
+                    保存的是 val AUC 最高的一轮（epoch 19），不是最后一轮。
+                </Text>
+            </Box>
+            <Box style={{ width: 362, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>种子设三处</Text>
+                <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 6 }}>
+                    random / numpy / torch 全设；13 次等价 base 复现到小数点后六位。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, borderTop: '1px solid #1E4FA8', display: 'flex', alignItems: 'center' }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                判定标准比结果更值钱：单次差值 0.0046 曾被 <span style={{ color: '#D9534F', fontWeight: 'bold' }}>0.0220 的组内极差</span> 直接否决，才逼出 S3。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>06 / 15</Text>
+    </Box>
+</Slide>

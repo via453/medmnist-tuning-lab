@@ -1,0 +1,50 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>现场演示：一条命令，十秒，不碰 test</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>11 · Demo</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 38 }}>
+            <Box style={{ width: 400, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/samples.png' style={{ width: 400, height: 400, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 6 }}>
+                    val 前 8 张：标题为真值与预测概率（figures/samples.png）
+                </Text>
+            </Box>
+
+            <Box style={{ width: 722, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>演示命令（PowerShell，仓库根目录）</Text>
+                <Box style={{ marginTop: 10, background: '#F7F9FC', border: '1px solid #D6DCE5', padding: 16 }}>
+                    <Text style={{ fontSize: 16, color: '#1A2230', fontFamily: 'Consolas,monospace', lineHeight: 1.7 }}>
+                        python -m src.report --config configs/best.yaml --ckpt outputs/best.pth --split val --out-dir outputs/demo_val --history outputs/best_history.json
+                    </Text>
+                </Box>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230', marginTop: 16 }}>终端会打印</Text>
+                <Box style={{ marginTop: 8, background: '#F7F9FC', border: '1px solid #D6DCE5', padding: 14 }}>
+                    <Text style={{ fontSize: 16, color: '#1A2230', fontFamily: 'Consolas,monospace', lineHeight: 1.7 }}>
+                        val: auc=0.9890  acc=0.9523  f1=0.9682  cm=[[118, 17], [8, 381]]
+                    </Text>
+                </Box>
+                <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 14 }}>
+                    ① <span style={{ fontWeight: 'bold' }}>--split val</span> 只读 524 张验证集；<br />
+                    ② 输出写到 <span style={{ fontFamily: 'Consolas,monospace' }}>outputs/demo_val/</span>，不覆盖已归档的 figures/；<br />
+                    ③ 实测 10 秒，不需要 GPU，也不依赖网络。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                演示与归档走<span style={{ fontWeight: 'bold' }}>同一套代码路径</span>，所以现场数字必须和 PPT 上的 0.9890 一致；若不一致，我当场查而不是圆过去。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>11 / 15</Text>
+    </Box>
+</Slide>

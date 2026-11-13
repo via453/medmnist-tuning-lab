@@ -1,0 +1,77 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>仓库与一键复现</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>15 · Repository</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 40 }}>
+            <Box style={{ width: 620, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1E4FA8' }}>github.com/via453/medmnist-tuning-lab</Text>
+                <Text style={{ fontSize: 16, color: '#8B97A8', marginTop: 4 }}>Public 仓库 · GitHub Pages 已开启 · 不含权重与数据集</Text>
+
+                <Box style={{ marginTop: 18, display: 'flex', flexDirection: 'column' }}>
+                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6 }}>
+                        <Text style={{ fontSize: 18, color: '#4A5568' }}>src/</Text>
+                        <Text style={{ fontSize: 18, color: '#1A2230' }}>20 个模块（含 6 个延伸实验脚本）</Text>
+                    </Box>
+                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6, marginTop: 10 }}>
+                        <Text style={{ fontSize: 18, color: '#4A5568' }}>configs/</Text>
+                        <Text style={{ fontSize: 18, color: '#1A2230' }}>base / sweep / best / vit / adv</Text>
+                    </Box>
+                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6, marginTop: 10 }}>
+                        <Text style={{ fontSize: 18, color: '#4A5568' }}>results/</Text>
+                        <Text style={{ fontSize: 18, color: '#1A2230' }}>11 个 CSV，每行带 git sha 与时间戳</Text>
+                    </Box>
+                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6, marginTop: 10 }}>
+                        <Text style={{ fontSize: 18, color: '#4A5568' }}>figures/</Text>
+                        <Text style={{ fontSize: 18, color: '#1A2230' }}>10 张图，全部由 CSV 现场生成</Text>
+                    </Box>
+                    <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6, marginTop: 10 }}>
+                        <Text style={{ fontSize: 18, color: '#4A5568' }}>docs/</Text>
+                        <Text style={{ fontSize: 18, color: '#1A2230' }}>REPORT / LOG / PITFALLS / REVIEW / EXTENSIONS</Text>
+                    </Box>
+                </Box>
+
+                <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 16 }}>
+                    复现三要素：<span style={{ fontWeight: 'bold' }}>requirements 钉死 numpy 1.x ABI</span>、三处种子全固定、每行结果可追到 commit。
+                </Text>
+            </Box>
+
+            <Box style={{ width: 500, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>从零复现（约 5 分钟）</Text>
+                <Box style={{ marginTop: 10, background: '#F7F9FC', border: '1px solid #D6DCE5', padding: 14 }}>
+                    <Text style={{ fontSize: 15, color: '#1A2230', fontFamily: 'Consolas,monospace', lineHeight: 1.75 }}>
+                        git clone https://github.com/via453/medmnist-tuning-lab<br />
+                        cd medmnist-tuning-lab<br />
+                        pip install -r requirements.txt<br />
+                        pip check<br />
+                        python -m src.run --config configs/best.yaml
+                    </Text>
+                </Box>
+
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230', marginTop: 16 }}>重跑本轮两组延伸实验</Text>
+                <Box style={{ marginTop: 10, background: '#F7F9FC', border: '1px solid #D6DCE5', padding: 14 }}>
+                    <Text style={{ fontSize: 15, color: '#1A2230', fontFamily: 'Consolas,monospace', lineHeight: 1.75 }}>
+                        python -m src.adv_train<br />
+                        python -m src.capacity_match --dry-run<br />
+                        python -m src.capacity_match --replot
+                    </Text>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, borderTop: '1px solid #1E4FA8', display: 'flex', alignItems: 'center' }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                幻灯片上的每个数字，都能用 README 里的命令重跑出来；<span style={{ fontWeight: 'bold' }}>跑不出来，就是我的问题</span>。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>15 / 15</Text>
+    </Box>
+</Slide>

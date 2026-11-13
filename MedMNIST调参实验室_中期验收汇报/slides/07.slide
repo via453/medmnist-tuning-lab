@@ -1,0 +1,68 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>敏感性排序：只动前四项，后七项别碰</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>07 · Sensitivity</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            33 组单因子里，<span style={{ color: '#1E4FA8', fontWeight: 'bold' }}>极差</span>（组内 max − min，单位 AUC）才说明这个旋钮值不值得调。
+        </Text>
+
+        <Box style={{ marginTop: 20, display: 'flex', flexDirection: 'row', gap: 36 }}>
+            <Box style={{ width: 540, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/sensitivity.png' style={{ width: 520, height: 416, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 6 }}>
+                    图：figures/hp_sensitivity.png，10 个超参各自扫描的 val AUC 分布
+                </Text>
+            </Box>
+
+            <Box style={{ width: 584, display: 'flex', flexDirection: 'column', gap: 18 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 18 }}>
+                    <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#1E4FA8', width: 92 }}>0.0220</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230' }}>学习率 lr</Text>
+                        <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.45 }}>1e-4 欠拟合 0.9658，1e-2 又不稳；量级比精确值更重要</Text>
+                    </Box>
+                </Box>
+                <Box style={{ height: 1, background: '#D6DCE5' }} />
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 18 }}>
+                    <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#1E4FA8', width: 92 }}>0.0204</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230' }}>优化器 optimizer</Text>
+                        <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.45 }}>20 轮预算下 SGD 只有 0.9642，Adam 明显占优</Text>
+                    </Box>
+                </Box>
+                <Box style={{ height: 1, background: '#D6DCE5' }} />
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 18 }}>
+                    <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#1E4FA8', width: 92 }}>0.0186</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230' }}>归一化 BN</Text>
+                        <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.45 }}>去掉 BN 掉 1.9 个百分点，是「必须有」而非「可以调」</Text>
+                    </Box>
+                </Box>
+                <Box style={{ height: 1, background: '#D6DCE5' }} />
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 18 }}>
+                    <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#1E4FA8', width: 92 }}>0.0100</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                        <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1A2230' }}>宽度 conv_width</Text>
+                        <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.45 }}>32 → 64 是唯一稳定正收益，但幅度只有 lr 的一半</Text>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                其余七项极差 <span style={{ fontWeight: 'bold' }}>≤ 0.0062</span>（dropout、weight_decay、scheduler、pooling 等），继续细调是负收益——这条直接决定第 8 页只复跑两组。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>07 / 15</Text>
+    </Box>
+</Slide>

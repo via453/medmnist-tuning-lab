@@ -1,0 +1,73 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>S3：这 0.0041 的提升，是三个 seed 同向的</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>08 · Significance</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            只把 conv_width 从 32 改成 64，其余全部不动；三个 seed 逐一配对比较，不靠均值掩盖方差。
+        </Text>
+
+        <Box style={{ marginTop: 22, display: 'flex', flexDirection: 'row', gap: 34 }}>
+            <Box style={{ width: 660, display: 'flex', flexDirection: 'column' }}>
+                <Table
+                    style={{ width: 660, height: 300 }}
+                    defaultTextStyle={{ fontSize: 18, textAlign: 'left', color: '#1A2230' }}
+                    defaultCellStyle={{
+                        paddingLeft: 14,
+                        paddingRight: 14,
+                        border: {
+                            bottom: { width: 1, color: '#D6DCE5' },
+                            top: { width: 1, color: '#D6DCE5' },
+                        },
+                    }}
+                    cells={[
+                        [
+                            { text: 'seed', textStyle: { bold: true, color: '#1E4FA8' } },
+                            { text: 'base（w32 · 19,042）', textStyle: { bold: true, color: '#1E4FA8' } },
+                            { text: 'w64（74,946）', textStyle: { bold: true, color: '#1E4FA8' } },
+                            { text: '配对差值', textStyle: { bold: true, color: '#1E4FA8' } },
+                        ],
+                        ['0', '0.984404', '0.988956', { text: '+0.004552', textStyle: { color: '#D9534F', bold: true } }],
+                        ['1', '0.984423', '0.988080', { text: '+0.003657', textStyle: { color: '#D9534F', bold: true } }],
+                        ['2', '0.984785', '0.988898', { text: '+0.004113', textStyle: { color: '#D9534F', bold: true } }],
+                        [
+                            { text: '均值 ± std', textStyle: { bold: true } },
+                            { text: '0.984537 ± 0.000215', textStyle: { bold: true } },
+                            { text: '0.988645 ± 0.000490', textStyle: { bold: true } },
+                            { text: '0.004107', textStyle: { bold: true, color: '#D9534F' } },
+                        ],
+                    ]}
+                />
+                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 6 }}>
+                    数据：results/repeats.csv，std 为样本标准差（ddof=1，n=3）
+                </Text>
+            </Box>
+
+            <Box style={{ width: 466, display: 'flex', flexDirection: 'column' }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>19×</Text>
+                    <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.4 }}>差值 / base 标准差<br />3 个 seed 全部同向</Text>
+                </Box>
+                <Image src='assets/before_after.png' style={{ width: 330, height: 224, objectFit: 'contain', marginTop: 14 }} />
+                <Text style={{ fontSize: 14, color: '#8B97A8' }}>
+                    图：base 与 w64 的三 seed 对比（figures/before_after.png）
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                「调参有效」这句话到此成立，但<span style={{ fontWeight: 'bold' }}>只在一个天生偏弱的结构内部成立</span>——这个边界第 12 页给出了数字。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>08 / 15</Text>
+    </Box>
+</Slide>

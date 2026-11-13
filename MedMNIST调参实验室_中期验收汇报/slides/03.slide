@@ -1,0 +1,69 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>任务、数据与三个硬约束</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>03 · Task &amp; Data</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            要让「调参有没有用」成为可复现的对照实验，先固定数据口径与评测纪律。
+        </Text>
+
+        <Box style={{ marginTop: 26, display: 'flex', flexDirection: 'row', gap: 28 }}>
+            <Box style={{ width: 620, display: 'flex', flexDirection: 'column', gap: 24 }}>
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>① 任务</Text>
+                    <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                        28×28 单通道胸片二分类：normal 与 pneumonia。主指标 AUC，ACC / F1 / 混淆矩阵为辅。
+                    </Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>② 划分</Text>
+                    <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                        用官方 train / val / test，不重切、不交叉。val 只做选择，test 只在最后进一次。
+                    </Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>③ 为什么是这套数据</Text>
+                    <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                        纯 CPU 十分钟能跑完一轮，4.7k 张足以做 30 组以上的对照；<br />
+                        代价是 val 与 test 来自不同来源，阳性率 74.2% → 62.5%，这个伏笔在第 10 页兑现。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 1, background: '#D6DCE5' }} />
+
+            <Box style={{ width: 483, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 14 }}>
+                    <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>4,708</Text>
+                    <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.4 }}>train<br />训练与验证</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 14 }}>
+                    <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>524</Text>
+                    <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.4 }}>val<br />所有调参只看这里</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 14 }}>
+                    <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#D9534F', lineHeight: 1 }}>624</Text>
+                    <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.4 }}>test<br />只有一次机会</Text>
+                </Box>
+                <Text style={{ fontSize: 14, color: '#8B97A8', lineHeight: 1.5, marginTop: 4 }}>
+                    数据来源：MedMNIST v2 · PneumoniaMNIST · CC BY 4.0，仅用于研究与教学
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                624 张 test <span style={{ color: '#D9534F', fontWeight: 'bold' }}>只够评一次</span>，因此 33 组扫描 + 两组延伸实验全部在 524 张 val 上完成。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>03 / 15</Text>
+    </Box>
+</Slide>

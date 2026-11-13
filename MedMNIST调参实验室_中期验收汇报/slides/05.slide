@@ -1,0 +1,76 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>两个模型，一个关键差别：能不能看见整幅图</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>05 · Models</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            主实验只用两个结构，差异被刻意压到<span style={{ color: '#1E4FA8', fontWeight: 'bold' }}>一处</span>：信息在什么尺度上被混合。
+        </Text>
+
+        <Box style={{ marginTop: 24, display: 'flex', flexDirection: 'row', gap: 44 }}>
+            <Box style={{ width: 646, display: 'flex', flexDirection: 'column', gap: 20 }}>
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>SmallCNN　<span style={{ fontSize: 18, color: '#4A5568' }}>w32 19,042 / w64 74,946 参数</span></Text>
+                    <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                        3×3 卷积两层 + BN + ReLU，只做一次 2×2 池化，GAP 后接 FC。<br />
+                        按笔记 C3 订正版「28×28 小图别堆池化」，池化次数刻意压到 1 次。
+                    </Text>
+                </Box>
+                <Box style={{ height: 1, background: '#D6DCE5' }} />
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>MLP　<span style={{ fontSize: 18, color: '#4A5568' }}>100,738 参数</span></Text>
+                    <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                        784 → 128 → 2，展平后第一层就把整幅图的像素放在一起。<br />
+                        它没有归纳偏置，正是因为它「什么都不懂」，才适合当结构对照的下界。
+                    </Text>
+                </Box>
+                <Box style={{ height: 1, background: '#D6DCE5' }} />
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>共同训练设置</Text>
+                    <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
+                        Adam 1e-3 · batch 64 · 20 epoch · 早停 5 · 水平翻转 · 三处随机种子全部固定
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 470, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <svg width={300} height={300} viewBox='0 0 300 300'>
+                    <rect x='10' y='10' width='280' height='280' fill='#FFFFFF' stroke='#1A2230' strokeWidth='2' />
+                    <line x1='50' y1='10' x2='50' y2='290' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='90' y1='10' x2='90' y2='290' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='130' y1='10' x2='130' y2='290' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='170' y1='10' x2='170' y2='290' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='210' y1='10' x2='210' y2='290' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='250' y1='10' x2='250' y2='290' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='10' y1='50' x2='290' y2='50' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='10' y1='90' x2='290' y2='90' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='10' y1='130' x2='290' y2='130' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='10' y1='170' x2='290' y2='170' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='10' y1='210' x2='290' y2='210' stroke='#E5E7EB' strokeWidth='1' />
+                    <line x1='10' y1='250' x2='290' y2='250' stroke='#E5E7EB' strokeWidth='1' />
+                    <rect x='105' y='105' width='90' height='90' fill='#E8EFF8' stroke='#D9534F' strokeWidth='2' strokeDasharray='6 4' />
+                    <text x='150' y='155' fontSize='16' fill='#D9534F' textAnchor='middle' fontFamily='Arial'>9 × 9</text>
+                    <text x='150' y='316' fontSize='16' fill='#4A5568' textAnchor='middle' fontFamily='Arial'>28 × 28 input</text>
+                </svg>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.5, marginTop: 6, textAlign: 'center' }}>
+                    两层 3×3 卷积只叠出 9×9 的感受野，<br />不到整幅图的 1/9 面积。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                这条「9×9 看不全」的线索在第 12 页被严格检验：<span style={{ color: '#D9534F', fontWeight: 'bold' }}>加参数救不回来</span>，但在第 8 页它先以「调参能涨 0.004」的形式出现。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>05 / 15</Text>
+    </Box>
+</Slide>

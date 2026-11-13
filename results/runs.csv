@@ -34,3 +34,4 @@ s1_31,2026-11-13 04:48:12,0,ea41398,ok,single-factor sweep,conv_width,64,pneumon
 s1_32,2026-11-13 04:51:07,0,ea41398,ok,single-factor sweep,pooling,light,pneumoniamnist,smallcnn,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,20,2.906,19042,0.984404,0.927481,,
 s1_33,2026-11-13 04:54:15,0,ea41398,ok,single-factor sweep,pooling,none,pneumoniamnist,smallcnn,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,none,20,3.142,19042,0.978178,0.931298,,
 best,2026-11-13 13:46:51,0,1010240,ok,,,,pneumoniamnist,smallcnn,0.001,adam,64,0.0001,0.2,True,flip,none,none,64,light,20,1.924,74946,0.988956,0.95229,,
+best,2026-11-13 21:20:48,0,db0eae4,ok,重训恢复 best.pth（答辩预演前核对复现性，指标与 13:46 行一致）,,,pneumoniamnist,smallcnn,0.001,adam,64,0.0001,0.2,True,flip,none,none,64,light,20,3.084,74946,0.988956,0.95229,,
