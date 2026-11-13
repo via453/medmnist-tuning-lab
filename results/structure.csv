@@ -1,0 +1,4 @@
+﻿run_id,timestamp,seed,git_commit,status,note,changed_key,changed_value,dataset,model,lr,optimizer,batch_size,weight_decay,dropout,use_bn,augment,class_weight,scheduler,conv_width,pooling,epochs_run,duration_min,params,val_auc,val_acc,test_auc,test_acc
+mlp_s0,2026-11-13 15:08:17,0,440c127,ok,L1 结构对照：MLP 基线,model,mlp,pneumoniamnist,mlp,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,20,0.841,100738,0.993373,0.948473,,
+mlp_s1,2026-11-13 15:09:08,1,440c127,ok,L1 结构对照：MLP 基线,model,mlp,pneumoniamnist,mlp,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,13,0.576,100738,0.991812,0.948473,,
+mlp_s2,2026-11-13 15:10:14,2,440c127,ok,L1 结构对照：MLP 基线,model,mlp,pneumoniamnist,mlp,0.001,adam,64,0.0001,0.2,True,flip,none,none,32,light,18,0.816,100738,0.993202,0.942748,,

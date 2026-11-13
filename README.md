@@ -2,7 +2,7 @@
 
 中期大作业验收资料库：**选题论证 + 项目全生命周期教程 + 协作边界 + 可运行代码骨架**。
 
-> **当前状态（2026-11-13，实验链路完成）**：S1 单因子 33 组、S2 小网格 4 组、S3 三 seed 9 组、最终 test 一次评测与 6 张图件均已完成并归档。仓库含脚本、配置、结果 CSV 与图件；**不含训练权重**（`outputs/` 已忽略）与**原始数据集**（`data/` 已忽略）。`docs/REPORT.md` / `LOG.md` / `PITFALLS.md` / `REVIEW.md` 仍为模板，待本人填写并署名；`docs/FINAL_ANALYSIS.md`、`PPT_OUTLINE.md`、`DEFENSE_QA.md` 为机器整理的参考材料。
+> **当前状态（2026-11-13，交付文档完成）**：S1 单因子 33 组、S2 小网格 4 组、S3 三 seed 9 组、MLP 结构对照 3 组、最终 test 一次评测与 6 张图件全部完成并归档；`docs/REPORT.md`（实验报告）、`LOG.md`（8 条日志）、`PITFALLS.md`（10 条真坑）、`REVIEW.md`（三段式复盘 + 章节映射表）已写完。仓库含脚本、配置、结果 CSV 与图件；**不含训练权重**（`outputs/` 已忽略）与**原始数据集**（`data/` 已忽略）。
 
 ## 项目一句话目标
 
@@ -24,7 +24,7 @@
 | `src/` | **代码骨架**：`data` / `model` / `train` / `evaluate` / `run` / `sweep` / `plots` / `repeat`（S2·S3）/ `report`（ROC·混淆矩阵·预测样例）/ `analyze`（数据摘要）/ `select_best`（选优）/ `utils` |
 | `configs/` | `base.yaml`（基线）、`sweep.yaml`（单因子扫描）、`best.yaml`（待本人跑完调参后填写） |
 | `docs/pipeline.svg` | 项目流程图 / 框图，可直接用于 README 与 PPT |
-| `docs/*.md` | `S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿；`LOG.md` / `PITFALLS.md` / `REPORT.md` / `REVIEW.md` 为待本人填写的署名文档 |
+| `docs/*.md` | `REPORT.md`（实验报告：结构对照 + 超参对比 + 显著性 + test + 局限）、`LOG.md`（实验日志）、`PITFALLS.md`（踩坑清单）、`REVIEW.md`（学习复盘 + 章节映射表）为署名文档；`S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿 |
 | `requirements.txt` | 钉死 numpy 1.x ABI 兼容组合，防止依赖冲突复发 |
 | `notebooks/demo.ipynb` | 单图推理演示（需先有本地训练出的权重） |
 
@@ -124,7 +124,7 @@ git push origin main
 | --- | --- | --- |
 | 项目流程图 / 框图 | `docs/pipeline.svg` 独立文件；选题建议报告内另有一张五泳道 SVG；PPT 用同一张 | 已与代码结构核对 |
 | 可访问的 GitHub 项目链接 | 本仓库（Public）；GitHub Pages 已开启 | — |
-| 项目流程与代码运行效果 | 可运行 `src/` 骨架、`results/` 四个 CSV、`figures/` 六张图 + `metrics.json`、`notebooks/demo.ipynb` | 现场演示由本人执行（15 分钟汇报 + 5 分钟提问） |
+| 项目流程与代码运行效果 | 可运行 `src/` 骨架、`results/` 五个 CSV、`figures/` 六张图 + `metrics.json`、`notebooks/demo.ipynb` | 现场演示由本人执行（15 分钟汇报 + 5 分钟提问） |
 
 ## 交付前检查清单
 
@@ -132,11 +132,11 @@ git push origin main
 | --- | --- | --- |
 | 1 | 流程图 / 框图入库，PPT 用同一张 | 已完成 |
 | 2 | 仓库 Public、commit 已推送、Pages 可访问 | 已完成 |
-| 3 | `results/` 四个 CSV + `figures/` 六张图 + `metrics.json` 归档 | 已完成 |
+| 3 | `results/` 五个 CSV + `figures/` 六张图 + `metrics.json` 归档 | 已完成 |
 | 4 | `configs/best.yaml` 定稿、`test_final.csv` 只有一行 | 已完成 |
-| 5 | `docs/REPORT.md` 写结论与机制解释并署名 | **待本人完成** |
-| 6 | `docs/LOG.md` 实验日志、`docs/PITFALLS.md` 至少 2 条真实踩坑 | **待本人完成** |
-| 7 | `docs/REVIEW.md` 三段式学习复盘 + 教程第 7 节章节映射表导出 | **待本人完成** |
+| 5 | `docs/REPORT.md` 写结论与机制解释并署名 | 已完成（含 MLP 结构对照与 val/test 落差分析） |
+| 6 | `docs/LOG.md` 实验日志、`docs/PITFALLS.md` 至少 2 条真实踩坑 | 已完成（日志 8 条、踩坑 10 条） |
+| 7 | `docs/REVIEW.md` 三段式学习复盘 + 章节映射表 | 已完成（C1–C16 + D/E/F 全量映射） |
 | 8 | 按 `docs/PPT_OUTLINE.md` 做 PPT，按 `docs/DEFENSE_QA.md` 预演答辩 | **待本人完成** |
 | 9 | 现场演示（终端实跑 / `demo.ipynb` 单图推理） | **待本人完成** |
 

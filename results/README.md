@@ -7,6 +7,7 @@
 | `runs.csv` | `src/run.py` / `src/sweep.py` | S1 单因子扫描，每组配置一行，含成功与失败组；字段见完整教程 6.1 |
 | `grid.csv` | `src/repeat.py --mode grid` | S2 小网格，看超参交互作用（可选） |
 | `repeats.csv` | `src/repeat.py --mode seeds` | S3 三 seed 复跑，用于算均值 ± 标准差、判断提升是否显著 |
+| `structure.csv` | `src/run.py`（`model: mlp`） | 结构对照：MLP 三个 seed 的 val 指标，用于「换模型 ≠ 调参功劳」那一节 |
 | `ablation.csv` | 本人整理 | 消融表，也可见 `docs/REPORT.md` 第 2、3 节 |
 | `test_final.csv` | `src/run.py --split test` | **只应有一行**，覆盖写；生成时间必须晚于所有调参实验 |
 
