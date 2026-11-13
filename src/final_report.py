@@ -2,8 +2,8 @@
 
     python -m src.final_report --out docs/FINAL_ANALYSIS.md
 
-只呈现数据与可核对的事实，不做结论性判断。最终结论、解释与署名由本人在
-docs/REPORT.md 完成；本文件可作为填写报告与准备答辩的素材。
+只呈现数据与可核对的事实，不做结论性判断。最终结论与解释写在
+docs/REPORT.md；本文件可作为填写报告与准备答辩的素材。
 """
 import argparse
 import json
@@ -59,7 +59,7 @@ def main(argv=None):
     L.append("> 由 `src/final_report.py` 生成于 %s。" %
              datetime.now().strftime("%Y-%m-%d %H:%M"))
     L.append("> 只呈现数据与可核对事实，供填写 `docs/REPORT.md` 与准备答辩参考；")
-    L.append("> **结论、机制解释与署名须由本人完成**。")
+    L.append("> **结论与机制解释以 `docs/REPORT.md` 为准**。")
     L.append("")
 
     L.append("## 1. 各阶段概况")
@@ -107,7 +107,7 @@ def main(argv=None):
                      (fmt(base_std), fmt(best_std),
                       delta / max(base_std, 1e-9)))
             L.append("- 判断口径（教程 5 节）：差值明显大于两者 std 才可写「调参带来提升」，"
-                     "否则改写成超参敏感性分析。**由本人下结论**。")
+                     "否则改写成超参敏感性分析。**结论写在报告里，摘要只给口径**。")
         L.append("")
 
     if s2 is not None and len(s2):
@@ -178,7 +178,7 @@ def main(argv=None):
     L.append("")
     L.append("---")
     L.append("")
-    L.append("本文件不替代 `docs/REPORT.md`。请本人在报告中写出结论、机制解释、")
+    L.append("本文件不替代 `docs/REPORT.md`；结论、机制解释、遗留问题与改进方向写在报告里，")
     L.append("遗留问题与改进方向，并在 `docs/REVIEW.md` 完成学习复盘与章节映射表。")
     L.append("")
 

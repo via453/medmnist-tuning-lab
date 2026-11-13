@@ -3,7 +3,7 @@
     python -m src.select_best --results results/runs.csv
     python -m src.select_best --results results/runs.csv --write   # 写出 configs/best.yaml
 
-重要：本脚本只做「按 val_auc 排序」这一件机械的事，不代替本人判断。
+重要：本脚本只做「按 val_auc 排序」这一件机械的事，不替人做判断。
 若结果只有单个 seed，选出的差值可能小于种子波动，必须先按 S3 跑 3 个 seed
 并确认提升显著后，才把配置写进 best.yaml 并评测 test。
 """
@@ -23,7 +23,7 @@ HP_KEYS = [
     "device", "num_workers", "limit_train", "limit_val", "out_dir", "ckpt_dir",
 ]
 
-HEADER = """# 由 src/select_best.py 按 val_auc 从 results/runs.csv 选出，待本人核对后使用。
+HEADER = """# 由 src/select_best.py 按 val_auc 从 results/runs.csv 选出，使用前需核对。
 # 注意：单次 seed 的最优不一定稳定；请先完成 3 seed 复跑（S3）再评测 test。
 """
 
@@ -105,7 +105,7 @@ def main(argv=None):
         lines.append("")
         with open(args.out, "w", encoding="utf-8") as f:
             f.write("\n".join(lines))
-        print("\nwritten:", args.out, "（请本人核对后再用于 test 评测）")
+        print("\nwritten:", args.out, "（核对后再用于 test 评测）")
     else:
         print("\n未写入（加 --write 才写 configs/best.yaml）")
     return 0

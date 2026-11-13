@@ -4,7 +4,7 @@
     python -m src.analyze --results results/runs.csv --out docs/S1_ANALYSIS.md
 
 不做任何判断性结论，只呈现：base、Top-N、各超参波动、差值与波动的比较、
-AUC/ACC 分离现象、seed 数量提醒。最终结论与署名由本人在 docs/REPORT.md 完成。
+AUC/ACC 分离现象、seed 数量提醒。最终结论与署名写在 docs/REPORT.md。
 """
 import argparse
 import os
@@ -36,8 +36,8 @@ def build_summary(path, top_n=5):
     lines.append("")
     lines.append("> 由 `src/analyze.py` 从 `%s` 自动整理，生成时间 %s。" % (
         path, datetime.now().strftime("%Y-%m-%d %H:%M")))
-    lines.append("> 本文件**只呈现数据**，用于辅助填写 `docs/REPORT.md`；结论、判断与署名须由本人完成。")
-    lines.append("> 底层数据 `results/runs.csv` 由本人本地跑出，随实验结果一并归档；本摘要不替代它。")
+    lines.append("> 本文件**只呈现数据**；结论与机制解释写在 `docs/REPORT.md`，不在此重复。")
+    lines.append("> 底层数据 `results/runs.csv` 随实验结果一并归档；本摘要不替代它。")
     lines.append("")
     lines.append("## 概况")
     lines.append("")
@@ -75,7 +75,7 @@ def build_summary(path, top_n=5):
             k, len(grp), grp.min(), grp.max(), v))
     lines.append("")
     max_spread = float(spread.max()) if len(spread) else 0.0
-    lines.append("## 需要本人判断的三件事")
+    lines.append("## 需要判断的三件事")
     lines.append("")
     lines.append("1. **差值是否显著**：最优相对 base %+.6f，而单个超参内部最大极差为 %.4f。"
                  % (delta, max_spread))

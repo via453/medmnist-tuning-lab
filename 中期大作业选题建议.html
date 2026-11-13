@@ -98,7 +98,7 @@
   <table>
     <tr><th>来源</th><th>硬约束</th><th>对选题的含义</th></tr>
     <tr><td>你给出的中期验收要求</td><td>① 项目流程图 / 框图　② 可访问的已上传 GitHub 项目链接　③ 能展示项目流程与代码运行效果</td><td>三项都要有「可当场打开的东西」，不能只交 PPT 截图；<strong>现场能真跑</strong>比精度高更重要</td></tr>
-    <tr><td>附件一《实施方案》</td><td>小组大作业占 40%；学习复盘占 20%；严禁仅以文献调研结题；全员必须动手跑通完整实验链路；15 分钟汇报 + 5 分钟提问；本机跑不动可预约 431 机房</td><td>选题要能明确切出「本人负责的一块」；调参实验记录可直接喂给 20% 复盘</td></tr>
+    <tr><td>附件一《实施方案》</td><td>小组大作业占 40%；学习复盘占 20%；严禁仅以文献调研结题；全员必须动手跑通完整实验链路；15 分钟汇报 + 5 分钟提问；本机跑不动可预约 431 机房</td><td>选题要能明确切出「个人负责的一块」；调参实验记录可直接喂给 20% 复盘</td></tr>
     <tr><td>附件三《课时安排表》</td><td>10 周；第 7/9 周收集大作业选题意向；第 10 周答辩</td><td>今天 W5，E5 大作业预算 14 小时 → 选题总工作量应压在 <strong>12–16 小时</strong></td></tr>
     <tr><td>进度表《使用说明》</td><td>每个编号都要有笔记；学习复盘比任何一项都容易丢分；D 段与 E 段不能压缩</td><td>把「配置 / 日志 / 消融表」当笔记写，一举两得</td></tr>
   </table>
@@ -121,7 +121,7 @@
       <div><span class="k">任务目标</span><span>Fork 并跑通 <a href="https://github.com/MedMNIST/MedMNIST">MedMNIST/MedMNIST</a> + <a href="https://github.com/MedMNIST/experiments">MedMNIST/experiments</a> 的 2D 训练/评估链路（已核实两个仓库均存在），在 <code>PneumoniaMNIST</code>（胸片二分类，5,856 张，4708/524/624）或 <code>BreastMNIST</code>（乳腺超声二分类，780 张，546/78/156）上复现官方 baseline，再做系统调参，给出可复现的 AUC / ACC 提升与消融表。</span></div>
       <div><span class="k">方向匹配</span><span><strong>双命中</strong>：医学影像「预测任务」 + 「基于基础预测模型、通过调参提升预测精度」。数据 28×28、CC 许可、标准 train/val/test 划分，官方自带 evaluator（AUC/ACC），不需要医学背景知识。</span></div>
       <div><span class="k">基线 / 调参</span><span>基线：官方 2D 简单 CNN 或 ResNet-18（<code>pip install medmnist</code> 一行取数）。调参空间：学习率 1e-4～1e-2 对数搜索、SGD+momentum / Adam / AdamW、batch 32/64/128、weight decay、dropout、cosine/step 调度、翻转旋转与 Cutout 增强、类别权重（胸片不平衡）、早停 patience、BN 开关、3 个随机种子。输出「超参敏感性排序 + 交互作用」。</span></div>
-      <div><span class="k">三项交付</span><span><strong>流程图</strong>：数据下载 → 标准化/增强 → 模型 → 训练 → 验证 → 调参循环 → 独立测试 → 推理，官方实验脚本可直接反画成框图；<strong>GitHub</strong>：在自己账号建 <code>medmnist-tuning</code>，README 首行注明 upstream 仓库、License 与「本人改动清单」（应对「严禁抄袭代码」）；<strong>运行效果</strong>：loss/AUC 曲线、混淆矩阵、ROC、预测样本网格、单张图推理 CLI，现场一条命令可复跑。</span></div>
+      <div><span class="k">三项交付</span><span><strong>流程图</strong>：数据下载 → 标准化/增强 → 模型 → 训练 → 验证 → 调参循环 → 独立测试 → 推理，官方实验脚本可直接反画成框图；<strong>GitHub</strong>：在自己账号建 <code>medmnist-tuning</code>，README 首行注明 upstream 仓库、License 与「个人改动清单」（应对「严禁抄袭代码」）；<strong>运行效果</strong>：loss/AUC 曲线、混淆矩阵、ROC、预测样本网格、单张图推理 CLI，现场一条命令可复跑。</span></div>
       <div><span class="k">工作量 / 风险</span><span><strong>10–14 h</strong>。风险：官方 experiments 代码偏老，与 torch 2.5 有版本适配成本；提升幅度可能只有 1–3 个点、甚至小于种子波动 → 结论必须写成「哪些超参敏感 / 不敏感」，而不是宣称刷点；medmnist 包与 .npz 需联网下载；复刻路线要额外解释「我自己动手做了什么」。</span></div>
     </div>
   </div>
@@ -225,7 +225,7 @@
       <div><span class="k">方向匹配</span><span>医学「预测任务」+ 调参优化，且视角比纯图像更新颖（联合调参）；直接用你最熟的心电领域与已有工程资产，几乎不用新建可视化层。</span></div>
       <div><span class="k">基线 / 调参</span><span>基线：固定长度心跳片段上的 MLP / 1D-CNN。调参：去噪方法 8 选 1、窗口长度与 R 峰对齐、lr / batch / dropout / 类别权重、判定阈值；指标 ACC / F1 / AUC，附「去噪方法 × 精度」热力图。</span></div>
       <div><span class="k">三项交付</span><span><strong>流程图</strong>：仓库 README 里已有现成 ASCII 系统架构框图，扩成「离线/串口数据 → 去噪 → 切片 → 1D-CNN → 评估 → 调参环 → Web 波形」即可；<strong>GitHub</strong>：直接复用已有公开仓库或新分支 + tag，链接天然可访问；<strong>运行效果</strong>：已有 Flask + Canvas 实时波形页，加一条「预测标签 / 置信度」面板就能现场演示，<strong>五个里展示效果最强</strong>。</span></div>
-      <div><span class="k">工作量 / 风险</span><span><strong>14–20 h</strong>。风险：需要额外带标签的心电数据（现有 kai4.csv 只是单条 20 s / 250 Hz 信号，不足以训练分类器），MIT-BIH / PTB-XL 的下载、切片、R 峰对齐是主要坑；主题容易滑回「信号处理工程」而弱化深度学习与调参；若复用旧仓库，README 必须写明「复用本人既有代码 + 本次新增部分」，避免与「严禁抄袭」产生歧义。</span></div>
+      <div><span class="k">工作量 / 风险</span><span><strong>14–20 h</strong>。风险：需要额外带标签的心电数据（现有 kai4.csv 只是单条 20 s / 250 Hz 信号，不足以训练分类器），MIT-BIH / PTB-XL 的下载、切片、R 峰对齐是主要坑；主题容易滑回「信号处理工程」而弱化深度学习与调参；若复用旧仓库，README 必须写明「复用既有代码 + 本次新增部分」，避免与「严禁抄袭」产生歧义。</span></div>
     </div>
   </div>
 
@@ -290,8 +290,8 @@
   <h2>五、其余四个优先级较低的原因</h2>
   <table>
     <tr><th>选题</th><th>为什么排在后面</th><th>什么情况下值得升级</th></tr>
-    <tr><td><strong>A-1</strong>（复刻 MedMNIST 官方）</td><td>技术上几乎和 B-1 一样稳，但复刻路线天然多两层成本：一是上游 <code>experiments</code> 代码偏老、要适配 torch 2.5；二是培训方案明写「严禁抄袭代码」，必须逐条标注 upstream 与本人改动，答辩时还要回答「你和官方 baseline 差在哪」。它更适合当 B-1 的<strong>官方对照基线</strong>，而不是单独成题。</td><td>导师明确要求「先复现再改进」；或你想把「复现一致性验证」写成报告亮点</td></tr>
-    <tr><td><strong>B-2</strong>（ECG 平台升级）</td><td>演示效果五个里最强、领域最熟，但<strong>数据风险最大</strong>：现有 kai4.csv 只是单条 20 s 信号，训练分类器必须另找带标签数据集（MIT-BIH / PTB-XL），切片与 R 峰对齐会吃掉大量时间；而且容易写成「信号处理工程」而非「深度学习调参」，偏离导师方向。中期验收时间窗太窄。</td><td>最终大作业有小组分工、有人专门负责数据；或导师组直接提供带标签心电数据</td></tr>
+    <tr><td><strong>A-1</strong>（复刻 MedMNIST 官方）</td><td>技术上几乎和 B-1 一样稳，但复刻路线天然多两层成本：一是上游 <code>experiments</code> 代码偏老、要适配 torch 2.5；二是培训方案明写「严禁抄袭代码」，必须逐条标注 upstream 与本次改动，答辩时还要回答「你和官方 baseline 差在哪」。它更适合当 B-1 的<strong>官方对照基线</strong>，而不是单独成题。</td><td>导师明确要求「先复现再改进」；或你想把「复现一致性验证」写成报告亮点</td></tr>
+    <tr><td><strong>B-2</strong>（ECG 平台升级）</td><td>演示效果五个里最强、领域最熟，但<strong>数据风险最大</strong>：现有 kai4.csv 只是单条 20 s 信号，训练分类器必须另找带标签数据集（MIT-BIH / PTB-XL），切片与 R 峰对齐会吃掉大量时间；而且容易写成「信号处理工程」而非「深度学习调参」，偏离导师方向。中期验收时间窗太窄。</td><td>最终大作业由多人合作完成、有人专门负责数据；或导师组直接提供带标签心电数据</td></tr>
     <tr><td><strong>A-2</strong>（U-Net + DRIVE 分割）</td><td>最贴「医学图像分割」字面，却是风险最高的一项：CPU 上 584×565 的 U-Net 训练慢、DRIVE 需注册或找镜像、TIF+GIF 调色板掩码格式坑多、血管像素仅约 9% 类别极不平衡、原仓库默认 CUDA/AMP/W&B 要裁剪、许可还禁止把原始图放进仓库。18–25 h 也超出 E5 的 14 h 预算，中期很可能只交得出推理 demo。</td><td>能稳定使用 431 机房 GPU（培训方案明确可预约），且把范围缩到「缩放至 128×128 + 20 张训练图 + 少量 epoch」</td></tr>
     <tr><td><strong>B-3</strong>（UCI 表格 MLP）</td><td>最稳、最快，但 569×30 的小表格天花板低、没有图像可视化，容易被评价为「课程练习」而非占 40% 权重、要求完整实验链路的大作业；也不含医学影像，只占导师建议里最边缘的一块。</td><td>作为验收前的保底交付，或并入 B-1 当「最低性能基线 / 调参方法论验证」章节</td></tr>
   </table>

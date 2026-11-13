@@ -24,7 +24,7 @@ from .utils import ensure_dir
 def read_runs(path):
     if not os.path.isfile(path):
         print("NO DATA: %s 不存在。" % path)
-        print("先由本人本地执行 python -m src.run / src.sweep 产出真实实验结果；"
+        print("先在本机执行 python -m src.run / src.sweep 产出真实实验结果；"
               "本脚本不会生成示意数据或假图。")
         return None
     df = pd.read_csv(path, encoding="utf-8-sig")
