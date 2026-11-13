@@ -46,11 +46,41 @@ def make_criterion(cfg, train_loader, device):
     return criterion, counts
 
 
-def train_one_epoch(model, loader, criterion, optimizer, device):
+def fgsm_perturb(model, x, y, eps, criterion):
+    """在输入上做单步 FGSM：x' = clamp(x + eps*sign(∇ₓL))，归一化范围 [-1,1]。
+
+    制扰动时临时切 eval()：否则每步会多更新一次 BN 的 running stats，
+    等于用对抗样本把 BN 统计量污染两遍（见 docs/PITFALLS.md 第 13 条）。
+    """
+    was_training = model.training
+    model.eval()
+    x_in = x.clone().detach().requires_grad_(True)
+    loss = criterion(model(x_in), y)
+    grad, = torch.autograd.grad(loss, x_in)
+    x_adv = (x_in + eps * grad.sign()).clamp(-1.0, 1.0).detach()
+    if was_training:
+        model.train()
+    return x_adv
+
+
+def train_one_epoch(model, loader, criterion, optimizer, device,
+                    adv_eps=0.0, adv_ratio=0.5):
+    """一个 epoch。
+
+    adv_eps > 0 时开启对抗训练：每个 batch 里按 adv_ratio 的比例把样本替换成
+    FGSM 对抗样本，干净样本与对抗样本一起算交叉熵（1:1 即 adv_ratio=0.5）。
+    """
     model.train()
     total, n = 0.0, 0
     for x, y in loader:
         x, y = x.to(device), y.view(-1).long().to(device)
+        if adv_eps and adv_eps > 0:
+            k = int(round(x.size(0) * float(adv_ratio)))
+            k = max(1, min(k, x.size(0) - 1)) if x.size(0) > 1 else 0
+            if k > 0:
+                x_adv = fgsm_perturb(model, x[:k], y[:k], adv_eps, criterion)
+                x = torch.cat([x[k:], x_adv], dim=0)
+                y = torch.cat([y[k:], y[:k]], dim=0)
         optimizer.zero_grad()
         loss = criterion(model(x), y)
         loss.backward()
@@ -75,6 +105,8 @@ def fit(cfg, loaders, run_id="run", ckpt_path=None, verbose=True):
     base_lr = float(cfg.get("lr", 1e-3))
     warm = int(cfg.get("warmup_epochs", 0) or 0)
     patience = int(cfg.get("early_stop_patience", 5) or 0)
+    adv_eps = float(cfg.get("adv_train_eps", 0.0) or 0.0)
+    adv_ratio = float(cfg.get("adv_train_ratio", 0.5) or 0.5)
 
     history, best_auc, best_acc, best_epoch, bad = [], -1.0, 0.0, 0, 0
     t0 = time.time()
@@ -82,7 +114,8 @@ def fit(cfg, loaders, run_id="run", ckpt_path=None, verbose=True):
         if warm > 0 and epoch <= warm:
             for group in optimizer.param_groups:
                 group["lr"] = base_lr * epoch / warm
-        train_loss = train_one_epoch(model, train_loader, criterion, optimizer, device)
+        train_loss = train_one_epoch(model, train_loader, criterion, optimizer, device,
+                                     adv_eps=adv_eps, adv_ratio=adv_ratio)
         probs, labels = predict(model, val_loader, device)
         metrics = compute_metrics(labels, probs)
         history.append({"epoch": epoch, "train_loss": train_loss,
@@ -119,5 +152,7 @@ def fit(cfg, loaders, run_id="run", ckpt_path=None, verbose=True):
         "duration_min": round((time.time() - t0) / 60.0, 3),
         "params": count_params(model),
         "class_counts": counts,
+        "adv_train_eps": adv_eps,
+        "adv_train_ratio": adv_ratio,
         "model": model,
     }

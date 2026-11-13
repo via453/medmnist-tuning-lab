@@ -1,0 +1,40 @@
+# 延伸 A：对抗训练（相对 configs/best.yaml 只多两个键）
+# 训练时每个 batch 把一半样本替换成 FGSM(eps=0.03) 对抗样本，其余设置与主实验最优配置一致，
+# 这样「精度变化」只能归因于对抗训练本身。
+# 复现：python -m src.adv_train            （内部就是按本文件 + 不同 seed 训练 clean / adv 两组）
+# 单跑一组：python -m src.run --config configs/adv.yaml --run-id adv_s0 --out results/runs.csv
+
+dataset: pneumoniamnist
+size: 28
+model: smallcnn
+conv_width: 64
+use_bn: true
+activation: relu
+pooling: light
+dropout: 0.2
+n_classes: 2
+n_channels: 1
+optimizer: adam
+lr: 0.001
+momentum: 0.9
+weight_decay: 0.0001
+batch_size: 64
+epochs: 20
+scheduler: none
+warmup_epochs: 0
+label_smoothing: 0.0
+augment: flip
+class_weight: none
+early_stop_patience: 5
+
+# —— 对抗训练开关（src/train.py: fgsm_perturb + train_one_epoch）——
+adv_train_eps: 0.03      # 0 表示关闭；0.03 是攻击曲线里 AUC 掉到 0.45 的那个 ε
+adv_train_ratio: 0.5     # batch 中对抗样本比例，0.5 = 干净:对抗 = 1:1
+
+device: cpu
+num_workers: 0
+limit_train: null
+limit_val: null
+out_dir: results
+ckpt_dir: outputs
+seed: 0

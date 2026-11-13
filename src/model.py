@@ -108,7 +108,7 @@ def build_model(cfg):
         activation=cfg.get("activation", "relu"),
         pooling=cfg.get("pooling", "light"),
         dropout=cfg.get("dropout", 0.2),
-        width=128,
+        width=int(cfg.get("width", 128)),   # MLP 容量旋钮，供容量对齐实验使用
         img=int(cfg.get("size", 28) or 28),
         patch=int(cfg.get("patch", 4)),
         dim=int(cfg.get("dim", 64)),

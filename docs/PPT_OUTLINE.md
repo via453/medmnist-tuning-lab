@@ -1,6 +1,6 @@
 # 中期汇报 PPT 大纲（建议稿）
 
-> 由本人按实际汇报习惯调整。培训方案要求 **15 分钟汇报 + 5 分钟提问**，建议 12–14 页、每页 1 分钟左右，重点放在「流程图 + 实验设计 + 结果 + 现场演示」。所有数字以 `docs/FINAL_ANALYSIS.md` 与 `results/*.csv` 为准。
+> 由本人按实际汇报习惯调整。培训方案要求 **15 分钟汇报 + 5 分钟提问**，建议 14–15 页、每页 1 分钟左右，重点放在「流程图 + 实验设计 + 结果 + 现场演示」。所有数字以 `docs/FINAL_ANALYSIS.md` 与 `results/*.csv` 为准。
 
 ## 页面与时间分配
 
@@ -17,8 +17,12 @@
 | 9 | 最终配置与训练曲线：最佳轮次而非末轮、loss 与 val AUC | 1 min | `figures/loss_curves.png` |
 | 10 | test 结果与 **val/test 落差**：ROC、混淆矩阵、C11 分布偏移解释 | 2 min | `figures/roc.png`、`confusion_matrix.png` |
 | 11 | 预测样例 + 现场演示（切到终端实跑一条命令） | 1.5 min | `figures/samples.png`、`notebooks/demo.ipynb` |
-| 12 | 结论、遗留方向（S2 更优组合未采纳）、学习复盘与章节映射 | 1 min | `docs/REVIEW.md`、教程第 7 节 |
-| 13 | 仓库与一键复现：README、requirements、tag、commit | 0.5 min | README |
+| 12 | 延伸实验一：结构谱系 + **容量对齐后的自我修正**（CNN 落后是结构性的；ViT 与 MLP 打平） | 2 min | `figures/capacity_curve.png`、`results/capacity_summary.csv` |
+| 13 | 延伸实验二：FGSM 崩溃曲线 + **对抗训练换来的鲁棒性**（ε=0.03 处 0.47→0.87，干净 −0.008） | 2 min | `figures/fgsm_adv_compare.png`、`results/adv_curve.csv` |
+| 14 | 结论、遗留方向（S2 更优组合未采纳、PGD 对抗训练未做）、学习复盘与章节映射 | 1 min | `docs/REVIEW.md`、教程第 7 节 |
+| 15 | 仓库与一键复现：README、requirements、tag、commit | 0.5 min | README |
+
+> 第 12/13 页可以合成一页「延伸实验的两条主线」，但**容量对齐那条一定要讲**：它是全场唯一一处「我用新实验推翻了自己上一轮结论」，比多刷 0.002 AUC 有说服力。
 
 ## 每页必须落地的三件事
 
