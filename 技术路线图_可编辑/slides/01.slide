@@ -1,0 +1,156 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', padding: 0, position: 'relative', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Text style={{ position: 'absolute', left: 96, top: 18, fontSize: 24, fontWeight: 'bold', color: '#1F2430' }}>技术路线图（每个文本框都可直接编辑）</Text>
+    <Box style={{ position: 'absolute', left: 96, top: 54, width: 1144, height: 2, background: '#1E4FA8' }} />
+    <Box style={{ position: 'absolute', left: 96, top: 66, width: 710, display: 'flex', flexDirection: 'column' }}>
+        <Box style={{ border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'row' }}>
+            <Box style={{ width: 4, background: '#1E4FA8' }} />
+            <Box style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#1F2430' }}>① 数据：5,856 张 28×28 胸片</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12, marginTop: 8 }}>
+                    <Box style={{ width: 216, height: 38, background: '#EDF3FF', border: '1px solid #C9D8F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>训练 4,708 张</Text>
+                    </Box>
+                    <Box style={{ width: 216, height: 38, background: '#EDF3FF', border: '1px solid #C9D8F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>验证 524 张</Text>
+                    </Box>
+                    <Box style={{ width: 216, height: 38, background: '#FDF1EF', border: '1px solid #B93A2B', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#B93A2B' }}>测试 624 张 · 只一次</Text>
+                    </Box>
+                </Box>
+                <Text style={{ fontSize: 13, color: '#4B5563', marginTop: 6 }}>预处理：归一化到 [-1,1]；水平翻转只加在训练集上</Text>
+            </Box>
+        </Box>
+
+        <Text style={{ fontSize: 18, color: '#1E4FA8', textAlign: 'center', marginTop: 2, marginBottom: 2 }}>▼</Text>
+        <Box style={{ border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'row' }}>
+            <Box style={{ width: 4, background: '#1E4FA8' }} />
+            <Box style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#1F2430' }}>② 模型：三种「看图方式」，参数量压到同一量级</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 14, marginTop: 8 }}>
+                    <Box style={{ width: 214, height: 56, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1F2430' }}>MLP</Text>
+                        <Text style={{ fontSize: 13, color: '#4B5563' }}>1.0 万旋钮 · 一次看全图</Text>
+                    </Box>
+                    <Box style={{ width: 214, height: 56, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1F2430' }}>SmallCNN（主实验）</Text>
+                        <Text style={{ fontSize: 13, color: '#4B5563' }}>1.9 万 → 7.5 万 · 小窗口</Text>
+                    </Box>
+                    <Box style={{ width: 214, height: 56, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1F2430' }}>TinyViT</Text>
+                        <Text style={{ fontSize: 13, color: '#4B5563' }}>7.2 万 · 切块互相问</Text>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+
+        <Text style={{ fontSize: 18, color: '#1E4FA8', textAlign: 'center', marginTop: 2, marginBottom: 2 }}>▼</Text>
+        <Box style={{ border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'row' }}>
+            <Box style={{ width: 4, background: '#1E4FA8' }} />
+            <Box style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#1F2430' }}>③ 实验：先扫、再验、最后对齐容量</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 14, marginTop: 8 }}>
+                    <Box style={{ width: 214, height: 36, background: '#EDF3FF', border: '1px solid #C9D8F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 13, color: '#1F2430' }}>S1 单因子 33 组</Text>
+                    </Box>
+                    <Box style={{ width: 214, height: 36, background: '#EDF3FF', border: '1px solid #C9D8F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 13, color: '#1F2430' }}>S2 网格 4 组</Text>
+                    </Box>
+                    <Box style={{ width: 214, height: 36, background: '#EDF3FF', border: '1px solid #C9D8F2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 13, color: '#1F2430' }}>S3 复跑 9 组 × 3 seed</Text>
+                    </Box>
+                </Box>
+                <Text style={{ fontSize: 13, color: '#4B5563', marginTop: 6 }}>另加：结构对照 6 组 · 容量对齐 18 组 · 对抗训练 6 次 · 剪枝蒸馏 12 次</Text>
+            </Box>
+        </Box>
+
+        <Text style={{ fontSize: 18, color: '#1E4FA8', textAlign: 'center', marginTop: 2, marginBottom: 2 }}>▼</Text>
+        <Box style={{ border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'row' }}>
+            <Box style={{ width: 4, background: '#1E4FA8' }} />
+            <Box style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#1F2430' }}>④ 评估：验证集调参，测试集只考一次</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 14, marginTop: 8 }}>
+                    <Box style={{ width: 230, height: 48, background: '#EDF3FF', border: '1px solid #C9D8F2', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 13, color: '#4B5563' }}>验证集 · 524 张</Text>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1E4FA8' }}>AUC 0.9890 / ACC 95.2%</Text>
+                    </Box>
+                    <Text style={{ fontSize: 22, color: '#1E4FA8' }}>→</Text>
+                    <Box style={{ width: 270, height: 48, background: '#FDF1EF', border: '1px solid #B93A2B', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 13, color: '#4B5563' }}>测试集 · 624 张（只评一次）</Text>
+                        <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#B93A2B' }}>AUC 0.9546 / ACC 83.5%</Text>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+    </Box>
+    <svg width={56} height={196} viewBox='0 0 56 196' style={{ position: 'absolute', left: 46, top: 420 }}>
+        <path d='M50 190 L32 190 L32 56 L50 56' fill='none' stroke='#3D7BD9' strokeWidth='2' strokeDasharray='7 6' />
+        <path d='M50 56 l-11 -6 v12 z' fill='#3D7BD9' />
+    </svg>
+    <Box style={{ position: 'absolute', left: 848, top: 66, width: 392, display: 'flex', flexDirection: 'column' }}>
+        <Box style={{ border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'row' }}>
+            <Box style={{ width: 4, background: '#3D7BD9' }} />
+            <Box style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#1F2430' }}>⑤ 追问：六个「本来可以不做」</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12, marginTop: 8 }}>
+                    <Box style={{ width: 176, height: 52, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>容量对齐</Text>
+                        <Text style={{ fontSize: 12, color: '#4B5563' }}>同旋钮数再比一次</Text>
+                    </Box>
+                    <Box style={{ width: 176, height: 52, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>FGSM 攻击</Text>
+                        <Text style={{ fontSize: 12, color: '#4B5563' }}>AUC 0.99 → 0.45</Text>
+                    </Box>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12, marginTop: 10 }}>
+                    <Box style={{ width: 176, height: 52, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>对抗训练</Text>
+                        <Text style={{ fontSize: 12, color: '#4B5563' }}>救回 0.87</Text>
+                    </Box>
+                    <Box style={{ width: 176, height: 52, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>Grad-CAM</Text>
+                        <Text style={{ fontSize: 12, color: '#4B5563' }}>边框富集 0.78×</Text>
+                    </Box>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 12, marginTop: 10 }}>
+                    <Box style={{ width: 176, height: 52, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>剪枝 / 蒸馏</Text>
+                        <Text style={{ fontSize: 12, color: '#4B5563' }}>两处负结果</Text>
+                    </Box>
+                    <Box style={{ width: 176, height: 52, background: '#F7F9FC', border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, color: '#1F2430' }}>先验拆解</Text>
+                        <Text style={{ fontSize: 12, color: '#4B5563' }}>11% / 89%</Text>
+                    </Box>
+                </Box>
+                <Text style={{ fontSize: 13, color: '#4B5563', marginTop: 10 }}>六个追问只评验证集，不动测试集。</Text>
+                <Text style={{ fontSize: 13, color: '#4B5563', marginTop: 4 }}>其中三个直接推翻了我原来的判断。</Text>
+            </Box>
+        </Box>
+        <Box style={{ border: '1px solid #D9E2F0', display: 'flex', flexDirection: 'row', marginTop: 16 }}>
+            <Box style={{ width: 4, background: '#1E4FA8' }} />
+            <Box style={{ flex: 1, padding: 12, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#1F2430' }}>⑥ 交付：可重跑的一套</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 8 }}>
+                    <Text style={{ fontSize: 14, color: '#4B5563' }}>代码</Text>
+                    <Text style={{ fontSize: 14, color: '#1F2430' }}>20 个模块</Text>
+                </Box>
+                <Box style={{ height: 1, background: '#E5E9F0', marginTop: 6 }} />
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 6 }}>
+                    <Text style={{ fontSize: 14, color: '#4B5563' }}>结果表</Text>
+                    <Text style={{ fontSize: 14, color: '#1F2430' }}>11 个 CSV · 每行带版本号</Text>
+                </Box>
+                <Box style={{ height: 1, background: '#E5E9F0', marginTop: 6 }} />
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 6 }}>
+                    <Text style={{ fontSize: 14, color: '#4B5563' }}>图件 / 文档</Text>
+                    <Text style={{ fontSize: 14, color: '#1F2430' }}>10 张 / 10 份</Text>
+                </Box>
+                <Text style={{ fontSize: 13, color: '#1E4FA8', marginTop: 8 }}>python -m src.run --config configs/best.yaml</Text>
+            </Box>
+        </Box>
+        <Box style={{ background: '#EDF3FF', border: '1px solid #C9D8F2', padding: 12, display: 'flex', flexDirection: 'column', marginTop: 16 }}>
+            <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#1E4FA8' }}>三条不可越过的纪律</Text>
+            <Text style={{ fontSize: 13, color: '#1F2430', marginTop: 6 }}>① 所有选择只发生在验证集上</Text>
+            <Text style={{ fontSize: 13, color: '#1F2430', marginTop: 4 }}>② 测试集只在最后评一次，之后不改设置</Text>
+            <Text style={{ fontSize: 13, color: '#1F2430', marginTop: 4 }}>③ 失败的组也留在结果表里，不删</Text>
+        </Box>
+    </Box>
+</Slide>
