@@ -1,0 +1,18 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>一页看全：从数据到交付的技术路线</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>04 / 16</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 18, paddingBottom: 56 }}>
+        <Image src='assets/pipeline_roadmap.png' style={{ width: 1104, height: 535, objectFit: 'contain', marginLeft: 8 }} />
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 2 }}>
+            左侧主干六段，右侧是六个「本来可以不做」的追问；蓝色虚线是验证集回路——只改设置，从不回看测试集。
+        </Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>04 / 16</Text>
+    </Box>
+</Slide>

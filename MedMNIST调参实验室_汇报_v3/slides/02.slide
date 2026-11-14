@@ -1,0 +1,51 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>这次汇报只回答四个问题</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>02 / 16</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 26, paddingBottom: 56 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 20 }}>
+            <Box style={{ width: 574, height: 210, border: '1px solid #E5E9F0', padding: 20, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 14, color: '#1E4FA8', fontWeight: 'bold' }}>问题一</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1F2430', marginTop: 6 }}>我做了什么</Text>
+                <Text style={{ fontSize: 18, color: '#4B5563', lineHeight: 1.6, marginTop: 10 }}>
+                    五个阶段：分数据、写模型、扫参数、验稳定性、考试一次。共 79 次训练。
+                </Text>
+            </Box>
+            <Box style={{ width: 574, height: 210, border: '1px solid #E5E9F0', padding: 20, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 14, color: '#1E4FA8', fontWeight: 'bold' }}>问题二</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1F2430', marginTop: 6 }}>为什么这么做</Text>
+                <Text style={{ fontSize: 18, color: '#4B5563', lineHeight: 1.6, marginTop: 10 }}>
+                    每个动作都对应一个「不这么做就会出错」的场景，不是按教程抄流程。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 20, marginTop: 20 }}>
+            <Box style={{ width: 574, height: 210, border: '1px solid #E5E9F0', padding: 20, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 14, color: '#B93A2B', fontWeight: 'bold' }}>问题三</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1F2430', marginTop: 6 }}>得到了什么结果</Text>
+                <Text style={{ fontSize: 18, color: '#4B5563', lineHeight: 1.6, marginTop: 10 }}>
+                    七条结论，其中三条是否定我自己原来的判断。
+                </Text>
+            </Box>
+            <Box style={{ width: 574, height: 210, border: '1px solid #E5E9F0', padding: 20, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 14, color: '#1C7A45', fontWeight: 'bold' }}>问题四</Text>
+                <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#1F2430', marginTop: 6 }}>我收获了什么</Text>
+                <Text style={{ fontSize: 18, color: '#4B5563', lineHeight: 1.6, marginTop: 10 }}>
+                    三个以后还会用的习惯，和一套能重跑的交付物。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>为什么这一页要摆四个问题：让评委知道后面 13 页在答什么，而不是跟着我复盘流水账。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>02 / 16</Text>
+    </Box>
+</Slide>

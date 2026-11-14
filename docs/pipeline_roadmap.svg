@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="620" viewBox="0 0 1280 620" font-family="'Source Han Sans SC','Microsoft YaHei',Arial,sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1E4FA8"/>
+    </marker>
+    <marker id="arR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B93A2B"/>
+    </marker>
+    <marker id="arD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3D7BD9"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="620" fill="#FFFFFF"/>
+
+  <!-- ============ 左：主干 ============ -->
+  <!-- ① 数据 -->
+  <rect x="96" y="6" width="710" height="104" fill="#FFFFFF" stroke="#D9E2F0"/>
+  <rect x="96" y="6" width="4" height="104" fill="#1E4FA8"/>
+  <text x="116" y="32" font-size="17" font-weight="bold" fill="#1F2430">① 数据：5,856 张 28×28 胸片</text>
+  <rect x="116" y="44" width="216" height="40" fill="#EDF3FF" stroke="#C9D8F2"/>
+  <text x="224" y="70" font-size="14" fill="#1F2430" text-anchor="middle">训练 4,708 张</text>
+  <rect x="344" y="44" width="216" height="40" fill="#EDF3FF" stroke="#C9D8F2"/>
+  <text x="452" y="70" font-size="14" fill="#1F2430" text-anchor="middle">验证 524 张</text>
+  <rect x="572" y="44" width="216" height="40" fill="#FDF1EF" stroke="#B93A2B"/>
+  <text x="680" y="70" font-size="14" fill="#B93A2B" text-anchor="middle">测试 624 张 · 只一次</text>
+  <text x="116" y="100" font-size="13" fill="#4B5563">预处理：归一化到 [-1,1]；水平翻转只加在训练集上</text>
+
+  <line x1="451" y1="110" x2="451" y2="124" stroke="#1E4FA8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ② 模型 -->
+  <rect x="96" y="124" width="710" height="118" fill="#FFFFFF" stroke="#D9E2F0"/>
+  <rect x="96" y="124" width="4" height="118" fill="#1E4FA8"/>
+  <text x="116" y="150" font-size="17" font-weight="bold" fill="#1F2430">② 模型：三种「看图方式」，参数量压到同一量级</text>
+  <rect x="116" y="162" width="214" height="62" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="223" y="186" font-size="15" font-weight="bold" fill="#1F2430" text-anchor="middle">MLP</text>
+  <text x="223" y="208" font-size="13" fill="#4B5563" text-anchor="middle">1.0 万旋钮 · 一次看全图</text>
+  <rect x="344" y="162" width="214" height="62" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="451" y="186" font-size="15" font-weight="bold" fill="#1F2430" text-anchor="middle">SmallCNN（主实验）</text>
+  <text x="451" y="208" font-size="13" fill="#4B5563" text-anchor="middle">1.9 万 → 7.5 万 · 小窗口</text>
+  <rect x="572" y="162" width="214" height="62" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="679" y="186" font-size="15" font-weight="bold" fill="#1F2430" text-anchor="middle">TinyViT</text>
+  <text x="679" y="208" font-size="13" fill="#4B5563" text-anchor="middle">7.2 万 · 切块互相问</text>
+
+  <line x1="451" y1="242" x2="451" y2="256" stroke="#1E4FA8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ③ 实验 -->
+  <rect x="96" y="256" width="710" height="118" fill="#FFFFFF" stroke="#D9E2F0"/>
+  <rect x="96" y="256" width="4" height="118" fill="#1E4FA8"/>
+  <text x="116" y="282" font-size="17" font-weight="bold" fill="#1F2430">③ 实验：先扫、再验、最后对齐容量</text>
+  <rect x="116" y="294" width="214" height="38" fill="#EDF3FF" stroke="#C9D8F2"/>
+  <text x="223" y="319" font-size="13" fill="#1F2430" text-anchor="middle">S1 单因子 33 组</text>
+  <rect x="344" y="294" width="214" height="38" fill="#EDF3FF" stroke="#C9D8F2"/>
+  <text x="451" y="319" font-size="13" fill="#1F2430" text-anchor="middle">S2 网格 4 组</text>
+  <rect x="572" y="294" width="214" height="38" fill="#EDF3FF" stroke="#C9D8F2"/>
+  <text x="679" y="319" font-size="13" fill="#1F2430" text-anchor="middle">S3 复跑 9 组 × 3 seed</text>
+  <text x="116" y="360" font-size="13" fill="#4B5563">另加：结构对照 6 组 · 容量对齐 18 组 · 对抗训练 6 次 · 剪枝蒸馏 12 次</text>
+
+  <line x1="451" y1="374" x2="451" y2="388" stroke="#1E4FA8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ④ 评估 -->
+  <rect x="96" y="388" width="710" height="104" fill="#FFFFFF" stroke="#D9E2F0"/>
+  <rect x="96" y="388" width="4" height="104" fill="#1E4FA8"/>
+  <text x="116" y="414" font-size="17" font-weight="bold" fill="#1F2430">④ 评估：验证集调参，测试集只考一次</text>
+  <rect x="116" y="426" width="230" height="48" fill="#EDF3FF" stroke="#C9D8F2"/>
+  <text x="231" y="447" font-size="13" fill="#4B5563" text-anchor="middle">验证集 · 524 张</text>
+  <text x="231" y="466" font-size="15" font-weight="bold" fill="#1E4FA8" text-anchor="middle">AUC 0.9890 / ACC 95.2%</text>
+  <line x1="350" y1="450" x2="404" y2="450" stroke="#1E4FA8" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="410" y="426" width="270" height="48" fill="#FDF1EF" stroke="#B93A2B"/>
+  <text x="545" y="447" font-size="13" fill="#4B5563" text-anchor="middle">测试集 · 624 张（只评一次）</text>
+  <text x="545" y="466" font-size="15" font-weight="bold" fill="#B93A2B" text-anchor="middle">AUC 0.9546 / ACC 83.5%</text>
+
+  <!-- val 回路（虚线） -->
+  <path d="M96 470 L74 470 L74 312 L96 312" fill="none" stroke="#3D7BD9" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arD)"/>
+  <text x="40" y="391" font-size="12" fill="#3D7BD9" text-anchor="middle" transform="rotate(-90 40 391)">val 回路</text>
+
+  <!-- ============ 右：追问 + 交付 + 纪律 ============ -->
+  <rect x="848" y="6" width="392" height="312" fill="#FFFFFF" stroke="#D9E2F0"/>
+  <rect x="848" y="6" width="4" height="312" fill="#3D7BD9"/>
+  <text x="868" y="32" font-size="17" font-weight="bold" fill="#1F2430">⑤ 追问：六个「本来可以不做」</text>
+  <rect x="868" y="44" width="176" height="54" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="956" y="66" font-size="14" fill="#1F2430" text-anchor="middle">容量对齐</text>
+  <text x="956" y="86" font-size="12" fill="#4B5563" text-anchor="middle">同旋钮数再比一次</text>
+  <rect x="1056" y="44" width="176" height="54" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="1144" y="66" font-size="14" fill="#1F2430" text-anchor="middle">FGSM 攻击</text>
+  <text x="1144" y="86" font-size="12" fill="#4B5563" text-anchor="middle">AUC 0.99 → 0.45</text>
+  <rect x="868" y="110" width="176" height="54" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="956" y="132" font-size="14" fill="#1F2430" text-anchor="middle">对抗训练</text>
+  <text x="956" y="152" font-size="12" fill="#4B5563" text-anchor="middle">救回 0.87</text>
+  <rect x="1056" y="110" width="176" height="54" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="1144" y="132" font-size="14" fill="#1F2430" text-anchor="middle">Grad-CAM</text>
+  <text x="1144" y="152" font-size="12" fill="#4B5563" text-anchor="middle">边框富集 0.78×</text>
+  <rect x="868" y="176" width="176" height="54" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="956" y="198" font-size="14" fill="#1F2430" text-anchor="middle">剪枝 / 蒸馏</text>
+  <text x="956" y="218" font-size="12" fill="#4B5563" text-anchor="middle">两处负结果</text>
+  <rect x="1056" y="176" width="176" height="54" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <text x="1144" y="198" font-size="14" fill="#1F2430" text-anchor="middle">先验拆解</text>
+  <text x="1144" y="218" font-size="12" fill="#4B5563" text-anchor="middle">11% / 89%</text>
+  <text x="868" y="258" font-size="13" fill="#4B5563">六个追问全部只评验证集，</text>
+  <text x="868" y="278" font-size="13" fill="#4B5563">不动测试集，保证 ④ 的分数仍然独立。</text>
+  <text x="868" y="304" font-size="13" fill="#4B5563">其中三个直接推翻了我原来的判断。</text>
+
+  <!-- 交付 -->
+  <rect x="848" y="332" width="392" height="156" fill="#FFFFFF" stroke="#D9E2F0"/>
+  <rect x="848" y="332" width="4" height="156" fill="#1E4FA8"/>
+  <text x="868" y="358" font-size="17" font-weight="bold" fill="#1F2430">⑥ 交付：可重跑的一套</text>
+  <text x="868" y="386" font-size="14" fill="#4B5563">代码</text>
+  <text x="1220" y="386" font-size="14" fill="#1F2430" text-anchor="end">20 个模块</text>
+  <line x1="868" y1="396" x2="1220" y2="396" stroke="#E5E9F0"/>
+  <text x="868" y="420" font-size="14" fill="#4B5563">结果表</text>
+  <text x="1220" y="420" font-size="14" fill="#1F2430" text-anchor="end">11 个 CSV · 每行带版本号</text>
+  <line x1="868" y1="430" x2="1220" y2="430" stroke="#E5E9F0"/>
+  <text x="868" y="454" font-size="14" fill="#4B5563">图件 / 文档</text>
+  <text x="1220" y="454" font-size="14" fill="#1F2430" text-anchor="end">10 张 / 10 份</text>
+  <line x1="868" y1="464" x2="1220" y2="464" stroke="#E5E9F0"/>
+  <text x="868" y="482" font-size="13" fill="#1E4FA8">python -m src.run --config configs/best.yaml</text>
+
+  <!-- 纪律 -->
+  <rect x="848" y="508" width="392" height="100" fill="#EDF3FF" stroke="#C9D8F2"/>
+  <text x="868" y="534" font-size="14" font-weight="bold" fill="#1E4FA8">三条不可越过的纪律</text>
+  <text x="868" y="558" font-size="13" fill="#1F2430">① 所有选择只发生在验证集上</text>
+  <text x="868" y="578" font-size="13" fill="#1F2430">② 测试集只在最后评一次，之后不改设置</text>
+  <text x="868" y="598" font-size="13" fill="#1F2430">③ 失败的组也留在结果表里，不删</text>
+</svg>

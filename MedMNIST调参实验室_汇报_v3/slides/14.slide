@@ -1,0 +1,58 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果七：模拟考 95 分，为什么高考只有 83</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>14 / 16</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 20, paddingBottom: 56 }}>
+        <Text style={{ fontSize: 19, color: '#4B5563', lineHeight: 1.6 }}>
+            左边是高考卷上的整体表现，右边是拆解：把「病人占多少比例」这一个因素单独调过来，看分数掉多少。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 34, marginTop: 10 }}>
+            <Box style={{ width: 556, display: 'flex', flexDirection: 'row', gap: 14 }}>
+                <Box style={{ display: 'flex', flexDirection: 'column', width: 268 }}>
+                    <Image src='assets/roc.png' style={{ width: 266, height: 244, objectFit: 'contain' }} />
+                    <Text style={{ fontSize: 13, color: '#8A94A6' }}>排序能力：0.9546</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'column', width: 268 }}>
+                    <Image src='assets/confusion_matrix.png' style={{ width: 266, height: 240, objectFit: 'contain' }} />
+                    <Text style={{ fontSize: 13, color: '#8A94A6' }}>误报 17 → 100 个</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 578, display: 'flex', flexDirection: 'column' }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #E5E9F0', paddingBottom: 8 }}>
+                    <Text style={{ fontSize: 18, color: '#4B5563' }}>模拟考，全部 524 张</Text>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430', fontFamily: 'Arial' }}>0.9523</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #E5E9F0', paddingTop: 10, paddingBottom: 8 }}>
+                    <Text style={{ fontSize: 18, color: '#4B5563' }}>只把「病人比例」调成高考卷</Text>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430', fontFamily: 'Arial' }}>0.9399</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #E5E9F0', paddingTop: 10, paddingBottom: 8 }}>
+                    <Text style={{ fontSize: 18, color: '#4B5563' }}>真实的高考卷</Text>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#B93A2B', fontFamily: 'Arial' }}>0.8349</Text>
+                </Box>
+                <Text style={{ fontSize: 18, color: '#4B5563', lineHeight: 1.7, marginTop: 14 }}>
+                    病人比例变化只解释 <span style={{ fontWeight: 'bold', color: '#1F2430' }}>11%</span> 的落差；剩下 <span style={{ fontWeight: 'bold', color: '#B93A2B' }}>89%</span> 是两家医院拍片方式不同——机器、体位、病人来源都不一样。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ background: '#EDF3FF', padding: 14 }}>
+            <Text style={{ fontSize: 18, color: '#1F2430' }}>
+                所以「按高考卷的病人比例去调判定线」最多补回 1 个百分点——<span style={{ fontWeight: 'bold' }}>它不是解法，只是把误差换个位置。</span>
+            </Text>
+        </Box>
+
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 8 }}>为什么值得单独一页：落差 12 个点，不说清楚，评委会默认是代码写错了。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>14 / 16</Text>
+    </Box>
+</Slide>

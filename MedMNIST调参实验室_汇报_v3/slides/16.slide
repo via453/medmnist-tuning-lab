@@ -1,0 +1,86 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>收获：三个习惯，一套交付物</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>16 / 16</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 24, paddingBottom: 56 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 34 }}>
+            <Box style={{ width: 620, display: 'flex', flexDirection: 'column', gap: 18 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 14 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 30, fontFamily: 'Arial' }}>01</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 570 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>先问噪声，再谈提升</Text>
+                        <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6 }}>
+                            差值小于种子波动，就不写「提升」。
+                        </Text>
+                    </Box>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 14 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 30, fontFamily: 'Arial' }}>02</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 570 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>比较之前，把条件拉平</Text>
+                        <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6 }}>
+                            比模型要比旋钮数，比配置要比种子，比数据集要比病人比例。
+                        </Text>
+                    </Box>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 14 }}>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 30, fontFamily: 'Arial' }}>03</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 570 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>先说局限，再谈成绩</Text>
+                        <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6 }}>
+                            只做分类、单一数据源、20 轮、纯 CPU——这些决定了 0.99 在什么条件下成立。
+                        </Text>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 1, background: '#E5E9F0' }} />
+
+            <Box style={{ width: 479, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 15, color: '#8A94A6' }}>交付物</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #E5E9F0', paddingTop: 6, paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 17, color: '#4B5563' }}>可重跑代码</Text>
+                    <Text style={{ fontSize: 17, color: '#1F2430', fontWeight: 'bold' }}>20 个模块</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #E5E9F0', paddingTop: 6, paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 17, color: '#4B5563' }}>结果表</Text>
+                    <Text style={{ fontSize: 17, color: '#1F2430', fontWeight: 'bold' }}>11 个 CSV</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #E5E9F0', paddingTop: 6, paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 17, color: '#4B5563' }}>图件</Text>
+                    <Text style={{ fontSize: 17, color: '#1F2430', fontWeight: 'bold' }}>10 张</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #E5E9F0', paddingTop: 6, paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 17, color: '#4B5563' }}>文档</Text>
+                    <Text style={{ fontSize: 17, color: '#1F2430', fontWeight: 'bold' }}>10 份</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', paddingTop: 6, paddingBottom: 6 }}>
+                    <Text style={{ fontSize: 17, color: '#4B5563' }}>汇报与讲稿</Text>
+                    <Text style={{ fontSize: 17, color: '#1F2430', fontWeight: 'bold' }}>两版 PPT</Text>
+                </Box>
+
+                <Box style={{ marginTop: 18, background: '#EDF3FF', padding: 14 }}>
+                    <Text style={{ fontSize: 15, color: '#1F2430', fontWeight: 'bold' }}>github.com/via453/medmnist-tuning-lab</Text>
+                    <Text style={{ fontSize: 14, color: '#4B5563', marginTop: 4 }}>
+                        一条命令重跑：改设置 + 敲 <span style={{ fontFamily: 'Consolas,monospace' }}>python -m src.run</span>
+                    </Text>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ borderTop: '2px solid #1E4FA8', paddingTop: 10 }}>
+            <Text style={{ fontSize: 18, color: '#1F2430' }}>
+                一句话收尾：<span style={{ fontWeight: 'bold' }}>调参能稳定提升 0.004，但结构决定上限；而一个 0.99 的模型，只需要 1.5% 的像素扰动就会崩。</span>
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>16 / 16</Text>
+    </Box>
+</Slide>

@@ -24,3 +24,6 @@ Thumbs.db
 # PPT 工具链本地元数据
 **/.slidep/
 **/.cache/
+
+# 本地构建中间文件
+**/build.pptx

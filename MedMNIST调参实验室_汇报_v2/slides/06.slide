@@ -1,60 +1,47 @@
 <Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
     <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
-        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>为什么先一次只改一个：33 组扫出优先级</Text>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果一：调参确实有用，但幅度有限</Text>
         <Text style={{ fontSize: 14, color: '#8A94A6' }}>06 / 15</Text>
     </Box>
 
     <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 22, paddingBottom: 56 }}>
         <Text style={{ fontSize: 20, color: '#4B5563', lineHeight: 1.6 }}>
-            如果同时改五个参数，成绩变好也说不清是谁的功劳。<Text style={{ fontWeight: 'bold', color: '#1F2430' }}>先单因子扫一遍，拿到一张「谁值得调」的排序表。</Text>
+            只把模型宽度从 32 改成 64，别的全不动。左图是三次重复的成绩，右图是训练过程中的曲线。
         </Text>
 
-        <Box style={{ display: 'flex', flexDirection: 'row', gap: 30, marginTop: 14 }}>
-            <Box style={{ width: 470, display: 'flex', flexDirection: 'column' }}>
-                <Image src='assets/hp_sensitivity.png' style={{ width: 460, height: 368, objectFit: 'contain' }} />
-                <Text style={{ fontSize: 13, color: '#8A94A6', marginTop: 4 }}>
-                    每个小格是一种设置的得分分布；格子越「上下拉得开」，说明这个旋钮越要紧。
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 34, marginTop: 12 }}>
+            <Box style={{ width: 560, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/before_after.png' style={{ width: 530, height: 360, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 13, color: '#8A94A6', marginTop: 2 }}>
+                    每一对柱子是同一个随机种子下的前后对比；三个种子都往右偏。
                 </Text>
             </Box>
-
-            <Box style={{ width: 668, display: 'flex', flexDirection: 'column' }}>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', borderBottom: '1px solid #E5E9F0', paddingBottom: 10 }}>
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', width: 132, fontFamily: 'Arial' }}>0.0220</Text>
-                    <Box style={{ display: 'flex', flexDirection: 'column', width: 536 }}>
-                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>学习率：最要紧</Text>
-                        <Text style={{ fontSize: 17, color: '#4B5563' }}>太小走不动（0.9658），太大又不稳（0.9855）</Text>
-                    </Box>
-                </Box>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', borderBottom: '1px solid #E5E9F0', paddingTop: 12, paddingBottom: 10 }}>
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', width: 132, fontFamily: 'Arial' }}>0.0204</Text>
-                    <Box style={{ display: 'flex', flexDirection: 'column', width: 536 }}>
-                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>优化器：第二要紧</Text>
-                        <Text style={{ fontSize: 17, color: '#4B5563' }}>20 轮预算下，老式 SGD 只有 0.9642</Text>
-                    </Box>
-                </Box>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', borderBottom: '1px solid #E5E9F0', paddingTop: 12, paddingBottom: 10 }}>
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', width: 132, fontFamily: 'Arial' }}>0.0186</Text>
-                    <Box style={{ display: 'flex', flexDirection: 'column', width: 536 }}>
-                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>归一化：属于「必须有」</Text>
-                        <Text style={{ fontSize: 17, color: '#4B5563' }}>去掉就掉 1.9 个点，不是「调一调」的东西</Text>
-                    </Box>
-                </Box>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', borderBottom: '1px solid #E5E9F0', paddingTop: 12, paddingBottom: 10 }}>
-                    <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', width: 132, fontFamily: 'Arial' }}>0.0100</Text>
-                    <Box style={{ display: 'flex', flexDirection: 'column', width: 536 }}>
-                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>模型宽度：有效，但只有一半</Text>
-                        <Text style={{ fontSize: 17, color: '#4B5563' }}>32 改 64 是唯一稳定正收益，幅度只有学习率的一半</Text>
-                    </Box>
-                </Box>
-                <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 14 }}>
-                    剩下七项（丢弃率、权重衰减、学习率排程、池化方式等）差得都不到 <Text style={{ fontWeight: 'bold', color: '#1F2430' }}>0.0062</Text>——继续调它们，是在噪声里找规律。
+            <Box style={{ width: 560, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/loss_curves.png' style={{ width: 530, height: 360, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 13, color: '#8A94A6', marginTop: 2 }}>
+                    训练误差一路下降，验证得分先升后平；第 20 轮已经不如第 19 轮。
                 </Text>
             </Box>
         </Box>
 
         <Box style={{ flex: 1 }} />
 
-        <Text style={{ fontSize: 14, color: '#8A94A6' }}>为什么必须先扫再调：这张表直接决定了后面只复跑两组，而不是把 33 组全部跑三遍。</Text>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 20 }}>
+            <Box style={{ width: 370, background: '#EDF3FF', padding: 14, display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
+                <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial', lineHeight: 1 }}>+0.0041</Text>
+                <Text style={{ fontSize: 15, color: '#4B5563', lineHeight: 1.4 }}>得分提升幅度</Text>
+            </Box>
+            <Box style={{ width: 370, background: '#EDF3FF', padding: 14, display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
+                <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial', lineHeight: 1 }}>19 倍</Text>
+                <Text style={{ fontSize: 15, color: '#4B5563', lineHeight: 1.4 }}>提升 ÷ 种子波动</Text>
+            </Box>
+            <Box style={{ width: 370, background: '#EDF3FF', padding: 14, display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 10 }}>
+                <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial', lineHeight: 1 }}>3 / 3</Text>
+                <Text style={{ fontSize: 15, color: '#4B5563', lineHeight: 1.4 }}>三个种子全部同向</Text>
+            </Box>
+        </Box>
+
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 10 }}>为什么强调「19 倍」而不是直接说「提升了」：0.004 这个数字本身，比运气波动还小的时候是没意义的。</Text>
     </Box>
 
     <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>

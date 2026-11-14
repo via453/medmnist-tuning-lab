@@ -1,62 +1,47 @@
 <Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
     <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
-        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果三：它们各自的「看片成绩单」</Text>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果四：分数高，不等于靠得住</Text>
         <Text style={{ fontSize: 14, color: '#8A94A6' }}>09 / 15</Text>
     </Box>
 
     <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 22, paddingBottom: 56 }}>
-        <Text style={{ fontSize: 20, color: '#4B5563', lineHeight: 1.6 }}>
-            左边是模拟考里抽出来的 8 张片子，每张上面标了真实答案和模型给的分。右边是三种结构在同样 524 张上的平均成绩。
-        </Text>
-
-        <Box style={{ display: 'flex', flexDirection: 'row', gap: 40, marginTop: 10 }}>
-            <Box style={{ width: 400, display: 'flex', flexDirection: 'column' }}>
-                <Image src='assets/samples.png' style={{ width: 400, height: 400, objectFit: 'contain' }} />
-                <Text style={{ fontSize: 13, color: '#8A94A6', marginTop: 2 }}>
-                    概率越接近 1，模型越确信是肺炎；标红的是它判错的样本。
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 32 }}>
+            <Box style={{ width: 530, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 20, color: '#4B5563', lineHeight: 1.6 }}>
+                    做法很朴素：给每个像素<span style={{ fontWeight: 'bold' }}>朝着「让它判错」的方向</span>轻轻推一点，推的幅度从 0 慢慢加到很大，看成绩怎么掉。
+                </Text>
+                <Box style={{ height: 1, background: '#E5E9F0', marginTop: 16, marginBottom: 16 }} />
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 48, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial', lineHeight: 1 }}>0.9890</Text>
+                    <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.4 }}>原样图上的得分</Text>
+                </Box>
+                <Text style={{ fontSize: 22, color: '#8A94A6', marginTop: 6 }}>↓</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12, marginTop: 2 }}>
+                    <Text style={{ fontSize: 48, fontWeight: 'bold', color: '#B93A2B', fontFamily: 'Arial', lineHeight: 1 }}>0.4501</Text>
+                    <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.4 }}>只改 1.5% 的量程之后</Text>
+                </Box>
+                <Text style={{ fontSize: 18, color: '#4B5563', lineHeight: 1.6, marginTop: 16 }}>
+                    0.45 不是「变差」，是<span style={{ fontWeight: 'bold' }}>反着判</span>——比扔硬币还差。再推多一点，它干脆把所有片子都判成正常。
                 </Text>
             </Box>
 
-            <Box style={{ width: 728, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', borderBottom: '1px solid #E5E9F0', paddingBottom: 12 }}>
-                    <Box style={{ width: 150, display: 'flex', flexDirection: 'column' }}>
-                        <Text style={{ fontSize: 15, color: '#8A94A6' }}>MLP</Text>
-                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>1.0 万旋钮</Text>
-                    </Box>
-                    <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial', lineHeight: 1, width: 130 }}>0.9928</Text>
-                    <Text style={{ fontSize: 17, color: '#4B5563', width: 440, lineHeight: 1.6 }}>
-                        什么都不懂，却靠「整体白不白」考了第二名。
-                    </Text>
-                </Box>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', borderBottom: '1px solid #E5E9F0', paddingTop: 12, paddingBottom: 12 }}>
-                    <Box style={{ width: 150, display: 'flex', flexDirection: 'column' }}>
-                        <Text style={{ fontSize: 15, color: '#8A94A6' }}>CNN</Text>
-                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>7.5 万旋钮</Text>
-                    </Box>
-                    <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#B93A2B', fontFamily: 'Arial', lineHeight: 1, width: 130 }}>0.9886</Text>
-                    <Text style={{ fontSize: 17, color: '#4B5563', width: 440, lineHeight: 1.6 }}>
-                        旋钮最多、最像「正经图像模型」，却排最后。
-                    </Text>
-                </Box>
-                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', paddingTop: 12 }}>
-                    <Box style={{ width: 150, display: 'flex', flexDirection: 'column' }}>
-                        <Text style={{ fontSize: 15, color: '#8A94A6' }}>ViT</Text>
-                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>7.2 万旋钮</Text>
-                    </Box>
-                    <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial', lineHeight: 1, width: 130 }}>0.9935</Text>
-                    <Text style={{ fontSize: 17, color: '#4B5563', width: 440, lineHeight: 1.6 }}>
-                        第一眼就能全局对话，成绩最高，但训练要两倍时间。
-                    </Text>
-                </Box>
-                <Text style={{ fontSize: 16, color: '#8A94A6', lineHeight: 1.6, marginTop: 16 }}>
-                    分差只有千分之几——这也意味着下面几页的「追问」比这张成绩单更重要。
+            <Box style={{ width: 606, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/fgsm_curve.png' style={{ width: 600, height: 400, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 13, color: '#8A94A6', marginTop: 2 }}>
+                    横轴是改动幅度，纵轴是得分。曲线在很小的地方就垂直掉下去，然后贴着「瞎猜线」躺平。
                 </Text>
             </Box>
         </Box>
 
         <Box style={{ flex: 1 }} />
 
-        <Text style={{ fontSize: 14, color: '#8A94A6' }}>为什么把样例图放这一页：只看分数会以为「都差不多」，看到具体错例才知道差在哪。</Text>
+        <Box style={{ background: '#FDF1EF', padding: 14, borderLeft: '3px solid #B93A2B' }}>
+            <Text style={{ fontSize: 18, color: '#1F2430' }}>
+                所以「准确率 99%」这句话必须补一句「在没被动过的图上」。<span style={{ fontWeight: 'bold' }}>任何医疗 AI 的宣传，缺了这句就是不完整。</span>
+            </Text>
+        </Box>
+
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 8 }}>为什么主动做这一步：汇报里最容易被打回的一句就是「你这个 99% 到底有多可靠」。</Text>
     </Box>
 
     <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>

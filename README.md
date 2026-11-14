@@ -28,6 +28,7 @@
 | `docs/*.md` | `REPORT.md`（实验报告：结构对照 + 超参对比 + 显著性 + test + 局限）、`LOG.md`（实验日志）、`PITFALLS.md`（踩坑清单）、`REVIEW.md`（学习复盘 + 章节映射表）为署名文档；`S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿；`REHEARSAL.md` 为 15 分钟答辩预演稿（计时脚本 + Demo 操作 + 问答演练） |
 | `MedMNIST调参实验室_中期验收汇报/` | 答辩 deck 第一版（15 页，按本页大纲的流程顺序）；同目录 `_v1.pptx` 为归档副本 |
 | `MedMNIST调参实验室_汇报_v2/` | 答辩 deck 第二版（15 页，按「做了什么 / 为什么 / 结果 / 收获」重排，9 页带图） |
+| `MedMNIST调参实验室_汇报_v3/` | 答辩 deck 第三版（16 页，在 v2 基础上加一页技术路线图；矢量源 `docs/pipeline_roadmap.svg`） |
 | `requirements.txt` | 钉死 numpy 1.x ABI 兼容组合，防止依赖冲突复发 |
 | `notebooks/demo.ipynb` | 单图推理演示（需先有本地训练出的权重） |
 

@@ -1,0 +1,59 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果二：换结构，比拧旋钮管用</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>09 / 16</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 22, paddingBottom: 56 }}>
+        <Text style={{ fontSize: 20, color: '#4B5563', lineHeight: 1.6 }}>
+            把三种模型的可调旋钮数<b>强制定成一样</b>（约 1.9 万和 7.2 万两档），各跑三个种子。这样比出来才不是「谁旋钮多谁赢」。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 32, marginTop: 14 }}>
+            <Box style={{ width: 556, display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>① CNN 一直垫底，而且加参数救不回来</Text>
+                    <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 2 }}>
+                        两档都比别人低 0.005–0.008；7.2 万那档它旋钮最多，反而最差。
+                    </Text>
+                </Box>
+                <Box style={{ height: 1, background: '#E5E9F0' }} />
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>② ViT 与 MLP 打平</Text>
+                    <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 2 }}>
+                        1.9 万档差 0.00008，7.2 万档差 0.00085——都小于换个种子的波动。硬说「ViT 更好」站不住。
+                    </Text>
+                </Box>
+                <Box style={{ height: 1, background: '#E5E9F0' }} />
+                <Box style={{ display: 'flex', flexDirection: 'column' }}>
+                    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>③ 旋钮数在 1.9 万就够用了</Text>
+                    <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 2 }}>
+                        1.9 万旋钮的 MLP 得到 0.9922，7.2 万旋钮的 ViT 是 0.9935；多 5 万多个旋钮只换来 0.0013。
+                    </Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 580, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/capacity_curve.png' style={{ width: 570, height: 342, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 13, color: '#8A94A6', marginTop: 2 }}>
+                    横轴是旋钮数量（越右越大），纵轴是得分。红色 CNN 始终在最下面，蓝 MLP 与绿 ViT 几乎叠在一起。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ background: '#EDF3FF', padding: 14 }}>
+            <Text style={{ fontSize: 18, color: '#1F2430' }}>
+                所以真正的分水岭是「<Text style={{ fontWeight: 'bold' }}>能不能第一眼看到整幅图</Text>」，不是「用不用注意力」。这也是我在这一轮里推翻自己的地方。
+            </Text>
+        </Box>
+
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 8 }}>为什么要把旋钮数对齐：上一版汇报说「ViT 最优」，但三组旋钮数其实差着 3 万，评委一问就露。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>09 / 16</Text>
+    </Box>
+</Slide>
