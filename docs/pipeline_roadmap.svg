@@ -1,3 +1,32 @@
+<!--
+=====================================================================
+技术路线图 · 可手动编辑的矢量源
+---------------------------------------------------------------------
+画布      1280 × 620（viewBox 同尺寸，缩放不失真）
+字体      思源黑体，缺失时回退 微软雅黑 / Arial
+配色      主蓝 #1E4FA8   中蓝 #3D7BD9   浅蓝底 #EDF3FF
+          深墨 #1F2430   正文灰 #4B5563   警示红 #B93A2B   红底 #FDF1EF
+          卡片底 #F7F9FC   描边 #D9E2F0   分隔线 #E5E9F0
+改颜色    直接全局替换上面的十六进制值即可（例如把 #1E4FA8 换成学校主色）
+
+区域坐标（改内容时按这个范围找）
+  左栏 x 96–806
+    ① 数据   y 6–110      ② 模型   y 124–242
+    ③ 实验   y 256–374    ④ 评估   y 388–492
+    val 回路  x 74 竖线，从 y470 上到 y312
+  右栏 x 848–1240
+    ⑤ 追问   y 6–318      ⑥ 交付   y 332–488
+    三条纪律 y 508–608
+
+改完刷新 PNG（2 倍图，供 PPT 使用）
+  python -c "import io;s=io.open('docs/pipeline_roadmap.svg',encoding='utf-8').read().replace('width=\"1280\" height=\"620\"','width=\"2560\" height=\"1240\"');io.open('.workbuddy/render/roadmap.html','w',encoding='utf-8').write('<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>html,body{margin:0;background:#fff}</style></head><body>'+s+'</body></html>')"
+  "C:/Program Files/Google/Chrome/Application/chrome.exe" --headless=new --disable-gpu --hide-scrollbars --window-size=2560,1240 --screenshot="C://Users//Zelvia//DeskBox//NOW_11//深度学习大作业1//figures//pipeline_roadmap.png" "file:///C:/Users/Zelvia/DeskBox/NOW_11/深度学习大作业1/.workbuddy/render/roadmap.html"
+  （截图路径必须写绝对路径，否则 Chrome 会报“系统找不到指定的路径”）
+
+说明      图中所有文字都是真文本（不是转曲），可以直接改字、改数字；
+          箭头用 marker 定义在 <defs> 里，改线宽/颜色只需改 marker 的 fill。
+=====================================================================
+-->
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="620" viewBox="0 0 1280 620" font-family="'Source Han Sans SC','Microsoft YaHei',Arial,sans-serif">
   <defs>
     <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
