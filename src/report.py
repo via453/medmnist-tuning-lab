@@ -37,7 +37,7 @@ def plot_roc(labels, probs, out_dir):
     ax.grid(alpha=0.3)
     fig.tight_layout()
     p = os.path.join(out_dir, "roc.png")
-    fig.savefig(p, dpi=140)
+    fig.savefig(p, dpi=160)
     plt.close(fig)
     return p, float(roc_auc)
 
@@ -60,7 +60,7 @@ def plot_confusion(labels, probs, out_dir):
     fig.colorbar(im, ax=ax, shrink=0.8)
     fig.tight_layout()
     p = os.path.join(out_dir, "confusion_matrix.png")
-    fig.savefig(p, dpi=140)
+    fig.savefig(p, dpi=160)
     plt.close(fig)
     return p, cm.tolist()
 
@@ -81,29 +81,33 @@ def plot_samples(model, loader, device, out_dir, n=16):
     fig.suptitle("Predictions on 16 samples (green=correct, red=wrong)")
     fig.tight_layout()
     p = os.path.join(out_dir, "samples.png")
-    fig.savefig(p, dpi=140)
+    fig.savefig(p, dpi=160)
     plt.close(fig)
     return p
 
 
 def plot_loss_curves(history_path, out_dir):
+    plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "DejaVu Sans"]
+    plt.rcParams["axes.unicode_minus"] = False
     if not history_path or not os.path.isfile(history_path):
         return None
     with open(history_path, "r", encoding="utf-8") as f:
         hist = json.load(f)
     ep = [h["epoch"] for h in hist]
-    fig, ax1 = plt.subplots(figsize=(5.6, 3.8))
-    ax1.plot(ep, [h["train_loss"] for h in hist], color="#2f6feb", label="train loss")
-    ax1.set_xlabel("epoch")
-    ax1.set_ylabel("loss", color="#2f6feb")
+    fig, ax1 = plt.subplots(figsize=(5.8, 3.9))
+    ax1.plot(ep, [h["train_loss"] for h in hist], color="#2f6feb", label="训练误差")
+    ax1.set_xlabel("训练轮次", fontsize=12)
+    ax1.set_ylabel("训练误差", color="#2f6feb", fontsize=12)
     ax2 = ax1.twinx()
-    ax2.plot(ep, [h["val_auc"] for h in hist], color="#0f7b6c", label="val AUC")
-    ax2.set_ylabel("val AUC", color="#0f7b6c")
-    ax1.set_title("Training loss and validation AUC")
+    ax2.plot(ep, [h["val_auc"] for h in hist], color="#0f7b6c", label="验证集 AUC")
+    ax2.set_ylabel("验证集 AUC", color="#0f7b6c", fontsize=12)
+    ax1.set_title("训练误差一路降，验证成绩先升后平", fontsize=13, fontweight="bold")
+    ax1.tick_params(labelsize=11)
+    ax2.tick_params(labelsize=11)
     ax1.grid(alpha=0.3)
     fig.tight_layout()
     p = os.path.join(out_dir, "loss_curves.png")
-    fig.savefig(p, dpi=140)
+    fig.savefig(p, dpi=160)
     plt.close(fig)
     return p
 

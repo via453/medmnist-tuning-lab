@@ -14,6 +14,10 @@ import sys
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+# 图件统一用中文字体，避免 PPT 里全是英文轴标（缺字体时自动回退 SimHei）
+plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "DejaVu Sans"]
+plt.rcParams["axes.unicode_minus"] = False
 import numpy as np
 import pandas as pd
 
@@ -36,55 +40,71 @@ def read_runs(path):
 
 
 def plot_sensitivity(df, out_dir):
+    """超参敏感性：每个超参的极差（条形）与均值（点），按极差从大到小排。"""
+    NAMES = {
+        "lr": "学习率", "optimizer": "优化器", "batch_size": "批大小",
+        "weight_decay": "权重衰减", "dropout": "丢弃率", "use_bn": "是否用 BN",
+        "activation": "激活函数", "pooling": "池化方式", "scheduler": "学习率排程",
+        "conv_width": "模型宽度", "augment": "数据增强", "class_weight": "类别权重",
+    }
     d = df[df["changed_key"].notna() & (df["changed_key"] != "")] \
         if "changed_key" in df.columns else pd.DataFrame()
+    d = d[d["changed_key"] != "base"]
     if d.empty:
         return False
     groups = d.groupby("changed_key")["val_auc"]
-    keys = list(groups.groups.keys())
-    lows = [float(groups.get_group(k).min()) for k in keys]
-    highs = [float(groups.get_group(k).max()) for k in keys]
-    means = [float(groups.get_group(k).mean()) for k in keys]
+    stat = []
+    for k, g in groups:
+        stat.append((k, float(g.min()), float(g.max()), float(g.mean())))
+    stat.sort(key=lambda r: r[2] - r[1])          # 极差小的在下，大的在上
 
-    fig, ax = plt.subplots(figsize=(8, max(3, 0.45 * len(keys) + 1)))
-    y = np.arange(len(keys))
+    labels = ["%s（%s）" % (NAMES.get(k, k), k) for k, _, _, _ in stat]
+    lows = [r[1] for r in stat]
+    highs = [r[2] for r in stat]
+    means = [r[3] for r in stat]
+
+    fig, ax = plt.subplots(figsize=(8.4, 0.52 * len(stat) + 1.4))
+    y = np.arange(len(stat))
     ax.barh(y, [h - l for l, h in zip(lows, highs)], left=lows,
             color="#b5d4f4", edgecolor="#378add", height=0.55)
-    ax.scatter(means, y, color="#185fa5", zorder=3, s=28)
-    ax.set_yticks(y, keys)
-    ax.set_xlabel("val AUC (bar = min~max, dot = mean)")
-    ax.set_title("Hyperparameter sensitivity")
+    ax.scatter(means, y, color="#185fa5", zorder=3, s=34)
+    ax.set_yticks(y, labels, fontsize=12)
+    ax.tick_params(axis="x", labelsize=11)
+    ax.set_xlabel("验证集 AUC（条形=最低到最高，点=均值）", fontsize=12)
+    ax.set_title("每个超参改一改，成绩能晃多少", fontsize=14, fontweight="bold")
     ax.grid(axis="x", alpha=0.3)
     fig.tight_layout()
     p = os.path.join(out_dir, "hp_sensitivity.png")
-    fig.savefig(p, dpi=140)
+    fig.savefig(p, dpi=160)
     plt.close(fig)
     print("written:", p)
     return True
 
 
 def plot_before_after(df, out_dir):
+    """base 与最优配置的对比；多 seed 时带误差棒。"""
     if "changed_key" not in df.columns:
         return False
     base = df[df["changed_key"] == "base"]["val_auc"]
     rest = df[(df["changed_key"] != "base") & df["changed_key"].notna()]["val_auc"]
     if len(base) == 0 or len(rest) == 0:
         return False
-    labels = ["base", "best-so-far"]
+    labels = ["原来（宽度 32）", "加大宽度（64）"]
     means = [float(base.mean()), float(rest.max())]
     errs = [float(base.std(ddof=0)), 0.0]
-    fig, ax = plt.subplots(figsize=(5, 3.4))
+    fig, ax = plt.subplots(figsize=(5.2, 3.6))
     ax.bar(labels, means, yerr=errs, capsize=6,
            color=["#b5d4f4", "#9fe1cb"], edgecolor="#185fa5")
     for i, v in enumerate(means):
-        ax.text(i, v, "%.4f" % v, ha="center", va="bottom", fontsize=10)
+        ax.text(i, v, "%.4f" % v, ha="center", va="bottom", fontsize=13, fontweight="bold")
     ax.set_ylim(max(0.0, min(means) - 0.08), min(1.0, max(means) + 0.08))
-    ax.set_ylabel("val AUC")
-    ax.set_title("Baseline vs best configuration")
-    ax.grid(axis="y", alpha=0.3)
+    ax.set_ylabel("验证集 AUC", fontsize=12)
+    ax.set_title("两种设置的验证集成绩", fontsize=14, fontweight="bold")
+    ax.tick_params(labelsize=12)
+    ax.grid(axis="y", alpha=0.25)
     fig.tight_layout()
     p = os.path.join(out_dir, "before_after.png")
-    fig.savefig(p, dpi=140)
+    fig.savefig(p, dpi=160)
     plt.close(fig)
     print("written:", p)
     return True
