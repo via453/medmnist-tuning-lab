@@ -1,0 +1,79 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>我做了什么：五步，七十九次训练</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>03 / 15</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 24, paddingBottom: 56 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 36 }}>
+            <Box style={{ width: 690, display: 'flex', flexDirection: 'column' }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingBottom: 14, borderBottom: '1px solid #E5E9F0' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1E4FA8', width: 34 }}>01</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 176 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>分数据</Text>
+                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>三份卷子，互不重叠</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4B5563', width: 470 }}>练习册 4,708 张 · 模拟考 524 张 · 高考 624 张</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14, paddingBottom: 14, borderBottom: '1px solid #E5E9F0' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1E4FA8', width: 34 }}>02</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 176 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>写模型</Text>
+                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>三种看图方式</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4B5563', width: 470 }}>MLP 一次看全图 · CNN 拿小窗口逐块看 · ViT 切块互相问</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14, paddingBottom: 14, borderBottom: '1px solid #E5E9F0' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1E4FA8', width: 34 }}>03</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 176 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>扫参数</Text>
+                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>一次只改一个</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4B5563', width: 470 }}>33 组单因子对照，找出哪个旋钮真正影响成绩</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14, paddingBottom: 14, borderBottom: '1px solid #E5E9F0' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#1E4FA8', width: 34 }}>04</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 176 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>验稳定</Text>
+                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>换三个随机种子</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4B5563', width: 470 }}>同一设置跑三遍，看提升是真的还是运气</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14 }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#B93A2B', width: 34 }}>05</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 176 }}>
+                        <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>考试一次</Text>
+                        <Text style={{ fontSize: 14, color: '#8A94A6' }}>考完不再改</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4B5563', width: 470 }}>624 张测试片评一次，写进结果表就封存</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 1, background: '#E5E9F0' }} />
+
+            <Box style={{ width: 405, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 52, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>79</Text>
+                    <Text style={{ fontSize: 15, color: '#4B5563', lineHeight: 1.4 }}>次训练<br />含失败组</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 52, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>46</Text>
+                    <Text style={{ fontSize: 15, color: '#4B5563', lineHeight: 1.4 }}>组对照<br />33 扫描 + 4 网格 + 9 复跑</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 52, fontWeight: 'bold', color: '#B93A2B', lineHeight: 1 }}>1</Text>
+                    <Text style={{ fontSize: 15, color: '#4B5563', lineHeight: 1.4 }}>次测试<br />之后不再碰</Text>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>为什么把「五步」而不是「跑了哪些脚本」放在第一页：评委关心的是判断顺序，不是命令清单。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>03 / 15</Text>
+    </Box>
+</Slide>

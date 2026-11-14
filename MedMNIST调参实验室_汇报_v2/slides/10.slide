@@ -1,0 +1,51 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果四：分数高，不等于靠得住</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>10 / 15</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 22, paddingBottom: 56 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 32 }}>
+            <Box style={{ width: 530, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 20, color: '#4B5563', lineHeight: 1.6 }}>
+                    做法很朴素：给每个像素<span style={{ fontWeight: 'bold' }}>朝着「让它判错」的方向</span>轻轻推一点，推的幅度从 0 慢慢加到很大，看成绩怎么掉。
+                </Text>
+                <Box style={{ height: 1, background: '#E5E9F0', marginTop: 16, marginBottom: 16 }} />
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 48, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial', lineHeight: 1 }}>0.9890</Text>
+                    <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.4 }}>原样图上的得分</Text>
+                </Box>
+                <Text style={{ fontSize: 22, color: '#8A94A6', marginTop: 6 }}>↓</Text>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12, marginTop: 2 }}>
+                    <Text style={{ fontSize: 48, fontWeight: 'bold', color: '#B93A2B', fontFamily: 'Arial', lineHeight: 1 }}>0.4501</Text>
+                    <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.4 }}>只改 1.5% 的量程之后</Text>
+                </Box>
+                <Text style={{ fontSize: 18, color: '#4B5563', lineHeight: 1.6, marginTop: 16 }}>
+                    0.45 不是「变差」，是<span style={{ fontWeight: 'bold' }}>反着判</span>——比扔硬币还差。再推多一点，它干脆把所有片子都判成正常。
+                </Text>
+            </Box>
+
+            <Box style={{ width: 606, display: 'flex', flexDirection: 'column' }}>
+                <Image src='assets/fgsm_curve.png' style={{ width: 600, height: 400, objectFit: 'contain' }} />
+                <Text style={{ fontSize: 13, color: '#8A94A6', marginTop: 2 }}>
+                    横轴是改动幅度，纵轴是得分。曲线在很小的地方就垂直掉下去，然后贴着「瞎猜线」躺平。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ background: '#FDF1EF', padding: 14, borderLeft: '3px solid #B93A2B' }}>
+            <Text style={{ fontSize: 18, color: '#1F2430' }}>
+                所以「准确率 99%」这句话必须补一句「在没被动过的图上」。<span style={{ fontWeight: 'bold' }}>任何医疗 AI 的宣传，缺了这句就是不完整。</span>
+            </Text>
+        </Box>
+
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 8 }}>为什么主动做这一步：汇报里最容易被打回的一句就是「你这个 99% 到底有多可靠」。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>10 / 15</Text>
+    </Box>
+</Slide>

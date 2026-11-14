@@ -26,6 +26,8 @@
 | `docs/pipeline.svg` | 项目流程图 / 框图，可直接用于 README 与 PPT |
 | `docs/EXTENSIONS.md` | **延伸实验**：结构谱系（ViT / MLP / CNN 同参数量对照）、FGSM 鲁棒性、Grad-CAM、剪枝与蒸馏、val→test 落差拆解、对抗训练、容量对齐修正 |
 | `docs/*.md` | `REPORT.md`（实验报告：结构对照 + 超参对比 + 显著性 + test + 局限）、`LOG.md`（实验日志）、`PITFALLS.md`（踩坑清单）、`REVIEW.md`（学习复盘 + 章节映射表）为署名文档；`S1_ANALYSIS.md` / `FINAL_ANALYSIS.md` 为自动整理的数据摘要（参考用，非结论）；`PPT_OUTLINE.md` / `DEFENSE_QA.md` 为汇报与答辩建议稿；`REHEARSAL.md` 为 15 分钟答辩预演稿（计时脚本 + Demo 操作 + 问答演练） |
+| `MedMNIST调参实验室_中期验收汇报/` | 答辩 deck 第一版（15 页，按本页大纲的流程顺序）；同目录 `_v1.pptx` 为归档副本 |
+| `MedMNIST调参实验室_汇报_v2/` | 答辩 deck 第二版（15 页，按「做了什么 / 为什么 / 结果 / 收获」重排，9 页带图） |
 | `requirements.txt` | 钉死 numpy 1.x ABI 兼容组合，防止依赖冲突复发 |
 | `notebooks/demo.ipynb` | 单图推理演示（需先有本地训练出的权重） |
 

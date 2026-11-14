@@ -1,0 +1,47 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果六：它到底在看片子的哪里</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>12 / 15</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 20, paddingBottom: 56 }}>
+        <Text style={{ fontSize: 19, color: '#4B5563', lineHeight: 1.6 }}>
+            把模型最后一层的「关注度」画成热力图：越亮的地方，它判这一张时越依赖。上面是原片，下面是热区叠加。
+        </Text>
+
+        <Image src='assets/gradcam.png' style={{ width: 1060, height: 312, objectFit: 'contain', marginTop: 6 }} />
+        <Text style={{ fontSize: 13, color: '#8A94A6' }}>
+            同一个模型在 8 张验证集图片上的注意力分布；越红表示越依赖该区域。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 22, marginTop: 18 }}>
+            <Box style={{ width: 374, display: 'flex', flexDirection: 'column', borderTop: '2px solid #1E4FA8', paddingTop: 8 }}>
+                <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial' }}>0.78 倍</Text>
+                <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.55 }}>
+                    边缘区域的关注度 ÷ 边缘面积。小于 1 说明它没靠黑边作弊。
+                </Text>
+            </Box>
+            <Box style={{ width: 374, display: 'flex', flexDirection: 'column', borderTop: '2px solid #1E4FA8', paddingTop: 8 }}>
+                <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial' }}>偏中央</Text>
+                <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.55 }}>
+                    热区落在两侧肺野与纵隔附近，而不是片子上的字母或标记。
+                </Text>
+            </Box>
+            <Box style={{ width: 374, display: 'flex', flexDirection: 'column', borderTop: '2px solid #B93A2B', paddingTop: 8 }}>
+                <Text style={{ fontSize: 26, fontWeight: 'bold', color: '#B93A2B' }}>判错的更散</Text>
+                <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.55 }}>
+                    错例的热区更分散，说明它没找到明确证据就下了判断。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>为什么必须做这一步：只报分数，评委不知道模型是学会了看肺，还是学会了看片子上的标记。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>12 / 15</Text>
+    </Box>
+</Slide>

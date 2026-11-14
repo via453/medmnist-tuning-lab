@@ -1,0 +1,89 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>为什么要写三种模型：只为回答一个问题</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>05 / 15</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 22, paddingBottom: 56 }}>
+        <Text style={{ fontSize: 20, color: '#4B5563', lineHeight: 1.6 }}>
+            同一个任务，三种「看图的姿势」。它们真正的差别只有一个：<Text style={{ fontWeight: 'bold', color: '#1F2430' }}>信息在多大范围内被混到一起</Text>。
+        </Text>
+
+        <svg width={1168} height={252} viewBox='0 0 1168 252' style={{ marginTop: 10 }}>
+            <g>
+                <text x='0' y='22' fontSize='17' fontWeight='bold' fill='#1F2430' fontFamily='Arial'>① 一次看全图（MLP）</text>
+                <rect x='0' y='38' width='120' height='120' fill='#FFFFFF' stroke='#1F2430' strokeWidth='1.5' />
+                <line x1='0' y1='78' x2='120' y2='78' stroke='#EEF1F6' />
+                <line x1='0' y1='118' x2='120' y2='118' stroke='#EEF1F6' />
+                <line x1='40' y1='38' x2='40' y2='158' stroke='#EEF1F6' />
+                <line x1='80' y1='38' x2='80' y2='158' stroke='#EEF1F6' />
+                <path d='M128 98 L196 98' stroke='#3D7BD9' strokeWidth='2' fill='none' />
+                <path d='M196 98 l-9 -6 v12 z' fill='#3D7BD9' />
+                <circle cx='222' cy='80' r='9' fill='#EDF3FF' stroke='#1E4FA8' />
+                <circle cx='222' cy='116' r='9' fill='#EDF3FF' stroke='#1E4FA8' />
+                <path d='M196 98 L212 80 M196 98 L212 116' stroke='#C9D8F2' />
+                <text x='0' y='196' fontSize='16' fill='#4B5563'>摊平成一根长条，全部连起来</text>
+                <text x='0' y='224' fontSize='16' fill='#4B5563'>能看清「整体有多白」</text>
+            </g>
+
+            <g transform='translate(400,0)'>
+                <text x='0' y='22' fontSize='17' fontWeight='bold' fill='#1F2430' fontFamily='Arial'>② 小窗口逐块看（CNN）</text>
+                <rect x='0' y='38' width='120' height='120' fill='#FFFFFF' stroke='#1F2430' strokeWidth='1.5' />
+                <rect x='40' y='78' width='40' height='40' fill='#EDF3FF' stroke='#B93A2B' strokeWidth='2' />
+                <text x='170' y='102' fontSize='16' fill='#B93A2B'>只看 3×3</text>
+                <path d='M128 128 L196 128' stroke='#3D7BD9' strokeWidth='2' fill='none' />
+                <path d='M196 128 l-9 -6 v12 z' fill='#3D7BD9' />
+                <rect x='214' y='100' width='52' height='52' fill='#EDF3FF' stroke='#1E4FA8' />
+                <text x='0' y='196' fontSize='16' fill='#4B5563'>两层叠起来只看得到 9×9</text>
+                <text x='0' y='224' fontSize='16' fill='#4B5563'>不到整幅图的九分之一</text>
+            </g>
+
+            <g transform='translate(800,0)'>
+                <text x='0' y='22' fontSize='17' fontWeight='bold' fill='#1F2430' fontFamily='Arial'>③ 切块互相问（ViT）</text>
+                <rect x='0' y='38' width='120' height='120' fill='#FFFFFF' stroke='#1F2430' strokeWidth='1.5' />
+                <g stroke='#E5E9F0'>
+                    <line x1='40' y1='38' x2='40' y2='158' /><line x1='80' y1='38' x2='80' y2='158' />
+                    <line x1='0' y1='78' x2='120' y2='78' /><line x1='0' y1='118' x2='120' y2='118' />
+                </g>
+                <rect x='40' y='78' width='40' height='40' fill='#EDF3FF' stroke='#1E4FA8' strokeWidth='2' />
+                <g stroke='#3D7BD9' strokeWidth='1' opacity='0.55'>
+                    <line x1='60' y1='98' x2='20' y2='58' /><line x1='60' y1='98' x2='60' y2='58' />
+                    <line x1='60' y1='98' x2='100' y2='58' /><line x1='60' y1='98' x2='20' y2='138' />
+                    <line x1='60' y1='98' x2='100' y2='138' />
+                </g>
+                <text x='0' y='196' fontSize='16' fill='#4B5563'>切成 49 块，每块直接问所有块</text>
+                <text x='0' y='224' fontSize='16' fill='#4B5563'>第一眼就能看到全图关系</text>
+            </g>
+        </svg>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 22, marginTop: 8 }}>
+            <Box style={{ width: 374, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>MLP：对照组的下限</Text>
+                <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 4 }}>
+                    它完全不懂图像，如果它都能考好，说明任务的信息量并不高。
+                </Text>
+            </Box>
+            <Box style={{ width: 374, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>CNN：主实验的载体</Text>
+                <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 4 }}>
+                    33 组调参全在它身上做，因为它是课程笔记里的「基础预测模型」。
+                </Text>
+            </Box>
+            <Box style={{ width: 374, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#1F2430' }}>ViT：用来做对照</Text>
+                <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 4 }}>
+                    它代表「第一眼就能全局对话」这一路，检验 CNN 的视野短板到底值多少分。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>为什么不用 ResNet 或预训练模型：那会把「结构差异」和「外部数据」混在一起，结论就不干净了。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>05 / 15</Text>
+    </Box>
+</Slide>

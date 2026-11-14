@@ -1,0 +1,56 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>为什么先把数据切成三份</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>04 / 15</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 28, paddingBottom: 56 }}>
+        <Text style={{ fontSize: 20, color: '#4B5563', lineHeight: 1.6 }}>
+            因为「成绩」这个词如果没有限定条件，就没有意义。三份数据各管一件事，谁都不能兼任。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 22, marginTop: 26 }}>
+            <Box style={{ width: 374, height: 268, border: '1px solid #E5E9F0', borderTop: '3px solid #1E4FA8', padding: 22, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 15, color: '#8A94A6' }}>练习册</Text>
+                <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>4,708</Text>
+                <Text style={{ fontSize: 18, color: '#1F2430', fontWeight: 'bold', marginTop: 8 }}>只用来学</Text>
+                <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 6 }}>
+                    每次训练都在这里反复看，看到能背下来的程度。
+                </Text>
+            </Box>
+
+            <Box style={{ width: 374, height: 268, border: '1px solid #E5E9F0', borderTop: '3px solid #3D7BD9', padding: 22, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 15, color: '#8A94A6' }}>模拟考</Text>
+                <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#3D7BD9', lineHeight: 1.2 }}>524</Text>
+                <Text style={{ fontSize: 18, color: '#1F2430', fontWeight: 'bold', marginTop: 8 }}>只用来挑方法</Text>
+                <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 6 }}>
+                    33 组对照全部只看这一份；它决定「用哪套设置」。
+                </Text>
+            </Box>
+
+            <Box style={{ width: 374, height: 268, border: '1px solid #E5E9F0', borderTop: '3px solid #B93A2B', padding: 22, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 15, color: '#8A94A6' }}>高考</Text>
+                <Text style={{ fontSize: 54, fontWeight: 'bold', color: '#B93A2B', lineHeight: 1.2 }}>624</Text>
+                <Text style={{ fontSize: 18, color: '#1F2430', fontWeight: 'bold', marginTop: 8 }}>只考一次</Text>
+                <Text style={{ fontSize: 17, color: '#4B5563', lineHeight: 1.6, marginTop: 6 }}>
+                    考完写进结果表就封存，不回头改设置再考第二次。
+                </Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ background: '#EDF3FF', padding: 14, display: 'flex', alignItems: 'center' }}>
+            <Text style={{ fontSize: 18, color: '#1F2430' }}>
+                如果只分两份、又拿同一份挑方法又报成绩，等于自己给自己打分——<Text style={{ fontWeight: 'bold' }}>这是最容易被忽略、也最致命的一个漏洞。</Text>
+            </Text>
+        </Box>
+
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 10 }}>为什么用「练习册 / 模拟考 / 高考」这三个词：讲「验证集 / 测试集」听众要换算一次，讲考试不需要。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>04 / 15</Text>
+    </Box>
+</Slide>

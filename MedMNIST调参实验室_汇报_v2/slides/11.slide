@@ -1,0 +1,43 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Source Han Sans SC","Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 78, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 56, paddingRight: 56, borderBottom: '2px solid #1E4FA8' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1F2430' }}>结果五：把这种脏图掺进练习册，能救回八成</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>11 / 15</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 56, paddingRight: 56, paddingTop: 20, paddingBottom: 56 }}>
+        <Text style={{ fontSize: 19, color: '#4B5563', lineHeight: 1.6 }}>
+            训练时每个批次抽一半样本先「推歪」，再和干净样本一起学。相当于练习册里掺进刁钻题，考试还是考原题。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 6 }}>
+            <Image src='assets/fgsm_adv_compare.png' style={{ width: 980, height: 380, objectFit: 'contain' }} />
+        </Box>
+        <Text style={{ fontSize: 13, color: '#8A94A6' }}>
+            左图看得分，右图看准确率。红线是原来的模型，蓝线是掺过脏图的模型；灰虚线是训练时用的那个「推歪幅度」。
+        </Text>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 20 }}>
+            <Box style={{ width: 372, display: 'flex', flexDirection: 'column', borderTop: '2px solid #1E4FA8', paddingTop: 8 }}>
+                <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial' }}>0.47 → 0.87</Text>
+                <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.5 }}>同样推歪幅度下，得分被拉回来</Text>
+            </Box>
+            <Box style={{ width: 372, display: 'flex', flexDirection: 'column', borderTop: '2px solid #1E4FA8', paddingTop: 8 }}>
+                <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#B93A2B', fontFamily: 'Arial' }}>−0.0081</Text>
+                <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.5 }}>代价：原样图上的得分变低</Text>
+            </Box>
+            <Box style={{ width: 372, display: 'flex', flexDirection: 'column', borderTop: '2px solid #1E4FA8', paddingTop: 8 }}>
+                <Text style={{ fontSize: 34, fontWeight: 'bold', color: '#1E4FA8', fontFamily: 'Arial' }}>到 0.08 为止</Text>
+                <Text style={{ fontSize: 16, color: '#4B5563', lineHeight: 1.5 }}>保护范围的上限，再大就一起崩</Text>
+            </Box>
+        </Box>
+
+        <Text style={{ fontSize: 14, color: '#8A94A6', marginTop: 10 }}>为什么这一页值得讲：它把上一页的「坏消息」变成了一个可量化的取舍，而不是停在「模型很脆」。</Text>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 676, left: 56, width: 1168, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>MedMNIST 调参实验室 · 汇报 v2</Text>
+        <Text style={{ fontSize: 14, color: '#8A94A6' }}>11 / 15</Text>
+    </Box>
+</Slide>
