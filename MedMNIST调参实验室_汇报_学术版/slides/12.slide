@@ -1,0 +1,47 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>可解释性：模型关注的是肺野而非边缘</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>12 · Explainability</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            以最后一层卷积的梯度为权重，对特征图加权后上采样回 28×28，得到判为肺炎时的关注度分布（Grad-CAM，torch hook 实现）。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 8 }}>
+            <Image src='assets/gradcam.png' style={{ width: 1060, height: 312, objectFit: 'contain' }} />
+        </Box>
+        <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 2 }}>
+            图：figures/gradcam.png。上排为验证集原图，下排为叠加热区；越亮表示该区域对判断贡献越大。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 24, marginTop: 18 }}>
+            <Box style={{ width: 370, borderTop: '2px solid #1E4FA8', paddingTop: 8, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>0.382</Text>
+                <Text style={{ fontSize: 17, color: '#4A5568', lineHeight: 1.5 }}>边框（4 像素环）响应占比</Text>
+            </Box>
+            <Box style={{ width: 370, borderTop: '2px solid #1E4FA8', paddingTop: 8, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>0.490</Text>
+                <Text style={{ fontSize: 17, color: '#4A5568', lineHeight: 1.5 }}>边框面积占比（随机基线）</Text>
+            </Box>
+            <Box style={{ width: 370, borderTop: '2px solid #D9534F', paddingTop: 8, display: 'flex', flexDirection: 'column' }}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#D9534F', lineHeight: 1.2 }}>0.78 ×</Text>
+                <Text style={{ fontSize: 17, color: '#4A5568', lineHeight: 1.5 }}>富集倍数（响应占比 / 面积占比），小于 1 表示注意力偏中央</Text>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                未发现依赖黑边或体位标记的证据；<span style={{ fontWeight: 'bold' }}>比例型指标必须与面积占比同时报告</span>，否则 0.382 会被误读。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>12 / 16</Text>
+    </Box>
+</Slide>

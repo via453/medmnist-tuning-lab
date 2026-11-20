@@ -1,0 +1,87 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>实验组织：五个阶段，七十九次训练</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>02 · What I Did</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            先固定口径，再比较结构，再拧旋钮，最后只评一次。顺序本身就是方法的一部分。
+        </Text>
+
+        <Box style={{ marginTop: 24, display: 'flex', flexDirection: 'row', gap: 32 }}>
+            <Box style={{ width: 676, display: 'flex', flexDirection: 'column' }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingBottom: 14, borderBottom: '1px solid #D6DCE5' }}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#1E4FA8', width: 36 }}>01</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 180 }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>划分数据</Text>
+                        <Text style={{ fontSize: 14, color: '#8B97A8' }}>train / val / test</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4A5568', width: 460 }}>4,708 / 524 / 624，互不重叠，不重切</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14, paddingBottom: 14, borderBottom: '1px solid #D6DCE5' }}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#1E4FA8', width: 36 }}>02</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 180 }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>实现三种结构</Text>
+                        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MLP / CNN / ViT</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4A5568', width: 460 }}>同一注册表、同一训练设置，参数量压到同一量级</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14, paddingBottom: 14, borderBottom: '1px solid #D6DCE5' }}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#1E4FA8', width: 36 }}>03</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 180 }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>单因子扫描</Text>
+                        <Text style={{ fontSize: 14, color: '#8B97A8' }}>33 组对照</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4A5568', width: 460 }}>每次只改一个超参，先拿到敏感性排序</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14, paddingBottom: 14, borderBottom: '1px solid #D6DCE5' }}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#1E4FA8', width: 36 }}>04</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 180 }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>三 seed 复跑</Text>
+                        <Text style={{ fontSize: 14, color: '#8B97A8' }}>9 组 × 3</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4A5568', width: 460 }}>判断提升是否大于随机波动</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', paddingTop: 14 }}>
+                    <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#D9534F', width: 36 }}>05</Text>
+                    <Box style={{ display: 'flex', flexDirection: 'column', width: 180 }}>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1A2230' }}>test 一次性评测</Text>
+                        <Text style={{ fontSize: 14, color: '#8B97A8' }}>624 张</Text>
+                    </Box>
+                    <Text style={{ fontSize: 18, color: '#4A5568', width: 460 }}>评完写入结果表并封存，不再调整设置</Text>
+                </Box>
+            </Box>
+
+            <Box style={{ width: 1, background: '#D6DCE5' }} />
+
+            <Box style={{ width: 419, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22 }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 56, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>79</Text>
+                    <Text style={{ fontSize: 15, color: '#4A5568', lineHeight: 1.4 }}>次训练<br />含失败组与延伸实验</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 56, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>46</Text>
+                    <Text style={{ fontSize: 15, color: '#4A5568', lineHeight: 1.4 }}>组对照<br />33 扫描 + 4 网格 + 9 复跑</Text>
+                </Box>
+                <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
+                    <Text style={{ fontSize: 56, fontWeight: 'bold', color: '#D9534F', lineHeight: 1 }}>1</Text>
+                    <Text style={{ fontSize: 15, color: '#4A5568', lineHeight: 1.4 }}>次测试<br />之后不再触碰</Text>
+                </Box>
+            </Box>
+        </Box>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                79 次训练里只有 1 次进入 test；<span style={{ fontWeight: 'bold' }}>其余 78 次都在 524 张验证集上完成</span>。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>02 / 16</Text>
+    </Box>
+</Slide>

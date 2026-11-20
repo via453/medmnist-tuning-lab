@@ -1,0 +1,32 @@
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+    <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
+        <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>技术路线：六段主干与六个追问</Text>
+        <Text style={{ fontSize: 16, color: '#C7D8F2' }}>03 · Roadmap</Text>
+    </Box>
+
+    <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 18, paddingBottom: 54 }}>
+        <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
+            左侧为数据到交付的主干，右侧为只评验证集的六组追问；蓝色虚线是验证集回路。
+        </Text>
+
+        <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 4 }}>
+            <Image src='assets/pipeline_roadmap.png' style={{ width: 1040, height: 504, objectFit: 'contain' }} />
+        </Box>
+        <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 2 }}>
+            图：docs/pipeline_roadmap.svg（矢量源），figures/pipeline_roadmap.png（2 倍位图）
+        </Text>
+
+        <Box style={{ flex: 1 }} />
+
+        <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
+            <Text style={{ fontSize: 20, color: '#1A2230' }}>
+                全篇各页都能在这张图里找到位置；<span style={{ fontWeight: 'bold' }}>三条纪律</span>（只评验证集、test 一次、失败组留痕）写在右下角。
+            </Text>
+        </Box>
+    </Box>
+
+    <Box style={{ position: 'absolute', top: 670, left: 60, width: 1160, display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>MedMNIST 医学影像分类调参实验室 · 中期验收</Text>
+        <Text style={{ fontSize: 14, color: '#8B97A8' }}>03 / 16</Text>
+    </Box>
+</Slide>
