@@ -6,28 +6,25 @@
 
     <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
         <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
-            以最后一层卷积的梯度为权重，对特征图加权后上采样回 28×28，得到判为肺炎时的关注度分布（Grad-CAM，torch hook 实现）。
+            以最后一层卷积的梯度为权重，对特征图加权后上采样回 28×28，得到判为肺炎时的关注度分布（Grad-CAM）。
         </Text>
 
         <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 8 }}>
-            <Image src='assets/gradcam.png' style={{ width: 1060, height: 312, objectFit: 'contain' }} />
+            <Image src='assets/gradcam.png' style={{ width: 880, height: 372, objectFit: 'contain' }} />
         </Box>
-        <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 2 }}>
-            图：figures/gradcam.png。上排为验证集原图，下排为叠加热区；越亮表示该区域对判断贡献越大。
-        </Text>
 
-        <Box style={{ display: 'flex', flexDirection: 'row', gap: 24, marginTop: 18 }}>
+        <Box style={{ display: 'flex', flexDirection: 'row', gap: 24, marginTop: 14 }}>
             <Box style={{ width: 370, borderTop: '2px solid #1E4FA8', paddingTop: 8, display: 'flex', flexDirection: 'column' }}>
-                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>0.382</Text>
-                <Text style={{ fontSize: 17, color: '#4A5568', lineHeight: 1.5 }}>边框（4 像素环）响应占比</Text>
+                <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>0.382</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.45 }}>边框（4 像素环）响应占比</Text>
             </Box>
             <Box style={{ width: 370, borderTop: '2px solid #1E4FA8', paddingTop: 8, display: 'flex', flexDirection: 'column' }}>
-                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>0.490</Text>
-                <Text style={{ fontSize: 17, color: '#4A5568', lineHeight: 1.5 }}>边框面积占比（随机基线）</Text>
+                <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1.2 }}>0.490</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.45 }}>边框面积占比（随机基线）</Text>
             </Box>
             <Box style={{ width: 370, borderTop: '2px solid #D9534F', paddingTop: 8, display: 'flex', flexDirection: 'column' }}>
-                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#D9534F', lineHeight: 1.2 }}>0.78 ×</Text>
-                <Text style={{ fontSize: 17, color: '#4A5568', lineHeight: 1.5 }}>富集倍数（响应占比 / 面积占比），小于 1 表示注意力偏中央</Text>
+                <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#D9534F', lineHeight: 1.2 }}>0.78 ×</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.45 }}>响应占比 ÷ 面积占比，小于 1 表示偏中央</Text>
             </Box>
         </Box>
 

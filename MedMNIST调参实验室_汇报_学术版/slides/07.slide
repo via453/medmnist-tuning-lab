@@ -35,9 +35,6 @@
                 ]}
             />
         </Box>
-        <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 4 }}>
-            数据：results/structure.csv；std 为样本标准差（ddof=1，n=3）
-        </Text>
 
         <Box style={{ marginTop: 18, display: 'flex', flexDirection: 'row', gap: 32 }}>
             <Box style={{ width: 540, display: 'flex', flexDirection: 'column' }}>

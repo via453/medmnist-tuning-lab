@@ -27,7 +27,7 @@
                     <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>③ 为什么是这套数据</Text>
                     <Text style={{ fontSize: 20, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
                         纯 CPU 十分钟能跑完一轮，4.7k 张足以做 30 组以上的对照；<br />
-                        代价是 val 与 test 来自不同来源，阳性率 74.2% → 62.5%，这个伏笔在第 13 页兑现。
+                        代价是 val 与 test 来自不同来源，阳性率 74.2% → 62.5%，第 13 页给出拆解。
                     </Text>
                 </Box>
             </Box>
@@ -37,7 +37,7 @@
             <Box style={{ width: 483, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 22 }}>
                 <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 14 }}>
                     <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>4,708</Text>
-                    <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.4 }}>train<br />训练与验证</Text>
+                    <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.4 }}>train<br />训练集</Text>
                 </Box>
                 <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 14 }}>
                     <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#1E4FA8', lineHeight: 1 }}>524</Text>

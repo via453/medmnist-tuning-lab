@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="430" viewBox="0 0 1280 430" font-family="Microsoft YaHei, Arial, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5B7AA8"/>
+    </marker>
+    <marker id="arD" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#3D7BD9"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1280" height="430" fill="#FFFFFF"/>
+
+  <!-- ① 数据 -->
+  <rect x="16" y="26" width="286" height="252" rx="4" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <rect x="16" y="26" width="286" height="42" rx="4" fill="#1E4FA8"/>
+  <text x="34" y="54" font-size="19" font-weight="bold" fill="#FFFFFF">① 数据 · PneumoniaMNIST</text>
+  <text x="34" y="96" font-size="16" fill="#1F2733">总量 5,856 张（28×28 单通道）</text>
+  <text x="34" y="128" font-size="16" fill="#1F2733">训练 4,708 · 验证 524</text>
+  <text x="34" y="160" font-size="16" font-weight="bold" fill="#B93A2B">测试 624 · 全程仅一次</text>
+  <text x="34" y="196" font-size="14" fill="#5A6474">划分沿用官方版本</text>
+  <text x="34" y="220" font-size="14" fill="#5A6474">不做重切、不做交叉验证</text>
+  <text x="34" y="244" font-size="14" fill="#5A6474">预处理：归一化至 [−1,1]</text>
+
+  <!-- 箭头 -->
+  <path d="M306 152 L330 152" stroke="#5B7AA8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ② 模型 -->
+  <rect x="334" y="26" width="286" height="252" rx="4" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <rect x="334" y="26" width="286" height="42" rx="4" fill="#1E4FA8"/>
+  <text x="352" y="54" font-size="19" font-weight="bold" fill="#FFFFFF">② 模型 · 三种结构</text>
+  <text x="352" y="96" font-size="16" fill="#1F2733">MLP　1.0 万参数</text>
+  <text x="352" y="122" font-size="13" fill="#5A6474">展平后全局连接</text>
+  <text x="352" y="152" font-size="16" font-weight="bold" fill="#1F2733">SmallCNN　7.5 万（主）</text>
+  <text x="352" y="178" font-size="13" fill="#5A6474">局部卷积，感受野 9×9</text>
+  <text x="352" y="208" font-size="16" fill="#1F2733">TinyViT　7.2 万</text>
+  <text x="352" y="234" font-size="13" fill="#5A6474">切块自注意力，首层全局</text>
+
+  <!-- 箭头 -->
+  <path d="M624 152 L648 152" stroke="#5B7AA8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ③ 实验 -->
+  <rect x="652" y="26" width="286" height="252" rx="4" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <rect x="652" y="26" width="286" height="42" rx="4" fill="#1E4FA8"/>
+  <text x="670" y="54" font-size="19" font-weight="bold" fill="#FFFFFF">③ 实验 · 79 次训练</text>
+  <text x="670" y="96" font-size="16" fill="#1F2733">S1　单因子扫描　33 组</text>
+  <text x="670" y="126" font-size="16" fill="#1F2733">S2　组合网格　　4 组</text>
+  <text x="670" y="156" font-size="16" fill="#1F2733">S3　三随机种子　9 组</text>
+  <text x="670" y="192" font-size="14" fill="#5A6474">补充：结构 6 · 容量 18</text>
+  <text x="670" y="216" font-size="14" fill="#5A6474">　　　对抗训练 6 · 剪枝蒸馏 12</text>
+  <text x="670" y="248" font-size="14" fill="#B93A2B">失败组全部保留在结果表</text>
+
+  <!-- 箭头 -->
+  <path d="M942 152 L966 152" stroke="#5B7AA8" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- ④ 评估 -->
+  <rect x="970" y="26" width="294" height="252" rx="4" fill="#F7F9FC" stroke="#D9E2F0"/>
+  <rect x="970" y="26" width="294" height="42" rx="4" fill="#1E4FA8"/>
+  <text x="988" y="54" font-size="19" font-weight="bold" fill="#FFFFFF">④ 评估 · 两次口径</text>
+  <text x="988" y="96" font-size="16" fill="#1F2733">验证集（524 张）</text>
+  <text x="988" y="124" font-size="17" font-weight="bold" fill="#1E4FA8">AUC 0.9890 · ACC 95.2%</text>
+  <text x="988" y="164" font-size="16" fill="#1F2733">测试集（624 张）</text>
+  <text x="988" y="192" font-size="17" font-weight="bold" fill="#B93A2B">AUC 0.9546 · ACC 83.5%</text>
+  <text x="988" y="228" font-size="14" fill="#5A6474">主指标 AUC，ACC / F1 为辅</text>
+  <text x="988" y="252" font-size="14" fill="#5A6474">落差来源另行拆解</text>
+
+  <!-- 回环：评估 → 实验 -->
+  <path d="M1117 278 L1117 306 L795 306 L795 282" fill="none" stroke="#3D7BD9" stroke-width="1.8" stroke-dasharray="6 5" marker-end="url(#arD)"/>
+  <text x="956" y="328" font-size="14" fill="#3D7BD9" text-anchor="middle">调参回路：只用验证集，不读取测试集</text>
+
+  <!-- 底部纪律 -->
+  <rect x="16" y="356" width="1248" height="56" rx="4" fill="#EDF3FF"/>
+  <text x="38" y="391" font-size="16" fill="#1F2733">三条不可越过的纪律：</text>
+  <text x="218" y="391" font-size="16" font-weight="bold" fill="#1A2230">① 选择只看验证集　② 测试集只在最后评一次　③ 失败组同样归档</text>
+</svg>

@@ -16,13 +16,13 @@
                 <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>2</Text>
                     <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
-                        但瓶颈不是旋钮：容量对齐后 1.9 万参数就到 0.9922，宽度从 24 加到 91 只值 0.0005。
+                        但瓶颈不在超参数：容量对齐后 1.9 万参数就到 0.9922，宽度从 24 增至 91 仅提升 0.0005。
                     </Text>
                 </Box>
                 <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>3</Text>
                     <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
-                        结构差异在「信息怎么混合」：CNN 两档都低 0.005–0.008，且加参数救不回来。
+                        结构差异在于信息混合的尺度：CNN 两档都低 0.005–0.008，且加参数无法弥补。
                     </Text>
                 </Box>
                 <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
@@ -34,7 +34,7 @@
                 <Box style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#1E4FA8', width: 26 }}>5</Text>
                     <Text style={{ fontSize: 19, color: '#1A2230', lineHeight: 1.5 }}>
-                        val→test 落差 <span style={{ fontWeight: 'bold' }}>89% 来自分布偏移</span>，先验只占 11%，也不是代码 bug。
+                        val→test 落差 <span style={{ fontWeight: 'bold' }}>89% 来自分布偏移</span>，先验只占 11%，也不是实现缺陷。
                     </Text>
                 </Box>
             </Box>
@@ -42,12 +42,12 @@
             <Box style={{ width: 1, background: '#D6DCE5' }} />
 
             <Box style={{ width: 379, display: 'flex', flexDirection: 'column' }}>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>局限（不藏）</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>局限</Text>
                 <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
                     · 只做了分类，没做分割 / 检测；<br />
                     · 单数据集、单机 CPU、20 epoch 预算，结论不外推到其他影像任务。
                 </Text>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230', marginTop: 20 }}>下一步（按性价比）</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230', marginTop: 20 }}>下一步（按预期收益排序）</Text>
                 <Text style={{ fontSize: 18, color: '#4A5568', lineHeight: 1.5, marginTop: 8 }}>
                     · PGD 对抗训练 + 固定 20 轮，验证保护范围；<br />
                     · ViT patch / depth 细化，拆分「注意力 vs patch 划分」；<br />

@@ -42,10 +42,7 @@
             </Box>
 
             <Box style={{ width: 600, display: 'flex', flexDirection: 'column' }}>
-                <Image src='assets/loss.png' style={{ width: 560, height: 380, objectFit: 'contain' }} />
-                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 4 }}>
-                    图：figures/loss_curves.png，训练 loss 与 val AUC 逐 epoch
-                </Text>
+                <Image src='assets/loss.png' style={{ width: 600, height: 400, objectFit: 'contain' }} />
             </Box>
         </Box>
 

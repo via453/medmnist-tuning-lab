@@ -20,19 +20,18 @@
             </Box>
         </Box>
 
-        <Box style={{ marginTop: 20, display: 'flex', flexDirection: 'row', gap: 34 }}>
-            <Box style={{ width: 620, display: 'flex', flexDirection: 'row', gap: 16 }}>
-                <Box style={{ display: 'flex', flexDirection: 'column' }}>
-                    <Image src='assets/roc.png' style={{ width: 290, height: 265, objectFit: 'contain' }} />
-                    <Text style={{ fontSize: 14, color: '#8B97A8' }}>test ROC</Text>
+        <Box style={{ marginTop: 18, display: 'flex', flexDirection: 'row', gap: 30 }}>
+            <Box style={{ width: 660, display: 'flex', flexDirection: 'column' }}>
+                <Box style={{ display: 'flex', flexDirection: 'row', gap: 18 }}>
+                    <Image src='assets/roc.png' style={{ width: 321, height: 297, objectFit: 'contain' }} />
+                    <Image src='assets/cm.png' style={{ width: 321, height: 297, objectFit: 'contain' }} />
                 </Box>
-                <Box style={{ display: 'flex', flexDirection: 'column' }}>
-                    <Image src='assets/cm.png' style={{ width: 290, height: 265, objectFit: 'contain' }} />
-                    <Text style={{ fontSize: 14, color: '#8B97A8' }}>test 混淆矩阵</Text>
-                </Box>
+                <Text style={{ fontSize: 14, color: '#5A6474', marginTop: 4 }}>
+                    上图为验证集（524 张）评测；test 仅记录数值指标，不重复出图。
+                </Text>
             </Box>
 
-            <Box style={{ width: 506, display: 'flex', flexDirection: 'column' }}>
+            <Box style={{ width: 470, display: 'flex', flexDirection: 'column' }}>
                 <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#1A2230' }}>落差拆解：先验只解释 11%</Text>
                 <Box style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', borderBottom: '1px solid #D6DCE5', paddingBottom: 6, marginTop: 12 }}>
                     <Text style={{ fontSize: 18, color: '#4A5568' }}>val 全量（阳性 74.2%）</Text>
@@ -57,7 +56,7 @@
 
         <Box style={{ height: 52, background: '#E8EFF8', display: 'flex', alignItems: 'center', paddingLeft: 18, paddingRight: 18 }}>
             <Text style={{ fontSize: 20, color: '#1A2230' }}>
-                按 test 先验回调阈值，最多只能挽回 1 个百分点——<span style={{ fontWeight: 'bold' }}>它不是解法，只是把误差换个位置</span>。
+                按 test 先验回调阈值，最多只能挽回 1 个百分点——<span style={{ fontWeight: 'bold' }}>它并非解法，只是误差的重新分配</span>。
             </Text>
         </Box>
     </Box>

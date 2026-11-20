@@ -81,7 +81,7 @@
 
         <Box style={{ height: 52, borderTop: '1px solid #1E4FA8', display: 'flex', alignItems: 'center' }}>
             <Text style={{ fontSize: 20, color: '#1A2230' }}>
-                判定标准比结果更值钱：单次差值 0.0046 曾被 <span style={{ color: '#D9534F', fontWeight: 'bold' }}>0.0220 的组内极差</span> 直接否决，才逼出 S3。
+                判定标准比单次结果更重要：单次差值 0.0046 曾因 <span style={{ color: '#D9534F', fontWeight: 'bold' }}>0.0220 的组内极差</span> 被否，据此增设 S3 复跑。
             </Text>
         </Box>
     </Box>

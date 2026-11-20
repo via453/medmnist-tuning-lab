@@ -6,15 +6,12 @@
 
     <Box style={{ flex: 1, display: 'flex', flexDirection: 'column', paddingLeft: 60, paddingRight: 60, paddingTop: 22, paddingBottom: 54 }}>
         <Text style={{ fontSize: 20, color: '#1A2230', lineHeight: 1.5 }}>
-            固定结构，只把 conv_width 由 32 改为 64，其余超参全部不动；三次独立运行给出同一方向的差值。
+            固定结构，仅将 conv_width 由 32 改为 64，其余超参数不变；三次独立运行给出同向差值。
         </Text>
 
         <Box style={{ display: 'flex', flexDirection: 'row', gap: 34, marginTop: 16 }}>
             <Box style={{ width: 620, display: 'flex', flexDirection: 'column' }}>
-                <Image src='assets/before_after.png' style={{ width: 610, height: 415, objectFit: 'contain' }} />
-                <Text style={{ fontSize: 14, color: '#8B97A8', marginTop: 2 }}>
-                    图：figures/before_after.png。纵轴自 0.92 起，柱间差值仅 0.0046，视觉放大了差距。
-                </Text>
+                <Image src='assets/val_auc.png' style={{ width: 610, height: 415, objectFit: 'contain' }} />
             </Box>
 
             <Box style={{ width: 506, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 20 }}>

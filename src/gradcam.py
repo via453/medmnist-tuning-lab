@@ -113,21 +113,23 @@ def main(argv=None):
         import matplotlib
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
+        plt.rcParams["font.sans-serif"] = ["Microsoft YaHei", "SimHei", "DejaVu Sans"]
+        plt.rcParams["axes.unicode_minus"] = False
         n = len(imgs)
-        fig, axes = plt.subplots(2, n, figsize=(1.7 * n, 4.0))
+        fig, axes = plt.subplots(2, n, figsize=(2.0 * n, 3.5))
         for i in range(n):
             axes[0, i].imshow(imgs[i], cmap="gray")
-            axes[0, i].set_title("y=%d p=%.2f" % (labels[i], probs[i]), fontsize=8)
+            axes[0, i].set_title("真实：%s · p=%.2f" % ("肺炎" if labels[i] else "正常", probs[i]),
+                                 fontsize=11)
             axes[0, i].axis("off")
             axes[1, i].imshow(imgs[i], cmap="gray")
             axes[1, i].imshow(cams[i], cmap="jet", alpha=0.55,
                               extent=(0, cams[i].shape[1], cams[i].shape[0], 0))
-            axes[1, i].set_title("border %.2f" % ratios[i], fontsize=8)
+            axes[1, i].set_title("注意力热图", fontsize=11)
             axes[1, i].axis("off")
-        fig.suptitle("Grad-CAM on PneumoniaMNIST (val) · last conv layer", fontsize=10)
-        fig.tight_layout()
+        fig.tight_layout(pad=0.6)
         ensure_dir("figures")
-        fig.savefig(a.fig, dpi=140)
+        fig.savefig(a.fig, dpi=200)
         print("figure:", a.fig)
     except Exception as ex:
         print("plot skipped:", ex)
