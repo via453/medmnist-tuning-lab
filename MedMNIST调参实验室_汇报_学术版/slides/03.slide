@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`四段流程：数据、模型、实验、评估。蓝色虚线是调参回路，只走验证集——这就是为什么测试结果全程只出现一次。底部三条纪律决定了整份工作可不可信。从第一段数据开始。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>技术路线：从数据到评估的四段流程</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>03 · Roadmap</Text>

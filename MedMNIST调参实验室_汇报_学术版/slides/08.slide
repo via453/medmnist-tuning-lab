@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`我按真实参数量反解每个结构的宽度，压到 1.9 万和 7.2 万两档再比。两条结论。第一，CNN 落后是结构性的：两档都低 0.005 到 0.008，7.2 万档它参数最多、结果最差，加参数补不回来。第二，ViT 最优站不住：差距只有万分之几，落在种子波动里。更关键的是，1.9 万参数的 MLP 和 7.2 万参数的 ViT 只差 0.0013，说明容量在 1.9 万就饱和了。真正起作用的是能不能看到全图。结构说完，回到调参本身。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>延伸一：参数量对齐后，旧结论部分失效</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>08 · Capacity</Text>

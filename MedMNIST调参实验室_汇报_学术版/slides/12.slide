@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`Grad-CAM 热图落在肺野，不在四边。定量上边框响应 0.382，而边框面积本身占 0.490，比值 0.78，小于 1，说明注意力偏中央。这个指标必须和面积一起报，否则 0.382 会被误读。在自己数据上没作弊，换一家医院呢？`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>可解释性：模型关注的是肺野而非边缘</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>12 · Explainability</Text>

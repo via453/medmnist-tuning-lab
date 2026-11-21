@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`ViT 0.9935、MLP 0.9928、CNN 0.9886。能说的只有一句：全局混合比局部卷积好 0.005 到 0.009。但 ViT 和 MLP 只差 0.0007，参数量却差 3 万，所以 ViT 最优这个结论不能下。这个洞要补，下一页做容量对齐。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>结构对比：ViT 与 MLP 并列，CNN 垫底</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>07 · Benchmarks</Text>

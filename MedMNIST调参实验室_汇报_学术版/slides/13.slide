@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`测试集只评一次：AUC 0.9546，准确率 0.8349，比验证集掉 0.1174，假阳性从 17 涨到 100。漏诊反而变少，说明模型变敏感了，不是变笨。拆解：把验证集阳性率对齐到 62.5% 重采样 200 次，准确率只掉到 0.9399——先验只解释 11%，剩下 89% 是设备、体位、人群的真实差异。调阈值不是解法，只是把误差挪个位置。自然偏移掉 11 点，那人为干扰呢？`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>test 只评一次：AUC 0.9546，落差 89% 来自分布</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>13 · Test &amp; Shift</Text>

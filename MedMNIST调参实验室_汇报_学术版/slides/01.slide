@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', padding: '64px 60px 48px 60px', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', padding: '64px 60px 48px 60px', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`各位老师好，我是 Zelvia。我用胸片二分类这个任务跑了 79 次训练，回答三个问题：调参有没有用、结构是不是更重要、一个 0.99 的模型有多脆弱。全程 CPU，代码可复现。这三个问题背后是多少工作量，先看下一页。`}>
     <Text style={{ fontSize: 16, color: '#1E4FA8', letterSpacing: 2 }}>2026 深度学习本校培训 · 中期大作业验收</Text>
 
     <Box style={{ height: 2, width: 1160, background: '#1E4FA8', marginTop: 18 }} />

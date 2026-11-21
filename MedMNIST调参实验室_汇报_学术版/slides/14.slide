@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`推到 ε=0.03，也就是 1.5% 的像素变化，干净模型 AUC 从 0.9886 掉到 0.47，基本是反着判。对抗训练把同一点拉回 0.87，代价是干净精度掉 0.0081。但保护只到 ε 约 0.08，再大两组都崩，所以更严格的做法是 PGD。一句话：99% 准确率必须附带扰动假设。这一路下来，有三处判断被推翻了。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>延伸二：以 0.008 的干净精度换取 0.40 的鲁棒 AUC</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>14 · Robustness</Text>

@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`33 组单因子只能排序，不能下结论——单次差 0.0046，而组内极差有 0.0220，这个差淹没在噪声里。所以有 9 组三 seed 配对复跑，最后才进测试集。判据是：差值大于数倍标准差，且三个种子同向。判据只说谁更好，被判的是什么，下一页。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>实验设计：先扫描，再复跑，最后只评一次</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>05 · Design</Text>

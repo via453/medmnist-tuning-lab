@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`五条结论：调参有效但小；瓶颈不在超参数而在结构；结构差异是信息混合的尺度；精度和鲁棒性是两回事；落差主要来自分布。两条局限：只做分类、单数据集 20 轮预算。一条纪律：测试只评一次，所以 S2 里更优的 0.9907 我也没采纳。谢谢。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>五条结论、两条局限、一条纪律</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>16 · Conclusion</Text>

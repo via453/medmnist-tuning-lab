@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`28×28 灰度胸片，二分类。主指标用 AUC 而不是准确率，因为 AUC 与阈值无关，也不受病人比例影响——测试集 62.5% 是肺炎，全判肺炎就有 62.5% 准确率。数据用官方划分，测试集只进一次。这里埋个伏笔：阳性率从 74.2% 掉到 62.5%，第 13 页算它造成多少落差。数据定了，接下来定凭什么说有效。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>任务、数据与三个硬约束</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>04 · Data</Text>

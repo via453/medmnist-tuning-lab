@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`完全去掉池化反而更差，0.9844 掉到 0.9782，因为池化还扩大了感受野；加旋转增强反而更差，因为肺野被推出画布；ViT 最优在容量对齐后站不住。三处都改成带条件的表述——范围变窄了，但每一条都能用结果表复核。改完判断，最后留下什么。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>三处被实验推翻的原判断</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>15 · Corrections</Text>

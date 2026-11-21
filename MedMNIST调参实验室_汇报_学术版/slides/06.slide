@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`三个模型唯一的差别是信息在多大的范围里被混合。MLP 展平后第一层就能混合全图；CNN 两层 3×3 中间一次池化，感受野实测 7×7，不到全图的 6%；ViT 切成 49 块，每块都能直接问其他块。而这任务的证据是整片肺野的弥漫性浸润，属全局统计量。如果看不到全图真是劣势，实验结果应该看得出来。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>三种结构：差别只在信息混合的范围</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>06 · Models</Text>

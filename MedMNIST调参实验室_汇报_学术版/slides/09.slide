@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`固定结构，只把宽度 32 改到 64。平均 +0.0041，是标准差的 19 倍，三个种子全部同向。三个判据都满足才敢写提升。但这个提升只在 CNN 内部有效。判据是结论，原始数字在下一页。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>调参结果：+0.0041，真实但有限</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>09 · Tuning</Text>

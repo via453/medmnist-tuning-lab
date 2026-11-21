@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`79 次分六个批次。先是 33 组单因子扫描，4 组两两网格，9 组三随机种子复跑；然后是 6 组结构对照、18 组容量对齐、6 组对抗训练，最后 2 次正式训练。最关键的是纪律：79 次里只有 1 次碰测试集。这五个阶段按时间是串行的，画成图就是下一页。`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>实验组织：五个阶段，七十九次训练</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>02 · What I Did</Text>

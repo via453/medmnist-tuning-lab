@@ -1,4 +1,4 @@
-<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }}>
+<Slide style={{ width: 1280, height: 720, background: '#FFFFFF', display: 'flex', flexDirection: 'column', fontFamily: '"Microsoft YaHei",Arial,sans-serif' }} notes={`配置只有六行关键改动，全部来自验证过的结论，删掉的比留下的多——旋转增强、class weight、学习率排程都被实测否掉。权重取第 19 轮，不是最后一轮：第 20 轮反而掉了 0.0053。配置定了，但它在看哪里？`}>
     <Box style={{ height: 72, background: '#1E4FA8', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingLeft: 60, paddingRight: 60 }}>
         <Text style={{ fontSize: 32, fontWeight: 'bold', color: '#FFFFFF' }}>最终配置与训练曲线：取第 19 轮，不是第 20 轮</Text>
         <Text style={{ fontSize: 16, color: '#C7D8F2' }}>11 · Final Model</Text>
