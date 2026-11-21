@@ -10,7 +10,7 @@
         </Text>
 
         <Box style={{ marginTop: 18, display: 'flex', justifyContent: 'center' }}>
-            <Image src='assets/roadmap.png' style={{ width: 1160, height: 390, objectFit: 'contain' }} />
+            <Image src='assets/roadmap_r2.png' style={{ width: 1160, height: 390, objectFit: 'contain' }} />
         </Box>
 
         <Box style={{ flex: 1 }} />

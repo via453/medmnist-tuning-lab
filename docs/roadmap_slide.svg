@@ -46,7 +46,7 @@
   <text x="670" y="126" font-size="16" fill="#1F2733">S2　组合网格　　4 组</text>
   <text x="670" y="156" font-size="16" fill="#1F2733">S3　三随机种子　9 组</text>
   <text x="670" y="192" font-size="14" fill="#5A6474">补充：结构 6 · 容量 18</text>
-  <text x="670" y="216" font-size="14" fill="#5A6474">　　　对抗训练 6 · 剪枝蒸馏 12</text>
+  <text x="670" y="216" font-size="14" fill="#5A6474">　　　对抗训练 6 · 压缩 7（另计）</text>
   <text x="670" y="248" font-size="14" fill="#B93A2B">失败组全部保留在结果表</text>
 
   <!-- 箭头 -->
