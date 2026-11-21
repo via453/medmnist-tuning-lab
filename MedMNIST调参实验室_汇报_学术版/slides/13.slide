@@ -16,7 +16,7 @@
             </Box>
             <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', gap: 12 }}>
                 <Text style={{ fontSize: 56, fontWeight: 'bold', color: '#D9534F', lineHeight: 1 }}>−0.1174</Text>
-                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.4 }}>val ACC → test ACC<br />23 → 100 个假阳性</Text>
+                <Text style={{ fontSize: 16, color: '#4A5568', lineHeight: 1.4 }}>val ACC → test ACC<br />假阳性 17 → 100</Text>
             </Box>
         </Box>
 

@@ -31,7 +31,7 @@
   <text x="352" y="96" font-size="16" fill="#1F2733">MLP　1.0 万参数</text>
   <text x="352" y="122" font-size="13" fill="#5A6474">展平后全局连接</text>
   <text x="352" y="152" font-size="16" font-weight="bold" fill="#1F2733">SmallCNN　7.5 万（主）</text>
-  <text x="352" y="178" font-size="13" fill="#5A6474">局部卷积，感受野 9×9</text>
+  <text x="352" y="178" font-size="13" fill="#5A6474">局部卷积，感受野 7×7</text>
   <text x="352" y="208" font-size="16" fill="#1F2733">TinyViT　7.2 万</text>
   <text x="352" y="234" font-size="13" fill="#5A6474">切块自注意力，首层全局</text>
 
